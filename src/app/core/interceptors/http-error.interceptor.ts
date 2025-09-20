@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
     return next.handle(req).pipe(
       catchError((err: unknown) => {
         if (err instanceof HttpErrorResponse) {
@@ -18,7 +21,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         }
         // defensive: adjon vissza kontrollált hibát a komponenseknek
         return throwError(() => ({ message: 'Hálózati hiba történt', original: err }));
-      })
+      }),
     );
   }
 }

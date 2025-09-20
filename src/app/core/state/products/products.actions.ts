@@ -1,12 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import {Product} from './products.reducer';
+import { Product } from './products.reducer';
+
+export interface ProductError {
+  message: string;
+  code?: number;
+}
 
 export const loadProducts = createAction('[Products] Load Products');
 export const loadProductsSuccess = createAction(
   '[Products] Load Products Success',
-  props<{ products: Product[] }>()
+  props<{ products: Product[] }>(),
 );
 export const loadProductsFailure = createAction(
   '[Products] Load Products Failure',
-  props<{ error: any }>()
+  props<{ error: ProductError | null }>(),
 );

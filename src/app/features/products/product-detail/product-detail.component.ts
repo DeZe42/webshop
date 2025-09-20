@@ -1,10 +1,10 @@
-import {Component, computed, inject, Input, signal} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {ProductsSelectors} from '../../../core/state/products';
-import {CartActions} from '../../../core/state/cart';
-import {Product} from '../../../core/state/products/products.reducer';
-import {CartItem} from '../../../core/state/cart/cart.reducer';
+import { Component, computed, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ProductsSelectors } from '../../../core/state/products';
+import { CartActions } from '../../../core/state/cart';
+import { Product } from '../../../core/state/products/products.reducer';
+import { CartItem } from '../../../core/state/cart/cart.reducer';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +18,7 @@ export class ProductDetailComponent {
 
   product = computed<Product | undefined>(() => {
     const products = this._store.selectSignal(ProductsSelectors.selectAllProducts)();
-    return products.find(p => p.id === this._id);
+    return products.find((p) => p.id === this._id);
   });
 
   addToCart() {

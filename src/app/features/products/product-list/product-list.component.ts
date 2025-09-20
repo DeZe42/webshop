@@ -1,10 +1,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import {Store} from '@ngrx/store';
-import {ProductsActions, ProductsSelectors} from '../../../core/state/products';
-import {CartActions} from '../../../core/state/cart';
-import {Product} from '../../../core/state/products/products.reducer';
-import {CartItem} from '../../../core/state/cart/cart.reducer';
+import { Store } from '@ngrx/store';
+import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+import { CartActions } from '../../../core/state/cart';
+import { Product } from '../../../core/state/products/products.reducer';
+import { CartItem } from '../../../core/state/cart/cart.reducer';
 
 @Component({
   selector: 'app-product-list',
@@ -20,11 +20,13 @@ export class ProductListComponent implements OnInit {
   selectedCategory = signal<string | null>(null);
 
   filteredProducts = computed(() =>
-    this.products().filter(product => {
+    this.products().filter((product) => {
       const matchesName = product.name.toLowerCase().includes(this.searchTerm().toLowerCase());
-      const matchesCategory = this.selectedCategory() ? product.type === this.selectedCategory() : true;
+      const matchesCategory = this.selectedCategory()
+        ? product.type === this.selectedCategory()
+        : true;
       return matchesName && matchesCategory;
-    })
+    }),
   );
 
   ngOnInit() {

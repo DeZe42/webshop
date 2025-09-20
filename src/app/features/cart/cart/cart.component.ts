@@ -1,6 +1,6 @@
-import {Component, inject} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {CartActions, CartSelectors} from '../../../core/state/cart';
+import { Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { CartActions, CartSelectors } from '../../../core/state/cart';
 
 @Component({
   selector: 'app-cart',

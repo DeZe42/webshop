@@ -21,7 +21,7 @@ describe('CartComponent', () => {
           selectors: [
             { selector: CartSelectors.selectCartItems, value: mockItems },
             { selector: CartSelectors.selectCartTotal, value: 2500 },
-          ]
+          ],
         }),
       ],
     }).compileComponents();

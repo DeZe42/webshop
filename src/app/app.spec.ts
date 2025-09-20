@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { RouterTestingModule } from '@angular/router/testing';
-import {provideMockStore} from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -10,8 +10,8 @@ describe('App', () => {
       imports: [App, RouterTestingModule],
       providers: [
         provideZonelessChangeDetection(),
-        provideMockStore({ initialState: { cart: { items: [] } } })
-      ]
+        provideMockStore({ initialState: { cart: { items: [] } } }),
+      ],
     }).compileComponents();
   });
 
@@ -30,7 +30,7 @@ describe('App', () => {
     expect(nav).toBeTruthy();
 
     const links = nav?.querySelectorAll('a') || [];
-    const linkTexts = Array.from(links).map(a => a.textContent?.trim());
+    const linkTexts = Array.from(links).map((a) => a.textContent?.trim());
 
     expect(linkTexts).toContain('Főoldal');
     expect(linkTexts).toContain('Termékek');

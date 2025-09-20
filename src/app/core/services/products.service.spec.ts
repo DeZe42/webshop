@@ -8,15 +8,45 @@ describe('ProductsService', () => {
   let httpMock: HttpTestingController;
 
   const mockProducts: Product[] = [
-    { id: '1', name: 'Laptop A', price: 1000, type: 'laptop', ramGb: 16, cpu: 'i7', screenSizeInch: 15, os: 'Windows', screenInch: 15 },
-    { id: '2', name: 'Phone B', price: 500, type: 'phone', ramGb: 8, cpu: 'Snapdragon', screenSizeInch: 6, os: 'Android', screenInch: 6 },
-    { id: '3', name: 'Tablet C', price: 800, type: 'tablet', ramGb: 8, cpu: 'Apple M1', screenSizeInch: 12, os: 'iPadOS', screenInch: 12 },
+    {
+      id: '1',
+      name: 'Laptop A',
+      price: 1000,
+      type: 'laptop',
+      ramGb: 16,
+      cpu: 'i7',
+      screenSizeInch: 15,
+      os: 'Windows',
+      screenInch: 15,
+    },
+    {
+      id: '2',
+      name: 'Phone B',
+      price: 500,
+      type: 'phone',
+      ramGb: 8,
+      cpu: 'Snapdragon',
+      screenSizeInch: 6,
+      os: 'Android',
+      screenInch: 6,
+    },
+    {
+      id: '3',
+      name: 'Tablet C',
+      price: 800,
+      type: 'tablet',
+      ramGb: 8,
+      cpu: 'Apple M1',
+      screenSizeInch: 12,
+      os: 'iPadOS',
+      screenInch: 12,
+    },
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProductsService]
+      providers: [ProductsService],
     });
     service = TestBed.inject(ProductsService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -31,7 +61,7 @@ describe('ProductsService', () => {
   });
 
   it('should fetch products via HttpClient', (done) => {
-    service.fetchAll().subscribe(products => {
+    service.fetchAll().subscribe((products) => {
       expect(products).toEqual(mockProducts);
       done();
     });
@@ -42,7 +72,7 @@ describe('ProductsService', () => {
   });
 
   it('should return empty array on HTTP error', (done) => {
-    service.fetchAll().subscribe(products => {
+    service.fetchAll().subscribe((products) => {
       expect(products).toEqual([]);
       done();
     });

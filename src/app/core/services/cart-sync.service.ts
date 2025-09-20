@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { effect } from '@angular/core';
 import { CartActions, CartSelectors } from '../state/cart';
 import { CartItem } from '../state/cart/cart.reducer';
-import { Product } from '../state/products/products.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class CartSyncService implements OnDestroy {
@@ -18,20 +17,12 @@ export class CartSyncService implements OnDestroy {
 
     this.channel = new BroadcastChannel('cart_channel');
 
-    // Helper: Product -> CartItem
-    const toCartItem = (product: Product, quantity = 1): CartItem => ({
-      ...product,
-      quantity
-    });
-
     // --- Load from localStorage on init ---
     const saved = localStorage.getItem('cart_items');
     if (saved) {
       try {
         const items: CartItem[] = JSON.parse(saved);
-        items.forEach(item =>
-          this.store.dispatch(CartActions.addToCart({ item }))
-        );
+        items.forEach((item) => this.store.dispatch(CartActions.addToCart({ item })));
       } catch (err) {
         console.error('Failed to parse saved cart from localStorage', err);
       }
@@ -41,21 +32,19 @@ export class CartSyncService implements OnDestroy {
     this.channel.onmessage = (event) => {
       const incoming: CartItem[] = event.data;
       const current = this.store.selectSignal(CartSelectors.selectCartItems)();
-      const currentIds = current.map(i => i.id + i.quantity).join(',');
-      const incomingIds = incoming.map(i => i.id + i.quantity).join(',');
+      const currentIds = current.map((i) => i.id + i.quantity).join(',');
+      const incomingIds = incoming.map((i) => i.id + i.quantity).join(',');
 
       if (currentIds !== incomingIds) {
         this.store.dispatch(CartActions.clearCart());
-        incoming.forEach(item =>
-          this.store.dispatch(CartActions.addToCart({ item }))
-        );
+        incoming.forEach((item) => this.store.dispatch(CartActions.addToCart({ item })));
       }
     };
 
     // --- Effect: listen to store changes, update localStorage + broadcast ---
     effect(() => {
       const items = this.store.selectSignal(CartSelectors.selectCartItems)();
-      const currentIds = items.map(i => i.id + i.quantity).join(',');
+      const currentIds = items.map((i) => i.id + i.quantity).join(',');
 
       if (currentIds !== this.lastSent) {
         this.channel?.postMessage(items);

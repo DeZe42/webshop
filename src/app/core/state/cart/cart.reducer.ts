@@ -15,17 +15,19 @@ export const initialState: CartState = { items: [] };
 export const cartReducer = createReducer(
   initialState,
   on(CartActions.addToCart, (state, { item }) => {
-    const existing = state.items.find(i => i.id === item.id);
+    const existing = state.items.find((i) => i.id === item.id);
     return {
       ...state,
       items: existing
-        ? state.items.map(i => i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i)
-        : [...state.items, item]
+        ? state.items.map((i) =>
+            i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i,
+          )
+        : [...state.items, item],
     };
   }),
   on(CartActions.removeFromCart, (state, { id }) => ({
     ...state,
-    items: state.items.filter(i => i.id !== id)
+    items: state.items.filter((i) => i.id !== id),
   })),
-  on(CartActions.clearCart, state => ({ ...state, items: [] }))
+  on(CartActions.clearCart, (state) => ({ ...state, items: [] })),
 );

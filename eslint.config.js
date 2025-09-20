@@ -1,43 +1,48 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+// @ts-check
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const prettierPlugin = require('eslint-plugin-prettier');
+const prettierConfig = require('eslint-config-prettier');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export default [
+module.exports = tseslint.config(
   {
-    files: ['*.ts'],
-    languageOptions: {
-      parser: '@typescript-eslint/parser',
-      parserOptions: {
-        project: './tsconfig.json',
-        tsconfigRootDir: __dirname,
-        sourceType: 'module',
-        createDefaultProgram: true
-      }
-    },
-    plugins: ['@typescript-eslint'],
+    files: ['**/*.ts'],
     extends: [
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:@angular-eslint/recommended',
-      'plugin:@angular-eslint/template/process-inline-templates',
-      'plugin:prettier/recommended'
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+      prettierConfig,
     ],
+    plugins: {
+      prettier: prettierPlugin,
+    },
+    processor: angular.processInlineTemplates,
     rules: {
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      '@typescript-eslint/no-explicit-any': 'off'
-    }
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
+        },
+      ],
+      'prettier/prettier': 'error', // Enforce Prettier formatting as lint errors
+      '@typescript-eslint/no-explicit-any': 'error', // Forbid usage of 'any'
+    },
   },
   {
-    files: ['*.html'],
-    languageOptions: {
-      parser: '@angular-eslint/template-parser'
-    },
-    extends: ['plugin:@angular-eslint/template/recommended'],
-    rules: {
-      '@angular-eslint/template/prefer-self-closing-tags': ['error']
-    }
-  }
-];
+    files: ['**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    rules: {},
+  },
+);

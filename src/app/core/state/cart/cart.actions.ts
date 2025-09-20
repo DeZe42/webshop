@@ -3,12 +3,9 @@ import { CartItem } from './cart.reducer';
 
 export const addToCart = createAction(
   '[Cart] Add To Cart',
-  props<{ item: CartItem }>() // <-- CartItem, ami Product + quantity
+  props<{ item: CartItem }>(), // <-- CartItem, ami Product + quantity
 );
 
-export const removeFromCart = createAction(
-  '[Cart] Remove From Cart',
-  props<{ id: string }>()
-);
+export const removeFromCart = createAction('[Cart] Remove From Cart', props<{ id: string }>());
 
 export const clearCart = createAction('[Cart] Clear Cart');

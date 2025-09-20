@@ -12,9 +12,39 @@ describe('ProductDetailComponent', () => {
   let store: MockStore;
 
   const mockProducts: Product[] = [
-    { id: '1', name: 'Laptop A', price: 1000, type: 'laptop', ramGb: 16, cpu: 'i7', screenSizeInch: 15, os: 'Windows', screenInch: 15 },
-    { id: '2', name: 'Phone B', price: 500, type: 'phone', ramGb: 8, cpu: 'Snapdragon', screenSizeInch: 6, os: 'Android', screenInch: 6 },
-    { id: '3', name: 'Tablet C', price: 800, type: 'tablet', ramGb: 8, cpu: 'Apple M1', screenSizeInch: 12, os: 'iPadOS', screenInch: 12 },
+    {
+      id: '1',
+      name: 'Laptop A',
+      price: 1000,
+      type: 'laptop',
+      ramGb: 16,
+      cpu: 'i7',
+      screenSizeInch: 15,
+      os: 'Windows',
+      screenInch: 15,
+    },
+    {
+      id: '2',
+      name: 'Phone B',
+      price: 500,
+      type: 'phone',
+      ramGb: 8,
+      cpu: 'Snapdragon',
+      screenSizeInch: 6,
+      os: 'Android',
+      screenInch: 6,
+    },
+    {
+      id: '3',
+      name: 'Tablet C',
+      price: 800,
+      type: 'tablet',
+      ramGb: 8,
+      cpu: 'Apple M1',
+      screenSizeInch: 12,
+      os: 'iPadOS',
+      screenInch: 12,
+    },
   ];
 
   beforeEach(async () => {
@@ -22,15 +52,13 @@ describe('ProductDetailComponent', () => {
       imports: [ProductDetailComponent],
       providers: [
         provideMockStore({
-          selectors: [
-            { selector: ProductsSelectors.selectAllProducts, value: mockProducts }
-          ]
+          selectors: [{ selector: ProductsSelectors.selectAllProducts, value: mockProducts }],
         }),
         {
           provide: ActivatedRoute,
-          useValue: { snapshot: { paramMap: new Map([['id', '1']]) } }
-        }
-      ]
+          useValue: { snapshot: { paramMap: new Map([['id', '1']]) } },
+        },
+      ],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
