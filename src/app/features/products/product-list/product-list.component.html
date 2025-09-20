@@ -1,12 +1,28 @@
-<div class="bg-orange-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-  @for (product of products(); track product) {
+<div class="mb-6 flex flex-col sm:flex-row gap-4 items-center">
+  <input
+    type="text"
+    placeholder="Search products..."
+    (input)="updateSearch($any($event.target).value)"
+    class="p-2 border rounded-lg flex-1"
+  />
+  <select
+    (change)="updateCategory($any($event.target).value || null)"
+    class="p-2 border rounded-lg"
+  >
+    <option value="">All categories</option>
+    <option value="laptop">Laptop</option>
+    <option value="phone">Phone</option>
+    <option value="tablet">Tablet</option>
+  </select>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  @for (product of filteredProducts(); track product) {
     <div
       class="bg-orange-500 text-white rounded-xl shadow-lg hover:shadow-xl transition p-6 flex flex-col justify-between transform hover:scale-105"
     >
       <div>
         <h3 class="text-xl font-semibold mb-2">{{ product.name }}</h3>
         <p class="text-yellow-100 mb-4">$ {{ product.price }}</p>
-
         @switch (product.type) {
           @case ('laptop') {
             <p class="text-yellow-100 text-sm">RAM: {{ product.ramGb }} GB</p>
