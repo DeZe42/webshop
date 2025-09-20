@@ -10,7 +10,6 @@ import {CartItem} from '../../../core/state/cart/cart.reducer';
   selector: 'app-product-detail',
   standalone: true,
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent {
   private _route = inject(ActivatedRoute);

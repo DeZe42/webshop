@@ -10,7 +10,6 @@ import {CartItem} from '../../../core/state/cart/cart.reducer';
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
   private _store = inject(Store);

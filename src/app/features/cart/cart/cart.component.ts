@@ -6,7 +6,6 @@ import {CartActions, CartSelectors} from '../../../core/state/cart';
   selector: 'app-cart',
   standalone: true,
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
 })
 export class CartComponent {
   private _store = inject(Store);
