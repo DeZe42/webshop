@@ -1,4 +1,3 @@
-// cart.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { CartItem } from './cart.reducer';
 

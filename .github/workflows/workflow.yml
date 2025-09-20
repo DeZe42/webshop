@@ -1,0 +1,38 @@
+name: workflow.yml
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Prettier Check
+        run: npm run format -- --check
+
+      - name: Run Unit Tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build -- --prod
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v5.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/webshop

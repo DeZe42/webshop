@@ -6,9 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
     "serve:ssr:webshop": "node dist/webshop/server/server.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "eslint . --ext .ts,.html",
+    "format": "prettier --write .",
+    "test": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "prettier": {
     "printWidth": 100,
