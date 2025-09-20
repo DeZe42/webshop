@@ -1,4 +1,4 @@
-name: workflow.yml
+name: Build, Lint & Test
 
 on:
   pull_request:
