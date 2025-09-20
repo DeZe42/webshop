@@ -32,8 +32,8 @@ describe('App', () => {
     const links = nav?.querySelectorAll('a') || [];
     const linkTexts = Array.from(links).map((a) => a.textContent?.trim());
 
-    expect(linkTexts).toContain('Főoldal');
-    expect(linkTexts).toContain('Termékek');
+    expect(linkTexts).toContain('Főoldals');
+    expect(linkTexts).toContain('Termékeks');
     expect(linkTexts).toContain('Kosár');
   });
 
