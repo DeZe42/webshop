@@ -1,0 +1,184 @@
+[
+  {
+    "id": "p001",
+    "name": "Laptop Pro 14",
+    "price": 1299,
+    "type": "laptop",
+    "ramGb": 16,
+    "cpu": "Intel i7"
+  },
+  {
+    "id": "p002",
+    "name": "Laptop Air 13",
+    "price": 999,
+    "type": "laptop",
+    "ramGb": 8,
+    "cpu": "Intel i5"
+  },
+  {
+    "id": "p003",
+    "name": "Smartphone X",
+    "price": 799,
+    "type": "phone",
+    "os": "Android",
+    "screenInch": 6.1
+  },
+  {
+    "id": "p004",
+    "name": "Smartphone Y",
+    "price": 699,
+    "type": "phone",
+    "os": "iOS",
+    "screenInch": 6.5
+  },
+  {
+    "id": "p005",
+    "name": "Tablet S",
+    "price": 499,
+    "type": "tablet",
+    "os": "Android",
+    "screenInch": 10.1
+  },
+  {
+    "id": "p006",
+    "name": "Tablet M",
+    "price": 599,
+    "type": "tablet",
+    "os": "iOS",
+    "screenInch": 11.0
+  },
+  {
+    "id": "p007",
+    "name": "Wireless Mouse",
+    "price": 49,
+    "type": "accessory"
+  },
+  {
+    "id": "p008",
+    "name": "Mechanical Keyboard",
+    "price": 129,
+    "type": "accessory"
+  },
+  {
+    "id": "p009",
+    "name": "Gaming Headset",
+    "price": 89,
+    "type": "accessory"
+  },
+  {
+    "id": "p010",
+    "name": "External SSD 1TB",
+    "price": 159,
+    "type": "accessory"
+  },
+  {
+    "id": "p011",
+    "name": "Laptop Ultra 16",
+    "price": 1599,
+    "type": "laptop",
+    "ramGb": 32,
+    "cpu": "Intel i9"
+  },
+  {
+    "id": "p012",
+    "name": "Smartphone Z",
+    "price": 899,
+    "type": "phone",
+    "os": "Android",
+    "screenInch": 6.8
+  },
+  {
+    "id": "p013",
+    "name": "Tablet Pro",
+    "price": 799,
+    "type": "tablet",
+    "os": "iOS",
+    "screenInch": 12.9
+  },
+  {
+    "id": "p014",
+    "name": "USB-C Hub",
+    "price": 59,
+    "type": "accessory"
+  },
+  {
+    "id": "p015",
+    "name": "Wireless Charger",
+    "price": 39,
+    "type": "accessory"
+  },
+  {
+    "id": "p016",
+    "name": "Laptop Basic 15",
+    "price": 699,
+    "type": "laptop",
+    "ramGb": 8,
+    "cpu": "Intel i3"
+  },
+  {
+    "id": "p017",
+    "name": "Smartphone Lite",
+    "price": 399,
+    "type": "phone",
+    "os": "Android",
+    "screenInch": 5.8
+  },
+  {
+    "id": "p018",
+    "name": "Tablet Lite",
+    "price": 299,
+    "type": "tablet",
+    "os": "Android",
+    "screenInch": 9.7
+  },
+  {
+    "id": "p019",
+    "name": "Bluetooth Speaker",
+    "price": 79,
+    "type": "accessory"
+  },
+  {
+    "id": "p020",
+    "name": "Gaming Mouse Pad",
+    "price": 29,
+    "type": "accessory"
+  },
+  {
+    "id": "p021",
+    "name": "Laptop Gamer 17",
+    "price": 1899,
+    "type": "laptop",
+    "ramGb": 32,
+    "cpu": "AMD Ryzen 9"
+  },
+  {
+    "id": "p022",
+    "name": "Smartwatch Pro",
+    "price": 299,
+    "type": "accessory"
+  },
+  {
+    "id": "p023",
+    "name": "Tablet Mini",
+    "price": 399,
+    "type": "tablet",
+    "os": "iOS",
+    "screenInch": 8.3
+  },
+  {
+    "id": "p024",
+    "name": "Laptop Convertible",
+    "price": 1099,
+    "type": "laptop",
+    "ramGb": 16,
+    "cpu": "Intel i7"
+  },
+  {
+    "id": "p025",
+    "name": "Smartphone Fold",
+    "price": 1599,
+    "type": "phone",
+    "os": "Android",
+    "screenInch": 7.6
+  }
+]

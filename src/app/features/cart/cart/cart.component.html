@@ -1,0 +1,33 @@
+<div class="bg-orange-100 p-6 min-h-screen">
+  <h2 class="text-4xl md:text-5xl font-bold text-orange-600 mb-6 text-center">Kosár tartalma</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    @for (item of cartService.items(); track item) {
+      <div
+        class="bg-orange-500 text-white rounded-xl shadow-lg p-6 flex flex-col justify-between transform hover:scale-105 transition"
+      >
+        <div>
+          <h3 class="text-xl font-semibold mb-2">{{ item.name }}</h3>
+          <p class="text-yellow-100 mb-2">Quantity: {{ item.quantity }} x $ {{ item.price }}</p>
+          <p class="text-yellow-100 font-semibold">Subtotal: $ {{ item.price * item.quantity }}</p>
+        </div>
+
+        <button
+          (click)="cartService.remove(item.id)"
+          class="mt-4 bg-white text-orange-500 py-2 rounded-lg font-semibold hover:bg-yellow-100 transition"
+        >
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+
+  <div class="mt-6 max-w-md mx-auto text-center">
+    <p class="text-xl font-bold mb-4">Total: $ {{ cartService.total() }}</p>
+    <button
+      (click)="cartService.clear()"
+      class="w-full bg-white text-orange-500 py-3 rounded-xl font-semibold hover:bg-yellow-100 transition"
+    >
+      Clear Cart
+    </button>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="bg-orange-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+  @for (product of products(); track product) {
+    <div
+      class="bg-orange-500 text-white rounded-xl shadow-lg hover:shadow-xl transition p-6 flex flex-col justify-between transform hover:scale-105"
+    >
+      <div>
+        <h3 class="text-xl font-semibold mb-2">{{ product.name }}</h3>
+        <p class="text-yellow-100 mb-4">$ {{ product.price }}</p>
+
+        @switch (product.type) {
+          @case ('laptop') {
+            <p class="text-yellow-100 text-sm">RAM: {{ product.ramGb }} GB</p>
+            <p class="text-yellow-100 text-sm">CPU: {{ product.cpu }}</p>
+          }
+          @case ('phone') {
+            <p class="text-yellow-100 text-sm">OS: {{ product.os }}</p>
+            <p class="text-yellow-100 text-sm">Screen: {{ product.screenInch }}"</p>
+          }
+          @case ('tablet') {
+            <p class="text-yellow-100 text-sm">OS: {{ product.os }}</p>
+            <p class="text-yellow-100 text-sm">Screen: {{ product.screenInch }}"</p>
+          }
+        }
+      </div>
+
+      <div class="mt-4 flex gap-2">
+        <button
+          (click)="addToCart(product)"
+          class="flex-1 bg-white text-orange-500 py-2 rounded-lg font-semibold hover:bg-yellow-100 transition"
+        >
+          Add to Cart
+        </button>
+        <button
+          (click)="goToDetail(product)"
+          class="flex-1 bg-yellow-100 text-orange-500 py-2 rounded-lg font-semibold hover:bg-white transition"
+        >
+          Details
+        </button>
+      </div>
+    </div>
+  }
+</div>
