@@ -1,8 +1,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Product } from '../product.interface';
-import { ProductsService } from '../../../core/services/products.service';
-import { CartService } from '../../../core/services/cart.service';
 import { Router } from '@angular/router';
+import * as ProductsActions from '../../../core/state/products/products.actions';
+import * as ProductsSelectors from '../../../core/state/products/products.selectors';
+import * as CartActions from '../../../core/state/cart/cart.actions';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-product-list',
@@ -11,11 +13,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  private _productsService = inject(ProductsService);
-  private _cart = inject(CartService);
+  private _store = inject(Store);
   private _router = inject(Router);
 
-  products = signal<Product[]>([]);
+  products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
   searchTerm = signal('');
   selectedCategory = signal<string | null>(null);
 
@@ -28,7 +29,7 @@ export class ProductListComponent implements OnInit {
   );
 
   ngOnInit() {
-    this._productsService.fetchAll().subscribe(data => this.products.set(data));
+    this._store.dispatch(ProductsActions.loadProducts());
   }
 
   updateSearch(term: string) {
@@ -40,7 +41,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this._cart.add({ id: product.id, name: product.name, price: product.price, quantity: 1 });
+    this._store.dispatch(CartActions.addToCart({ product }));
   }
 
   goToDetail(product: Product) {

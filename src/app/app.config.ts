@@ -11,9 +11,10 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {cartReducer} from './core/state/cart.reducer';
-import {CartEffects} from './core/state/cart.effects';
+import {cartReducer} from './core/state/cart/cart.reducer';
 import {provideHttpClient} from '@angular/common/http';
+import {ProductsEffects} from './core/state/products/products.effects';
+import {productsReducer} from './core/state/products/products.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,8 +23,8 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes), provideClientHydration(withEventReplay()),
     importProvidersFrom(
-      StoreModule.forRoot({ cart: cartReducer }),
-      EffectsModule.forRoot([CartEffects]),
+      StoreModule.forRoot({ cart: cartReducer, products: productsReducer }),
+      EffectsModule.forRoot([ProductsEffects]),
       StoreDevtoolsModule.instrument({ maxAge: 25 })
     )
   ]

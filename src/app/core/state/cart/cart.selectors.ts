@@ -1,14 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CartState } from './cart.model';
+import { CartState } from './cart.reducer';
 
-export const selectCart = createFeatureSelector<CartState>('cart');
+export const selectCartState = createFeatureSelector<CartState>('cart');
 
 export const selectCartItems = createSelector(
-  selectCart,
+  selectCartState,
   state => state.items
 );
 
 export const selectCartTotal = createSelector(
   selectCartItems,
-  items => items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  items => items.reduce((sum, i) => sum + i.price * i.quantity, 0)
 );
