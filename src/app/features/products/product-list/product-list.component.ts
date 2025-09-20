@@ -1,10 +1,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { Product } from '../product.interface';
 import { Router } from '@angular/router';
-import * as ProductsActions from '../../../core/state/products/products.actions';
-import * as ProductsSelectors from '../../../core/state/products/products.selectors';
-import * as CartActions from '../../../core/state/cart/cart.actions';
 import {Store} from '@ngrx/store';
+import {ProductsActions, ProductsSelectors} from '../../../core/state/products';
+import {CartActions} from '../../../core/state/cart';
+import {Product} from '../../../core/state/products/products.reducer';
+import {CartItem} from '../../../core/state/cart/cart.reducer';
 
 @Component({
   selector: 'app-product-list',
@@ -41,7 +41,8 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this._store.dispatch(CartActions.addToCart({ product }));
+    const item: CartItem = { ...product, quantity: 1 };
+    this._store.dispatch(CartActions.addToCart({ item }));
   }
 
   goToDetail(product: Product) {

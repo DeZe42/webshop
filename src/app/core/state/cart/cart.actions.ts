@@ -1,9 +1,10 @@
+// cart.actions.ts
 import { createAction, props } from '@ngrx/store';
-import { Product } from '../../../features/products/product.interface';
+import { CartItem } from './cart.reducer';
 
 export const addToCart = createAction(
   '[Cart] Add To Cart',
-  props<{ product: Product }>()
+  props<{ item: CartItem }>() // <-- CartItem, ami Product + quantity
 );
 
 export const removeFromCart = createAction(

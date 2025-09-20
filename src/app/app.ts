@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {CartSyncService} from './core/services/cart-sync.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,5 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   styleUrl: './app.scss'
 })
 export class App {
+  private _cartSync = inject(CartSyncService);
 }

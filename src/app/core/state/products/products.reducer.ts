@@ -1,6 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
 import * as ProductsActions from './products.actions';
-import {Product} from '../../../features/products/product.interface';
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  type: 'laptop' | 'phone' | 'tablet';
+  ramGb: number;
+  cpu: string;
+  screenSizeInch: number;
+  os: string;
+  screenInch: number;
+}
+
 
 export interface ProductsState {
   products: Product[];
