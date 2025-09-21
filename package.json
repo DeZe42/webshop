@@ -9,7 +9,7 @@
     "serve:ssr:webshop": "node dist/webshop/server/server.mjs",
     "prepare": "husky",
     "lint": "ng lint --fix",
-    "test": "ng test --watch=false --browsers=ChromeHeadless",
+    "test": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
     "pretty-quick": "pretty-quick --staged"
   },
   "prettier": {
