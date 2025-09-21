@@ -9,11 +9,18 @@ describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
   let store: MockStore;
   let dispatchSpy: jasmine.Spy;
+  const initialState = {
+    products: {
+      products: [], // fontos, hogy legyen legalább üres lista
+      loading: false,
+      error: null,
+    },
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DashboardComponent, ReactiveFormsModule],
-      providers: [provideMockStore()],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
