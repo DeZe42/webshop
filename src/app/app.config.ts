@@ -13,9 +13,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideHttpClient } from '@angular/common/http';
 import { productsReducer } from './core/state/products';
 import { cartReducer } from './core/state/cart';
+import { provideKeycloakAngular } from '../../keycloak.config';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from './core/state/products/products.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideKeycloakAngular(),
     provideHttpClient(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
@@ -23,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     importProvidersFrom(
       StoreModule.forRoot({ cart: cartReducer, products: productsReducer }),
+      EffectsModule.forRoot([ProductsEffects]),
       StoreDevtoolsModule.instrument({ maxAge: 25 }),
     ),
   ],

@@ -15,3 +15,5 @@ export const loadProductsFailure = createAction(
   '[Products] Load Products Failure',
   props<{ error: ProductError | null }>(),
 );
+export const addProduct = createAction('[Products] Add Product', props<{ product: Product }>());
+export const deleteProduct = createAction('[Products] Delete Product', props<{ id: string }>());
