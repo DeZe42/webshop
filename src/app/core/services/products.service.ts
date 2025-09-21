@@ -8,8 +8,7 @@ import { Product } from '../state/products/products.reducer';
 export class ProductsService {
   _http = inject(HttpClient);
 
-  fetchAll(): Observable<Product[]> {
-    if (typeof window === 'undefined') return of([]); // SSR safe
+  getAll(): Observable<Product[]> {
     return this._http.get<Product[]>('/products.json').pipe(
       catchError((err) => {
         console.error('Products fetch error', err);

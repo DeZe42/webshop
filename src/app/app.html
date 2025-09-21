@@ -1,13 +1,6 @@
-<nav class="bg-orange-500 text-white p-4 shadow-md">
-  <div class="max-w-7xl mx-auto flex justify-between items-center">
-    <div class="text-2xl font-bold">Webshop</div>
-    <div class="space-x-4">
-      <a routerLink="/" class="hover:text-yellow-200 transition font-semibold">Főoldal</a>
-      <a routerLink="/products" class="hover:text-yellow-200 transition font-semibold">Termékek</a>
-      <a routerLink="/cart" class="hover:text-yellow-200 transition font-semibold">Kosár</a>
-    </div>
-  </div>
-</nav>
+@if (this.isBrowser) {
+  <app-header></app-header>
+}
 <main class="bg-orange-100 min-h-screen">
   <section class="max-w-7xl mx-auto p-6">
     <router-outlet></router-outlet>

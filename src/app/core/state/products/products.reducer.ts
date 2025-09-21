@@ -41,4 +41,12 @@ export const productsReducer = createReducer(
     loading: false,
     error,
   })),
+  on(ProductsActions.addProduct, (state, { product }) => ({
+    ...state,
+    products: [...state.products, product],
+  })),
+  on(ProductsActions.deleteProduct, (state, { id }) => ({
+    ...state,
+    products: state.products.filter((p) => p.id !== id),
+  })),
 );

@@ -1,0 +1,17 @@
+<div class="min-h-screen">
+  <div class="flex flex-1 items-center justify-center p-8 bg-orange-100">
+    <div class="w-full max-w-md text-center bg-white rounded-2xl shadow-lg p-8">
+      <h4 class="text-3xl font-bold mb-2 text-orange-500">Welcome to Modernize</h4>
+      <span class="text-sm text-gray-500 mb-6 inline-block">Your Admin Dashboard</span>
+      <button
+        (click)="login()"
+        class="w-full bg-orange-500 text-white py-3 rounded-xl font-semibold hover:bg-orange-600 transition"
+      >
+        Sign In with SSO
+      </button>
+      @if (keycloakStatus) {
+        <p class="mt-4 text-sm text-gray-500">Status: {{ keycloakStatus }}</p>
+      }
+    </div>
+  </div>
+</div>

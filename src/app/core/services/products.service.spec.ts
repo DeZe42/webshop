@@ -42,7 +42,7 @@ describe('ProductsService', () => {
   });
 
   it('should fetch products via HttpClient', (done) => {
-    service.fetchAll().subscribe((products) => {
+    service.getAll().subscribe((products) => {
       expect(products).toEqual(mockProducts);
       done();
     });
@@ -53,7 +53,7 @@ describe('ProductsService', () => {
   });
 
   it('should return empty array on HTTP error', (done) => {
-    service.fetchAll().subscribe((products) => {
+    service.getAll().subscribe((products) => {
       expect(products).toEqual([]);
       done();
     });

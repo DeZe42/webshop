@@ -1,47 +1,51 @@
-import { provideZonelessChangeDetection } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HeaderComponent } from './shared/header/header.component';
+import { RouterOutlet } from '@angular/router';
+import { PLATFORM_ID, signal } from '@angular/core';
 import { App } from './app';
-import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
+import { KEYCLOAK_EVENT_SIGNAL } from 'keycloak-angular';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('App', () => {
+describe('AppComponent', () => {
+  let fixture: ComponentFixture<App>;
+  let component: App;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, RouterTestingModule],
+      imports: [App, HeaderComponent, RouterOutlet, RouterTestingModule],
       providers: [
-        provideZonelessChangeDetection(),
-        provideMockStore({ initialState: { cart: { items: [] } } }),
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        {
+          provide: KEYCLOAK_EVENT_SIGNAL,
+          useValue: () => signal({ type: 'Ready', args: true }),
+        },
+        provideMockStore({}),
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(App);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it('should render the navbar with links', () => {
-    const fixture = TestBed.createComponent(App);
+  it('should show header on browser', () => {
+    component.isBrowser = true;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
 
-    const nav = compiled.querySelector('nav');
-    expect(nav).toBeTruthy();
-
-    const links = nav?.querySelectorAll('a') || [];
-    const linkTexts = Array.from(links).map((a) => a.textContent?.trim());
-
-    expect(linkTexts).toContain('Főoldal');
-    expect(linkTexts).toContain('Termékek');
-    expect(linkTexts).toContain('Kosár');
+    const headerEl = fixture.nativeElement.querySelector('app-header');
+    expect(headerEl).toBeTruthy();
   });
 
-  it('should have a router outlet', () => {
-    const fixture = TestBed.createComponent(App);
+  it('should not show header on server', () => {
+    component.isBrowser = false;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('router-outlet')).toBeTruthy();
+    const headerEl = fixture.nativeElement.querySelector('app-header');
+    expect(headerEl).toBeFalsy();
   });
 });
