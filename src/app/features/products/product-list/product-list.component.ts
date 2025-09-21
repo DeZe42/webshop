@@ -1,10 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+import { ProductsSelectors } from '../../../core/state/products';
 import { CartActions } from '../../../core/state/cart';
 import { Product } from '../../../core/state/products/products.reducer';
 import { CartItem } from '../../../core/state/cart/cart.reducer';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,6 +15,7 @@ import { CartItem } from '../../../core/state/cart/cart.reducer';
 export class ProductListComponent implements OnInit {
   private _store = inject(Store);
   private _router = inject(Router);
+  private _seoService = inject(SeoService);
 
   products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
   searchTerm = signal('');
@@ -29,8 +31,16 @@ export class ProductListComponent implements OnInit {
     }),
   );
 
-  ngOnInit() {
-    this._store.dispatch(ProductsActions.loadProducts());
+  public ngOnInit(): void {
+    this._seoService.setMeta({
+      title: 'Webshop – Termékek',
+      description:
+        'Böngéssz a Webshop termékei között – laptopok, telefonok, tabletek és kiegészítők.',
+      keywords: 'webshop, laptop, telefon, tablet, kiegészítők',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
   }
 
   updateSearch(term: string) {

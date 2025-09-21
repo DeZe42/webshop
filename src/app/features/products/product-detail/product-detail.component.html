@@ -1,14 +1,20 @@
 @if (product(); as product) {
   <div
-    class="bg-orange-100 max-w-xl mx-auto bg-orange-500 text-white rounded-2xl shadow-lg p-8 mt-8 transition hover:scale-105"
+    class="max-w-xl mx-auto mt-8 bg-orange-500 text-white rounded-2xl shadow-lg p-8 transition hover:scale-105"
   >
+    <img
+      [src]="product.image"
+      [alt]="product.name"
+      class="w-full h-64 object-cover rounded-xl mb-4"
+    />
     <h2 class="text-3xl font-bold mb-4">{{ product.name }}</h2>
     <p class="text-yellow-100 text-lg mb-4">$ {{ product.price }}</p>
-
     @switch (product.type) {
       @case ('laptop') {
         <p class="mb-2 text-yellow-100">RAM: {{ product.ramGb }} GB</p>
         <p class="mb-2 text-yellow-100">CPU: {{ product.cpu }}</p>
+        <p class="mb-2 text-yellow-100">OS: {{ product.os }}</p>
+        <p class="mb-2 text-yellow-100">Screen: {{ product.screenSizeInch }}"</p>
       }
       @case ('phone') {
         <p class="mb-2 text-yellow-100">OS: {{ product.os }}</p>
@@ -18,8 +24,11 @@
         <p class="mb-2 text-yellow-100">OS: {{ product.os }}</p>
         <p class="mb-2 text-yellow-100">Screen: {{ product.screenInch }}"</p>
       }
+      @case ('accessory') {
+        <p class="mb-2 text-yellow-100">{{ product.description }}</p>
+      }
     }
-
+    <p class="mt-4 text-yellow-100">{{ product.description }}</p>
     <button
       (click)="addToCart()"
       class="mt-6 w-full bg-white text-orange-500 py-3 rounded-xl font-semibold hover:bg-yellow-100 transition"
