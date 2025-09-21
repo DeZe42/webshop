@@ -9,7 +9,6 @@ export interface Product {
   type: 'laptop' | 'phone' | 'tablet' | 'accessory';
   ramGb: number;
   cpu: string;
-  screenSizeInch: number;
   os: string;
   screenInch: number;
   description: string;
