@@ -6,12 +6,14 @@ export interface Product {
   id: string;
   name: string;
   price: number;
-  type: 'laptop' | 'phone' | 'tablet';
+  type: 'laptop' | 'phone' | 'tablet' | 'accessory';
   ramGb: number;
   cpu: string;
-  screenSizeInch: number;
   os: string;
   screenInch: number;
+  description: string;
+  image: string;
+  keywords: string[];
 }
 
 export interface ProductsState {

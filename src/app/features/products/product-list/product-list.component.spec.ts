@@ -3,49 +3,32 @@ import { ProductListComponent } from './product-list.component';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+import { ProductsSelectors } from '../../../core/state/products';
 import { CartActions } from '../../../core/state/cart';
 import { Product } from '../../../core/state/products/products.reducer';
+import { SeoService } from '../../../core/services/seo.service';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
   let fixture: ComponentFixture<ProductListComponent>;
   let store: MockStore;
   let router: Router;
+  let seoService: SeoService;
 
   const mockProducts: Product[] = [
     {
-      id: '1',
-      name: 'Laptop A',
-      price: 1000,
+      id: 'p001',
+      name: 'Laptop Pro 14',
+      price: 1299,
       type: 'laptop',
       ramGb: 16,
-      cpu: 'i7',
-      screenSizeInch: 15,
+      cpu: 'Intel i7',
+      screenInch: 14,
       os: 'Windows',
-      screenInch: 15,
-    },
-    {
-      id: '2',
-      name: 'Phone B',
-      price: 500,
-      type: 'phone',
-      ramGb: 8,
-      cpu: 'Snapdragon',
-      screenSizeInch: 6,
-      os: 'Android',
-      screenInch: 6,
-    },
-    {
-      id: '3',
-      name: 'Tablet C',
-      price: 800,
-      type: 'tablet',
-      ramGb: 8,
-      cpu: 'Apple M1',
-      screenSizeInch: 12,
-      os: 'iPadOS',
-      screenInch: 12,
+      description:
+        'High-performance Laptop Pro 14 with Intel i7 CPU, 16GB RAM and 14-inch display.',
+      image: '/images/laptop-001.jpg',
+      keywords: ['laptop', 'Intel', 'Windows', 'webshop'],
     },
   ];
 
@@ -56,11 +39,16 @@ describe('ProductListComponent', () => {
         provideMockStore({
           selectors: [{ selector: ProductsSelectors.selectAllProducts, value: mockProducts }],
         }),
+        {
+          provide: SeoService,
+          useValue: { setMeta: jasmine.createSpy('setMeta') },
+        },
       ],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
     router = TestBed.inject(Router);
+    seoService = TestBed.inject(SeoService);
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -70,22 +58,31 @@ describe('ProductListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch loadProducts on init', () => {
-    const spy = spyOn(store, 'dispatch');
+  it('should call SEO service on init', () => {
     component.ngOnInit();
-    expect(spy).toHaveBeenCalledWith(ProductsActions.loadProducts());
+    expect(seoService.setMeta).toHaveBeenCalledWith({
+      title: 'Webshop – Termékek',
+      description:
+        'Böngéssz a Webshop termékei között – laptopok, telefonok, tabletek és kiegészítők.',
+      keywords: 'webshop, laptop, telefon, tablet, kiegészítők',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
   });
 
   it('should filter products by searchTerm', () => {
     component.updateSearch('Laptop');
-    expect(component.filteredProducts().length).toBe(1);
-    expect(component.filteredProducts()[0].name).toBe('Laptop A');
+    const filtered = component.filteredProducts();
+    expect(filtered.length).toBe(1);
+    expect(filtered[0].name).toBe('Laptop Pro 14');
   });
 
   it('should filter products by selectedCategory', () => {
-    component.updateCategory('phone');
-    expect(component.filteredProducts().length).toBe(1);
-    expect(component.filteredProducts()[0].type).toBe('phone');
+    component.updateCategory('laptop');
+    const filtered = component.filteredProducts();
+    expect(filtered.length).toBe(1);
+    expect(filtered[0].type).toBe('laptop');
   });
 
   it('should dispatch addToCart when addToCart is called', () => {
@@ -97,7 +94,7 @@ describe('ProductListComponent', () => {
 
   it('should navigate to product detail on goToDetail', () => {
     const spy = spyOn(router, 'navigate');
-    const product = mockProducts[1];
+    const product = mockProducts[0];
     component.goToDetail(product);
     expect(spy).toHaveBeenCalledWith(['/products', product.id]);
   });

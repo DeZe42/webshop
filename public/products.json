@@ -5,7 +5,12 @@
     "price": 1299,
     "type": "laptop",
     "ramGb": 16,
-    "cpu": "Intel i7"
+    "cpu": "Intel i7",
+    "screenInch": 14,
+    "os": "Windows",
+    "description": "High-performance Laptop Pro 14 with Intel i7 CPU, 16GB RAM and 14-inch display.",
+    "image": "/images/laptop-001.jpg",
+    "keywords": ["laptop", "Intel", "Windows", "webshop"]
   },
   {
     "id": "p002",
@@ -13,7 +18,12 @@
     "price": 999,
     "type": "laptop",
     "ramGb": 8,
-    "cpu": "Intel i5"
+    "cpu": "Intel i5",
+    "screenInch": 13,
+    "os": "Windows",
+    "description": "Lightweight Laptop Air 13 with Intel i5 CPU, 8GB RAM and 13-inch screen.",
+    "image": "/images/laptop-002.jpg",
+    "keywords": ["laptop", "Intel", "Windows", "webshop"]
   },
   {
     "id": "p003",
@@ -21,7 +31,10 @@
     "price": 799,
     "type": "phone",
     "os": "Android",
-    "screenInch": 6.1
+    "screenInch": 6.1,
+    "description": "Smartphone X with Android OS, 6.1-inch display, perfect for everyday use.",
+    "image": "/images/phone-003.jpg",
+    "keywords": ["phone", "Android", "smartphone", "webshop"]
   },
   {
     "id": "p004",
@@ -29,7 +42,10 @@
     "price": 699,
     "type": "phone",
     "os": "iOS",
-    "screenInch": 6.5
+    "screenInch": 6.5,
+    "description": "Smartphone Y running iOS with 6.5-inch display, sleek design for modern users.",
+    "image": "/images/phone-004.jpg",
+    "keywords": ["phone", "iOS", "smartphone", "webshop"]
   },
   {
     "id": "p005",
@@ -37,7 +53,10 @@
     "price": 499,
     "type": "tablet",
     "os": "Android",
-    "screenInch": 10.1
+    "screenInch": 10.1,
+    "description": "Tablet S with Android OS and 10.1-inch screen, perfect for media and productivity.",
+    "image": "/images/tablet-005.jpg",
+    "keywords": ["tablet", "Android", "webshop"]
   },
   {
     "id": "p006",
@@ -45,31 +64,46 @@
     "price": 599,
     "type": "tablet",
     "os": "iOS",
-    "screenInch": 11.0
+    "screenInch": 11.0,
+    "description": "Tablet M with iOS and 11-inch screen, ideal for professional and personal use.",
+    "image": "/images/tablet-006.jpg",
+    "keywords": ["tablet", "iOS", "webshop"]
   },
   {
     "id": "p007",
     "name": "Wireless Mouse",
     "price": 49,
-    "type": "accessory"
+    "type": "accessory",
+    "description": "Reliable wireless mouse for smooth navigation and comfortable use.",
+    "image": "/images/accessory-007.jpg",
+    "keywords": ["mouse", "accessory", "webshop"]
   },
   {
     "id": "p008",
     "name": "Mechanical Keyboard",
     "price": 129,
-    "type": "accessory"
+    "type": "accessory",
+    "description": "Mechanical keyboard with tactile keys, perfect for gaming and typing.",
+    "image": "/images/accessory-008.jpg",
+    "keywords": ["keyboard", "accessory", "webshop"]
   },
   {
     "id": "p009",
     "name": "Gaming Headset",
     "price": 89,
-    "type": "accessory"
+    "type": "accessory",
+    "description": "Comfortable gaming headset with excellent sound quality for immersive gaming.",
+    "image": "/images/accessory-009.jpg",
+    "keywords": ["headset", "accessory", "webshop"]
   },
   {
     "id": "p010",
     "name": "External SSD 1TB",
     "price": 159,
-    "type": "accessory"
+    "type": "accessory",
+    "description": "Fast and reliable 1TB external SSD for data storage and transfer.",
+    "image": "/images/accessory-010.jpg",
+    "keywords": ["ssd", "storage", "accessory", "webshop"]
   },
   {
     "id": "p011",
@@ -77,7 +111,12 @@
     "price": 1599,
     "type": "laptop",
     "ramGb": 32,
-    "cpu": "Intel i9"
+    "cpu": "Intel i9",
+    "screenSizeInch": 16,
+    "os": "Windows",
+    "description": "Powerful Laptop Ultra 16 with Intel i9, 32GB RAM and 16-inch high-resolution display.",
+    "image": "/images/laptop-011.jpg",
+    "keywords": ["laptop", "Intel", "Windows", "webshop"]
   },
   {
     "id": "p012",
@@ -85,7 +124,10 @@
     "price": 899,
     "type": "phone",
     "os": "Android",
-    "screenInch": 6.8
+    "screenInch": 6.8,
+    "description": "Smartphone Z with 6.8-inch Android display, perfect for productivity and media.",
+    "image": "/images/phone-012.jpg",
+    "keywords": ["phone", "Android", "smartphone", "webshop"]
   },
   {
     "id": "p013",
@@ -93,92 +135,9 @@
     "price": 799,
     "type": "tablet",
     "os": "iOS",
-    "screenInch": 12.9
-  },
-  {
-    "id": "p014",
-    "name": "USB-C Hub",
-    "price": 59,
-    "type": "accessory"
-  },
-  {
-    "id": "p015",
-    "name": "Wireless Charger",
-    "price": 39,
-    "type": "accessory"
-  },
-  {
-    "id": "p016",
-    "name": "Laptop Basic 15",
-    "price": 699,
-    "type": "laptop",
-    "ramGb": 8,
-    "cpu": "Intel i3"
-  },
-  {
-    "id": "p017",
-    "name": "Smartphone Lite",
-    "price": 399,
-    "type": "phone",
-    "os": "Android",
-    "screenInch": 5.8
-  },
-  {
-    "id": "p018",
-    "name": "Tablet Lite",
-    "price": 299,
-    "type": "tablet",
-    "os": "Android",
-    "screenInch": 9.7
-  },
-  {
-    "id": "p019",
-    "name": "Bluetooth Speaker",
-    "price": 79,
-    "type": "accessory"
-  },
-  {
-    "id": "p020",
-    "name": "Gaming Mouse Pad",
-    "price": 29,
-    "type": "accessory"
-  },
-  {
-    "id": "p021",
-    "name": "Laptop Gamer 17",
-    "price": 1899,
-    "type": "laptop",
-    "ramGb": 32,
-    "cpu": "AMD Ryzen 9"
-  },
-  {
-    "id": "p022",
-    "name": "Smartwatch Pro",
-    "price": 299,
-    "type": "accessory"
-  },
-  {
-    "id": "p023",
-    "name": "Tablet Mini",
-    "price": 399,
-    "type": "tablet",
-    "os": "iOS",
-    "screenInch": 8.3
-  },
-  {
-    "id": "p024",
-    "name": "Laptop Convertible",
-    "price": 1099,
-    "type": "laptop",
-    "ramGb": 16,
-    "cpu": "Intel i7"
-  },
-  {
-    "id": "p025",
-    "name": "Smartphone Fold",
-    "price": 1599,
-    "type": "phone",
-    "os": "Android",
-    "screenInch": 7.6
+    "screenInch": 12.9,
+    "description": "Tablet Pro with iOS and 12.9-inch display, ideal for professional creative work.",
+    "image": "/images/tablet-013.jpg",
+    "keywords": ["tablet", "iOS", "webshop"]
   }
 ]
