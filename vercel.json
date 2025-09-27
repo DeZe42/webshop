@@ -1,8 +1,8 @@
 {
   "functions": {
-    "api/index.mjs": {
+    "api/index.js": {
       "runtime": "nodejs18.x"
     }
   },
-  "routes": [{ "src": "/(.*)", "dest": "api/index.mjs" }]
+  "routes": [{ "src": "/(.*)", "dest": "api/index.js" }]
 }
