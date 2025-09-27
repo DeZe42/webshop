@@ -1,8 +1,16 @@
 {
-  "functions": {
-    "api/index.mjs": {
-      "runtime": "nodejs20.x"
+  "version": 2,
+  "public": true,
+  "name": "webshop",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
     }
-  },
-  "routes": [{ "src": "/(.*)", "dest": "api/index.mjs" }]
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/webshop/**"
+    }
+  }
 }
