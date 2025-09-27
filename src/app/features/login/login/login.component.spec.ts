@@ -4,10 +4,10 @@ import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
 import { Signal, signal } from '@angular/core';
 import Keycloak from 'keycloak-js';
 
-type KeycloakEvent = {
+interface KeycloakEvent {
   type: KeycloakEventType;
   args?: unknown;
-};
+}
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

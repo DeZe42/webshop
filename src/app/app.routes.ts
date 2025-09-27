@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authCanMatch } from './core/guards/auth.guard';
 
 export const PRODUCTS_PATH = 'products';
 export const CART_PATH = 'cart';
@@ -27,5 +28,6 @@ export const routes: Routes = [
     path: DASHBOARD_PATH,
     loadChildren: () =>
       import('./features/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
+    canMatch: [authCanMatch],
   },
 ];

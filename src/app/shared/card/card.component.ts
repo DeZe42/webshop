@@ -5,6 +5,7 @@ import { CartActions } from '../../core/state/cart';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { ProductsActions } from '../../core/state/products';
+import { GtmService } from '../../core/services/gtm.service';
 
 @Component({
   selector: 'app-card',
@@ -21,12 +22,18 @@ import { ProductsActions } from '../../core/state/products';
 export class CardComponent {
   private _store = inject(Store);
   private _router = inject(Router);
+  private _gtmService = inject(GtmService);
   product = input<Product>();
   isDashboard = input<boolean>();
 
   addToCart(product: Product): void {
     const item: CartItem = { ...product, quantity: 1 };
     this._store.dispatch(CartActions.addToCart({ item }));
+    this._gtmService.pushEvent('add_to_cart', {
+      product_id: product.id,
+      name: product.name,
+      price: product.price,
+    });
   }
 
   goToDetail(product: Product): void {

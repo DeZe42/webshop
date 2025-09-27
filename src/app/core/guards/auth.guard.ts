@@ -1,21 +1,33 @@
-import { Injectable, inject } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
+import {
+  KEYCLOAK_EVENT_SIGNAL,
+  KeycloakEventType,
+  ReadyArgs,
+  typeEventArgs,
+} from 'keycloak-angular';
+import { LOGIN_PATH } from '../../app.routes';
 
-@Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
-  private router = inject(Router);
-  private keycloak = inject(KeycloakService);
+export const authCanMatch = () => {
+  const platformId = inject(PLATFORM_ID);
+  const router = inject(Router);
 
-  async canActivate(): Promise<boolean> {
-    const authenticated = await this.keycloak.isLoggedIn();
-
-    if (!authenticated) {
-      // Ha nincs bejelentkezve, irányítsd a login oldalra
-      await this.keycloak.login({ redirectUri: window.location.href });
-      return false;
-    }
-
+  if (!isPlatformBrowser(platformId)) {
     return true;
   }
-}
+
+  const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL);
+  let authenticated = false;
+  const event = keycloakSignal();
+  if (event.type === KeycloakEventType.Ready) {
+    authenticated = typeEventArgs<ReadyArgs>(event.args);
+  }
+
+  if (!authenticated) {
+    router.navigate([LOGIN_PATH]);
+    return false;
+  }
+
+  return true;
+};

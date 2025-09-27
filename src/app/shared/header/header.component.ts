@@ -7,6 +7,7 @@ import {
   ReadyArgs,
   typeEventArgs,
 } from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ export class HeaderComponent {
   protected readonly LOGIN_PATH = LOGIN_PATH;
   private keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL);
   authenticated = signal(false);
+  private keycloak = inject(Keycloak);
 
   constructor() {
     effect(() => {
@@ -32,5 +34,9 @@ export class HeaderComponent {
         this.authenticated.set(false);
       }
     });
+  }
+
+  public logout(): void {
+    this.keycloak.logout({ redirectUri: window.location.href });
   }
 }

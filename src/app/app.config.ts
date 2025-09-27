@@ -19,7 +19,7 @@ import { ProductsEffects } from './core/state/products/products.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideKeycloakAngular(),
+    ...provideKeycloakAngular(),
     provideHttpClient(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
