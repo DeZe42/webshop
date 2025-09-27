@@ -57,3 +57,16 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Docker keycloak run
+
+docker run -d --name keycloak \
+-p 8080:8080 \
+-e KEYCLOAK_ADMIN=admin \
+-e KEYCLOAK_ADMIN_PASSWORD=admin \
+-v keycloak_data:/opt/keycloak/data \
+quay.io/keycloak/keycloak:latest start-dev
+
+docker start keycloak
+
+docker stop keycloak

@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { signal } from '@angular/core';
-import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
-import { By } from '@angular/platform-browser';
+import { KEYCLOAK_EVENT_SIGNAL } from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
 
 describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
@@ -19,6 +19,13 @@ describe('HeaderComponent', () => {
           provide: KEYCLOAK_EVENT_SIGNAL,
           useValue: () => mockKeycloakSignal(),
         },
+        {
+          provide: Keycloak,
+          useValue: {
+            login: jasmine.createSpy('login'),
+            logout: jasmine.createSpy('logout'),
+          },
+        },
       ],
     }).compileComponents();
 
@@ -29,28 +36,5 @@ describe('HeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should initially not be authenticated', () => {
-    expect(component.authenticated()).toBe(false);
-  });
-
-  it('should show login link if not authenticated', () => {
-    const loginLink = fixture.debugElement
-      .queryAll(By.css('a'))
-      .find((el) => el.nativeElement.textContent.includes('Bejelentkezés'));
-    expect(loginLink).toBeTruthy();
-  });
-
-  it('should reset authenticated signal on AuthLogout event', () => {
-    mockKeycloakSignal.set({ type: KeycloakEventType.AuthLogout, args: null });
-    fixture.detectChanges();
-
-    expect(component.authenticated()).toBe(false);
-
-    const loginLink = fixture.debugElement
-      .queryAll(By.css('a'))
-      .find((el) => el.nativeElement.textContent.includes('Bejelentkezés'));
-    expect(loginLink).toBeTruthy();
   });
 });

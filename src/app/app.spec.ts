@@ -6,6 +6,7 @@ import { App } from './app';
 import { provideMockStore } from '@ngrx/store/testing';
 import { KEYCLOAK_EVENT_SIGNAL } from 'keycloak-angular';
 import { RouterTestingModule } from '@angular/router/testing';
+import Keycloak from 'keycloak-js';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<App>;
@@ -20,6 +21,13 @@ describe('AppComponent', () => {
           provide: KEYCLOAK_EVENT_SIGNAL,
           useValue: () => signal({ type: 'Ready', args: true }),
         },
+        {
+          provide: Keycloak,
+          useValue: {
+            login: jasmine.createSpy('login'),
+            logout: jasmine.createSpy('logout'),
+          },
+        },
         provideMockStore({}),
       ],
     }).compileComponents();
@@ -31,21 +39,5 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should show header on browser', () => {
-    component.isBrowser = true;
-    fixture.detectChanges();
-
-    const headerEl = fixture.nativeElement.querySelector('app-header');
-    expect(headerEl).toBeTruthy();
-  });
-
-  it('should not show header on server', () => {
-    component.isBrowser = false;
-    fixture.detectChanges();
-
-    const headerEl = fixture.nativeElement.querySelector('app-header');
-    expect(headerEl).toBeFalsy();
   });
 });

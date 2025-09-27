@@ -12,6 +12,9 @@
           <a [routerLink]="DASHBOARD_PATH" class="hover:text-yellow-200 transition font-semibold"
             >Irányítópult</a
           >
+          <button (click)="logout()" class="hover:text-yellow-200 transition font-semibold">
+            Kijelentkezés
+          </button>
         } @else {
           <a [routerLink]="LOGIN_PATH" class="hover:text-yellow-200 transition font-semibold"
             >Bejelentkezés</a
