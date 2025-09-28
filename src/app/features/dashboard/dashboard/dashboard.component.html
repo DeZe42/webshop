@@ -1,30 +1,90 @@
 <div class="max-w-7xl mx-auto p-6">
-  <h2 class="text-3xl font-bold mb-6">Dashboard</h2>
+  <h2 class="text-3xl font-bold mb-6">Irányítópult</h2>
   <div class="mb-8 bg-white p-6 rounded-xl shadow">
-    <h3 class="text-xl font-semibold mb-4">Add New Product</h3>
+    <h3 class="text-xl font-semibold mb-4">Új termék hozzáadása</h3>
     <form [formGroup]="newProductForm" (ngSubmit)="addNewProduct()" class="space-y-4">
       <input formControlName="name" placeholder="Name" class="p-2 border rounded w-full" />
+      @if (form.name.touched && form.name.invalid) {
+        <div class="text-red-500 text-sm">
+          @if (form.name.errors?.['required']) {
+            <div>A név megadása kötelező.</div>
+          }
+          @if (form.name.errors?.['minlength']) {
+            <div>Legalább 3 karakter szükséges.</div>
+          }
+        </div>
+      }
       <input
         formControlName="price"
         type="number"
         placeholder="Price"
         class="p-2 border rounded w-full"
       />
+      @if (form.price.touched && form.price.invalid) {
+        <div class="text-red-500 text-sm">
+          @if (form.price.errors?.['required']) {
+            <div>Az ár megadása kötelező.</div>
+          }
+          @if (form.price.errors?.['min']) {
+            <div>Az árnak legalább 1-nek kell lennie.</div>
+          }
+        </div>
+      }
       <select formControlName="type" class="p-2 border rounded w-full">
         <option value="laptop">Laptop</option>
         <option value="phone">Phone</option>
         <option value="tablet">Tablet</option>
         <option value="accessory">Accessory</option>
       </select>
+      @if (form.type.touched && form.type.invalid) {
+        <div class="text-red-500 text-sm">
+          @if (form.type.errors?.['required']) {
+            <div>A típus kiválasztása kötelező.</div>
+          }
+        </div>
+      }
       <textarea
         formControlName="description"
         placeholder="Description"
         class="p-2 border rounded w-full"
       ></textarea>
-      <input formControlName="image" placeholder="Image URL" class="p-2 border rounded w-full" />
+      @if (form.description.touched && form.description.invalid) {
+        <div class="text-red-500 text-sm">
+          @if (form.description.errors?.['required']) {
+            <div>A leírás megadása kötelező.</div>
+          }
+          @if (form.description.errors?.['minlength']) {
+            <div>A leírásnak legalább 10 karakterből kell állnia.</div>
+          }
+        </div>
+      }
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        class="p-2 border rounded w-full"
+      />
+      @if (form.image.touched && form.image.invalid) {
+        <div class="text-red-500 text-sm">
+          @if (form.image.errors?.['required']) {
+            <div>A kép feltöltése kötelező.</div>
+          }
+        </div>
+      }
+      @if (form.image.value) {
+        <div class="mt-4">
+          <p class="text-sm text-gray-600 mb-2">Előnézet:</p>
+          <img
+            [src]="form.image.value"
+            alt="Preview"
+            class="w-32 h-32 object-cover rounded-lg shadow"
+          />
+        </div>
+      }
       <button
         type="submit"
         class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition"
+        [class.disabled]="newProductForm.invalid"
         [disabled]="newProductForm.invalid"
       >
         Termék hozzáadása

@@ -1,4 +1,3 @@
-// @ts-check
 const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
@@ -36,8 +35,14 @@ module.exports = tseslint.config(
           style: 'kebab-case',
         },
       ],
-      'prettier/prettier': 'error', // Enforce Prettier formatting as lint errors
-      '@typescript-eslint/no-explicit-any': 'error', // Forbid usage of 'any'
+      'prettier/prettier': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {

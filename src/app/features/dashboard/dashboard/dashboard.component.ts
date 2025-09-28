@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { Store } from '@ngrx/store';
 import { Product } from '../../../core/state/products/products.reducer';
@@ -18,20 +18,35 @@ import { CardComponent } from '../../../shared/card/card.component';
 })
 export class DashboardComponent implements OnInit {
   private _store = inject(Store);
+  private _cdr = inject(ChangeDetectorRef);
   products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
+
   newProductForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    price: new FormControl(0, [Validators.required, Validators.min(0)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    price: new FormControl(0, [Validators.required, Validators.min(1)]),
     type: new FormControl('accessory', Validators.required),
-    description: new FormControl(''),
-    image: new FormControl(''),
+    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    image: new FormControl('', [Validators.required]),
   });
 
   public ngOnInit(): void {
     this._store.dispatch(ProductsActions.loadProducts());
   }
 
-  addNewProduct() {
+  public onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.newProductForm.patchValue({ image: reader.result as string });
+        this._cdr.markForCheck();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  public addNewProduct(): void {
     if (this.newProductForm.valid) {
       const newProduct: Product = {
         id: Date.now().toString(),
@@ -49,5 +64,9 @@ export class DashboardComponent implements OnInit {
       this._store.dispatch(ProductsActions.addProduct({ product: newProduct }));
       this.newProductForm.reset({ type: 'accessory', price: 0 });
     }
+  }
+
+  get form() {
+    return this.newProductForm.controls;
   }
 }

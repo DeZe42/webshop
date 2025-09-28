@@ -1,47 +1,55 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { Router } from '@angular/router';
 import { CardComponent } from './card.component';
-import { Product } from '../../core/state/products/products.reducer';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { GtmService } from '../../core/services/gtm.service';
 import { CartActions } from '../../core/state/cart';
 import { ProductsActions } from '../../core/state/products';
-import { ComponentRef } from '@angular/core';
+import { Product } from '../../core/state/products/products.reducer';
+import { signal } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('CardComponent', () => {
-  let component: CardComponent;
-  let componentRef: ComponentRef<CardComponent>;
   let fixture: ComponentFixture<CardComponent>;
-  let store: MockStore;
+  let component: CardComponent;
+  let storeSpy: jasmine.SpyObj<Store>;
   let routerSpy: jasmine.SpyObj<Router>;
+  let gtmSpy: jasmine.SpyObj<GtmService>;
 
   const mockProduct: Product = {
     id: '1',
-    name: 'Laptop Test',
-    price: 1000,
+    name: 'Test Laptop',
+    price: 999,
     type: 'laptop',
     ramGb: 16,
-    cpu: 'i7',
-    os: 'Windows',
+    cpu: 'Intel i7',
+    os: 'Windows 11',
     screenInch: 15.6,
-    description: 'Test laptop',
-    image: 'test.jpg',
-    keywords: ['gaming', 'ultrabook'],
+    description: 'A powerful laptop',
+    image: 'image.jpg',
+    keywords: ['tech', 'laptop'],
   };
 
   beforeEach(async () => {
+    storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    gtmSpy = jasmine.createSpyObj('GtmService', ['pushEvent']);
 
     await TestBed.configureTestingModule({
       imports: [CardComponent],
-      providers: [provideMockStore(), { provide: Router, useValue: routerSpy }],
+      providers: [
+        { provide: Store, useValue: storeSpy },
+        { provide: Router, useValue: routerSpy },
+        { provide: GtmService, useValue: gtmSpy },
+      ],
     }).compileComponents();
 
-    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;
-    componentRef = fixture.componentRef;
-    componentRef.setInput('product', mockProduct);
-    componentRef.setInput('isDashboard', false);
+
+    (component as any).product = signal(mockProduct);
+    (component as any).isDashboard = signal(false);
+
     fixture.detectChanges();
   });
 
@@ -49,34 +57,86 @@ describe('CardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch addToCart action when addToCart is called', () => {
-    const dispatchSpy = spyOn(store, 'dispatch');
-
+  it('should dispatch addToCart and push GTM event', () => {
     component.addToCart(mockProduct);
 
-    expect(dispatchSpy).toHaveBeenCalledWith(
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(
       CartActions.addToCart({ item: { ...mockProduct, quantity: 1 } }),
     );
+
+    expect(gtmSpy.pushEvent).toHaveBeenCalledWith('add_to_cart', {
+      product_id: mockProduct.id,
+      name: mockProduct.name,
+      price: mockProduct.price,
+    });
   });
 
-  it('should navigate to product detail when goToDetail is called', () => {
+  it('should navigate to product detail', () => {
     component.goToDetail(mockProduct);
-
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/products', mockProduct.id]);
   });
 
-  it('should dispatch deleteProduct action when deleteProduct is called', () => {
-    const dispatchSpy = spyOn(store, 'dispatch');
-
+  it('should dispatch deleteProduct action', () => {
     component.deleteProduct(mockProduct.id);
-
-    expect(dispatchSpy).toHaveBeenCalledWith(ProductsActions.deleteProduct({ id: mockProduct.id }));
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(
+      ProductsActions.deleteProduct({ id: mockProduct.id }),
+    );
   });
 
-  it('should render product name, price, and description', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain(mockProduct.name);
-    expect(compiled.textContent).toContain(mockProduct.price.toString());
-    expect(compiled.textContent).toContain(mockProduct.description);
+  it('should render product info correctly', () => {
+    const el = fixture.nativeElement;
+
+    const name = el.querySelector('h3')?.textContent;
+    expect(name).toContain(mockProduct.name);
+
+    const price = el.querySelector('p')?.textContent;
+    expect(price).toContain(mockProduct.price.toString());
+
+    const img = el.querySelector('img') as HTMLImageElement;
+    expect(img.src).toContain(mockProduct.image);
+    expect(img.alt).toBe(mockProduct.name);
+  });
+
+  it('should display laptop-specific fields', () => {
+    const el = fixture.nativeElement;
+
+    expect(el.textContent).toContain(`RAM: ${mockProduct.ramGb} GB`);
+    expect(el.textContent).toContain(`CPU: ${mockProduct.cpu}`);
+    expect(el.textContent).toContain(`OS: ${mockProduct.os}`);
+    expect(el.textContent).toContain(`Screen: ${mockProduct.screenInch}"`);
+  });
+
+  it('should render dashboard buttons correctly', () => {
+    const el = fixture.nativeElement;
+    (component as any).isDashboard = signal(true);
+    fixture.detectChanges();
+
+    const deleteBtn = el.querySelector('button.bg-red-500');
+    expect(deleteBtn).toBeTruthy();
+
+    const addToCartBtn = el.querySelector('button.bg-white');
+    expect(addToCartBtn).toBeNull();
+  });
+
+  it('should render non-dashboard buttons correctly', () => {
+    (component as any).isDashboard = signal(false);
+    fixture.detectChanges();
+
+    const addToCartBtn = fixture.debugElement.query(By.css('button.bg-white'));
+    const detailBtn = fixture.debugElement.query(By.css('button.bg-yellow-100'));
+    expect(addToCartBtn).toBeTruthy();
+    expect(detailBtn).toBeTruthy();
+
+    const deleteBtn = fixture.debugElement.query(By.css('button.bg-red-500'));
+    expect(deleteBtn).toBeNull();
+  });
+
+  it('should call addToCart when button clicked', () => {
+    spyOn(component, 'addToCart');
+    fixture.detectChanges();
+
+    const btn = fixture.debugElement.query(By.css('button.bg-white'));
+    btn.triggerEventHandler('click', null);
+    expect(component.addToCart).toHaveBeenCalledWith(mockProduct);
   });
 });
