@@ -8,6 +8,7 @@ import {
   typeEventArgs,
 } from 'keycloak-angular';
 import { LOGIN_PATH } from '../../app.routes';
+import { environment } from '@environments/environment';
 
 export const authCanMatch = () => {
   const platformId = inject(PLATFORM_ID);
@@ -17,9 +18,20 @@ export const authCanMatch = () => {
     return true;
   }
 
-  const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL);
+  if (!environment.useKeycloak) {
+    router.navigate([LOGIN_PATH]);
+    return false;
+  }
+
+  const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL, { optional: true });
+  if (!keycloakSignal) {
+    router.navigate([LOGIN_PATH]);
+    return false;
+  }
+
   let authenticated = false;
   const event = keycloakSignal();
+
   if (event.type === KeycloakEventType.Ready) {
     authenticated = typeEventArgs<ReadyArgs>(event.args);
   }

@@ -8,6 +8,7 @@ import {
   typeEventArgs,
 } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -20,23 +21,29 @@ export class HeaderComponent {
   protected readonly CART_PATH = CART_PATH;
   protected readonly DASHBOARD_PATH = DASHBOARD_PATH;
   protected readonly LOGIN_PATH = LOGIN_PATH;
-  private keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL);
+  private keycloak = environment.useKeycloak ? inject(Keycloak, { optional: true }) : null;
+  private keycloakSignal = environment.useKeycloak
+    ? inject(KEYCLOAK_EVENT_SIGNAL, { optional: true })
+    : null;
   authenticated = signal(false);
-  private keycloak = inject(Keycloak);
 
   constructor() {
-    effect(() => {
-      const event = this.keycloakSignal();
-      if (event.type === KeycloakEventType.Ready) {
-        this.authenticated.set(typeEventArgs<ReadyArgs>(event.args));
-      }
-      if (event.type === KeycloakEventType.AuthLogout) {
-        this.authenticated.set(false);
-      }
-    });
+    if (environment.useKeycloak && this.keycloakSignal) {
+      effect(() => {
+        const event = this.keycloakSignal!();
+        if (event.type === KeycloakEventType.Ready) {
+          this.authenticated.set(typeEventArgs<ReadyArgs>(event.args));
+        }
+        if (event.type === KeycloakEventType.AuthLogout) {
+          this.authenticated.set(false);
+        }
+      });
+    }
   }
 
   public logout(): void {
-    this.keycloak.logout({ redirectUri: window.location.href });
+    if (this.keycloak) {
+      this.keycloak.logout({ redirectUri: window.location.href });
+    }
   }
 }
