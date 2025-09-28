@@ -1,11 +1,15 @@
 <div class="max-w-7xl mx-auto p-6">
-  <h2 class="text-3xl font-bold mb-6">Irányítópult</h2>
-  <div class="mb-8 bg-white p-6 rounded-xl shadow">
-    <h3 class="text-xl font-semibold mb-4">Új termék hozzáadása</h3>
+  <h2 class="text-3xl font-bold mb-6 text-gray-900">Irányítópult</h2>
+  <div class="mb-8 bg-gray-300 p-6 rounded-xl shadow">
+    <h3 class="text-xl font-semibold mb-4 text-gray-900">Új termék hozzáadása</h3>
     <form [formGroup]="newProductForm" (ngSubmit)="addNewProduct()" class="space-y-4">
-      <input formControlName="name" placeholder="Name" class="p-2 border rounded w-full" />
+      <input
+        formControlName="name"
+        placeholder="Name"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      />
       @if (form.name.touched && form.name.invalid) {
-        <div class="text-red-500 text-sm">
+        <div class="text-red-700 text-sm">
           @if (form.name.errors?.['required']) {
             <div>A név megadása kötelező.</div>
           }
@@ -14,14 +18,15 @@
           }
         </div>
       }
+
       <input
         formControlName="price"
         type="number"
         placeholder="Price"
-        class="p-2 border rounded w-full"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
       />
       @if (form.price.touched && form.price.invalid) {
-        <div class="text-red-500 text-sm">
+        <div class="text-red-700 text-sm">
           @if (form.price.errors?.['required']) {
             <div>Az ár megadása kötelező.</div>
           }
@@ -30,26 +35,33 @@
           }
         </div>
       }
-      <select formControlName="type" class="p-2 border rounded w-full">
+
+      <label for="typeSelect" class="sr-only">Termék típusa</label>
+      <select
+        id="typeSelect"
+        formControlName="type"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      >
         <option value="laptop">Laptop</option>
         <option value="phone">Phone</option>
         <option value="tablet">Tablet</option>
         <option value="accessory">Accessory</option>
       </select>
       @if (form.type.touched && form.type.invalid) {
-        <div class="text-red-500 text-sm">
+        <div class="text-red-700 text-sm">
           @if (form.type.errors?.['required']) {
             <div>A típus kiválasztása kötelező.</div>
           }
         </div>
       }
+
       <textarea
         formControlName="description"
         placeholder="Description"
-        class="p-2 border rounded w-full"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
       ></textarea>
       @if (form.description.touched && form.description.invalid) {
-        <div class="text-red-500 text-sm">
+        <div class="text-red-700 text-sm">
           @if (form.description.errors?.['required']) {
             <div>A leírás megadása kötelező.</div>
           }
@@ -58,19 +70,21 @@
           }
         </div>
       }
+
       <input
         type="file"
         accept="image/*"
         (change)="onFileSelected($event)"
-        class="p-2 border rounded w-full"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
       />
       @if (form.image.touched && form.image.invalid) {
-        <div class="text-red-500 text-sm">
+        <div class="text-red-700 text-sm">
           @if (form.image.errors?.['required']) {
             <div>A kép feltöltése kötelező.</div>
           }
         </div>
       }
+
       @if (form.image.value) {
         <div class="mt-4">
           <p class="text-sm text-gray-600 mb-2">Előnézet:</p>
@@ -81,9 +95,10 @@
           />
         </div>
       }
+
       <button
         type="submit"
-        class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition"
+        class="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 transition"
         [class.disabled]="newProductForm.invalid"
         [disabled]="newProductForm.invalid"
       >
@@ -91,6 +106,7 @@
       </button>
     </form>
   </div>
+
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     @for (product of products(); track product) {
       <app-card [product]="product" [isDashboard]="true"></app-card>

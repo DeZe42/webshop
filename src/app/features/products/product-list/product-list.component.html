@@ -1,13 +1,16 @@
 <div class="mb-6 flex flex-col sm:flex-row gap-4 items-center">
+  <label for="search" class="sr-only">Keresés termékek között</label>
   <input
+    id="search"
     type="text"
-    placeholder="Search products..."
+    placeholder="Airpods"
     (input)="updateSearch($any($event.target).value)"
-    class="p-2 border rounded-lg flex-1"
+    class="p-2 border border-gray-700 rounded-lg flex-1 text-gray-900 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800"
   />
   <select
+    id="category"
     (change)="updateCategory($any($event.target).value || null)"
-    class="p-2 border rounded-lg"
+    class="p-2 border border-gray-700 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-gray-800"
   >
     <option value="all">Összes kategória</option>
     <option value="laptop">Laptop</option>
