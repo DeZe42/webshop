@@ -7,9 +7,10 @@ import {
   UserActivityService,
   withAutoRefreshToken,
 } from 'keycloak-angular';
+import { environment } from '@environments/environment';
 
 export function provideKeycloakAngular() {
-  if (typeof window === 'undefined') {
+  if (!environment.useKeycloak || typeof window === 'undefined') {
     return [];
   }
 
@@ -20,9 +21,9 @@ export function provideKeycloakAngular() {
   return [
     provideKeycloak({
       config: {
-        realm: 'myRealm',
-        url: 'http://localhost:8080',
-        clientId: 'angular-app',
+        realm: environment.keycloak.realm!,
+        url: environment.keycloak.url!,
+        clientId: environment.keycloak.clientId!,
       },
       initOptions: {
         onLoad: 'check-sso',
