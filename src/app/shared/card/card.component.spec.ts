@@ -111,7 +111,7 @@ describe('CardComponent', () => {
     (component as any).isDashboard = signal(true);
     fixture.detectChanges();
 
-    const deleteBtn = el.querySelector('button.bg-red-500');
+    const deleteBtn = el.querySelector('button.bg-red-700');
     expect(deleteBtn).toBeTruthy();
 
     const addToCartBtn = el.querySelector('button.bg-white');
@@ -123,7 +123,7 @@ describe('CardComponent', () => {
     fixture.detectChanges();
 
     const addToCartBtn = fixture.debugElement.query(By.css('button.bg-white'));
-    const detailBtn = fixture.debugElement.query(By.css('button.bg-yellow-100'));
+    const detailBtn = fixture.debugElement.query(By.css('button.bg-gray-200'));
     expect(addToCartBtn).toBeTruthy();
     expect(detailBtn).toBeTruthy();
 

@@ -32,7 +32,7 @@ describe('HomeComponent', () => {
   });
 
   it('should render 3 feature cards', () => {
-    const cards = element.querySelectorAll('.bg-orange-500');
+    const cards = element.querySelectorAll('.bg-gray-900');
     expect(cards.length).toBe(3);
 
     expect(cards[0].textContent).toContain('Gyors vásárlás');
