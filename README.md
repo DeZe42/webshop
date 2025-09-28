@@ -16,8 +16,6 @@
 
 ## Telepítés
 
-git clone <repository-url>
-cd webshop
 npm install
 
 ## Tesztelés
