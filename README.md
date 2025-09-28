@@ -4,19 +4,11 @@
 
 0.0.0
 
----
-
-## Követelmények
-
-- Node.js (ajánlott legfrissebb LTS)
-- npm vagy yarn
-- Angular CLI 20.x
-
----
-
 ## Telepítés
 
 npm install
+
+---
 
 ## Tesztelés
 
