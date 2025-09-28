@@ -1,22 +1,35 @@
 <header>
-  <nav class="bg-orange-500 text-white p-4 shadow-md">
+  <nav class="bg-gray-900 text-white p-4 shadow-md">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <div class="text-2xl font-bold">Webshop</div>
+      <div class="text-2xl font-bold text-white">Webshop</div>
       <div class="space-x-4">
-        <a routerLink="/" class="hover:text-yellow-200 transition font-semibold">Főoldal</a>
-        <a [routerLink]="PRODUCTS_PATH" class="hover:text-yellow-200 transition font-semibold"
+        <a routerLink="/" class="text-white hover:text-gray-300 transition font-semibold"
+          >Főoldal</a
+        >
+        <a
+          [routerLink]="PRODUCTS_PATH"
+          class="text-white hover:text-gray-300 transition font-semibold"
           >Termékek</a
         >
-        <a [routerLink]="CART_PATH" class="hover:text-yellow-200 transition font-semibold">Kosár</a>
+        <a [routerLink]="CART_PATH" class="text-white hover:text-gray-300 transition font-semibold"
+          >Kosár</a
+        >
         @if (authenticated()) {
-          <a [routerLink]="DASHBOARD_PATH" class="hover:text-yellow-200 transition font-semibold"
+          <a
+            [routerLink]="DASHBOARD_PATH"
+            class="text-white hover:text-gray-300 transition font-semibold"
             >Irányítópult</a
           >
-          <button (click)="logout()" class="hover:text-yellow-200 transition font-semibold">
+          <button
+            (click)="logout()"
+            class="text-white hover:text-gray-300 transition font-semibold"
+          >
             Kijelentkezés
           </button>
         } @else {
-          <a [routerLink]="LOGIN_PATH" class="hover:text-yellow-200 transition font-semibold"
+          <a
+            [routerLink]="LOGIN_PATH"
+            class="text-white hover:text-gray-300 transition font-semibold"
             >Bejelentkezés</a
           >
         }

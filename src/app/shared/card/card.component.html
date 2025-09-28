@@ -1,6 +1,6 @@
 @if (product(); as product) {
   <div
-    class="bg-orange-500 text-white rounded-xl shadow-lg hover:shadow-xl transition p-6 flex flex-col justify-between transform hover:scale-105"
+    class="bg-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl transition p-6 flex flex-col justify-between transform hover:scale-105"
   >
     <img
       [src]="product.image"
@@ -8,26 +8,26 @@
       class="w-full h-48 object-cover rounded-lg mb-4"
     />
     <div>
-      <h3 class="text-xl font-semibold mb-2">{{ product.name }}</h3>
-      <p class="text-yellow-100 mb-2">$ {{ product.price }}</p>
-      <p class="text-yellow-100 mb-2 text-sm">{{ product.description }}</p>
+      <h3 class="text-xl font-semibold mb-2 text-white">{{ product.name }}</h3>
+      <p class="text-gray-300 mb-2">$ {{ product.price }}</p>
+      <p class="text-gray-300 mb-2 text-sm">{{ product.description }}</p>
       @switch (product.type) {
         @case ('laptop') {
-          <p class="text-yellow-100 text-sm">RAM: {{ product.ramGb }} GB</p>
-          <p class="text-yellow-100 text-sm">CPU: {{ product.cpu }}</p>
-          <p class="text-yellow-100 text-sm">OS: {{ product.os }}</p>
-          <p class="text-yellow-100 text-sm">Screen: {{ product.screenInch }}"</p>
+          <p class="text-gray-300 text-sm">RAM: {{ product.ramGb }} GB</p>
+          <p class="text-gray-300 text-sm">CPU: {{ product.cpu }}</p>
+          <p class="text-gray-300 text-sm">OS: {{ product.os }}</p>
+          <p class="text-gray-300 text-sm">Screen: {{ product.screenInch }}"</p>
         }
         @case ('phone') {
-          <p class="text-yellow-100 text-sm">OS: {{ product.os }}</p>
-          <p class="text-yellow-100 text-sm">Screen: {{ product.screenInch }}"</p>
+          <p class="text-gray-300 text-sm">OS: {{ product.os }}</p>
+          <p class="text-gray-300 text-sm">Screen: {{ product.screenInch }}"</p>
         }
         @case ('tablet') {
-          <p class="text-yellow-100 text-sm">OS: {{ product.os }}</p>
-          <p class="text-yellow-100 text-sm">Screen: {{ product.screenInch }}"</p>
+          <p class="text-gray-300 text-sm">OS: {{ product.os }}</p>
+          <p class="text-gray-300 text-sm">Screen: {{ product.screenInch }}"</p>
         }
         @case ('accessory') {
-          <p class="text-yellow-100 text-sm">{{ product.keywords.join(', ') }}</p>
+          <p class="text-gray-300 text-sm">{{ product.keywords.join(', ') }}</p>
         }
       }
     </div>
@@ -35,20 +35,20 @@
       @if (isDashboard()) {
         <button
           (click)="deleteProduct(product.id)"
-          class="flex-1 bg-red-500 py-2 rounded-lg font-semibold"
+          class="flex-1 bg-red-700 text-white py-2 rounded-lg font-semibold hover:bg-red-800 transition"
         >
           Törlés
         </button>
       } @else {
         <button
           (click)="addToCart(product)"
-          class="flex-1 bg-white text-orange-500 py-2 rounded-lg font-semibold hover:bg-yellow-100 transition"
+          class="flex-1 bg-white text-gray-800 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
         >
           Kosárba tesz
         </button>
         <button
           (click)="goToDetail(product)"
-          class="flex-1 bg-yellow-100 text-orange-500 py-2 rounded-lg font-semibold hover:bg-white transition"
+          class="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg font-semibold hover:bg-white transition"
         >
           Részletek
         </button>
