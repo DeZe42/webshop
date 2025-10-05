@@ -47,6 +47,7 @@ describe('Card', () => {
     fixture = TestBed.createComponent(Card);
     component = fixture.componentInstance;
 
+    // Jelezzük a componentnek a signals-t
     (component as any).product = signal(mockProduct);
     (component as any).isDashboard = signal(false);
 
@@ -107,10 +108,11 @@ describe('Card', () => {
   });
 
   it('should render dashboard buttons correctly', () => {
-    const el = fixture.nativeElement;
-    (component as any).isDashboard = signal(true);
+    // A meglévő signal értékét állítjuk, nem cseréljük le
+    (component.isDashboard as any).set(true);
     fixture.detectChanges();
 
+    const el = fixture.nativeElement;
     const deleteBtn = el.querySelector('button.bg-red-700');
     expect(deleteBtn).toBeTruthy();
 
@@ -119,7 +121,7 @@ describe('Card', () => {
   });
 
   it('should render non-dashboard buttons correctly', () => {
-    (component as any).isDashboard = signal(false);
+    (component.isDashboard as any).set(false);
     fixture.detectChanges();
 
     const addToCartBtn = fixture.debugElement.query(By.css('button.bg-white'));
@@ -127,7 +129,7 @@ describe('Card', () => {
     expect(addToCartBtn).toBeTruthy();
     expect(detailBtn).toBeTruthy();
 
-    const deleteBtn = fixture.debugElement.query(By.css('button.bg-red-500'));
+    const deleteBtn = fixture.debugElement.query(By.css('button.bg-red-700'));
     expect(deleteBtn).toBeNull();
   });
 
