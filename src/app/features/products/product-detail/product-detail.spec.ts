@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductDetailComponent } from './product-detail.component';
+import { ProductDetail } from './product-detail';
 import { Store } from '@ngrx/store';
 import { SeoService } from '../../../core/services/seo.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,9 +7,9 @@ import { CartActions } from '../../../core/state/cart';
 import { Product } from '../../../core/state/products/products.reducer';
 import { signal } from '@angular/core';
 
-describe('ProductDetailComponent', () => {
-  let fixture: ComponentFixture<ProductDetailComponent>;
-  let component: ProductDetailComponent;
+describe('ProductDetail', () => {
+  let fixture: ComponentFixture<ProductDetail>;
+  let component: ProductDetail;
   let storeSpy: jasmine.SpyObj<Store>;
   let seoSpy: jasmine.SpyObj<SeoService>;
 
@@ -32,7 +32,7 @@ describe('ProductDetailComponent', () => {
     seoSpy = jasmine.createSpyObj('SeoService', ['setMeta']);
 
     await TestBed.configureTestingModule({
-      imports: [ProductDetailComponent],
+      imports: [ProductDetail],
       providers: [
         { provide: Store, useValue: storeSpy },
         { provide: SeoService, useValue: seoSpy },
@@ -45,7 +45,7 @@ describe('ProductDetailComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductDetailComponent);
+    fixture = TestBed.createComponent(ProductDetail);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CardComponent } from './card.component';
+import { Card } from './card';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { GtmService } from '../../core/services/gtm.service';
@@ -9,9 +9,9 @@ import { Product } from '../../core/state/products/products.reducer';
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-describe('CardComponent', () => {
-  let fixture: ComponentFixture<CardComponent>;
-  let component: CardComponent;
+describe('Card', () => {
+  let fixture: ComponentFixture<Card>;
+  let component: Card;
   let storeSpy: jasmine.SpyObj<Store>;
   let routerSpy: jasmine.SpyObj<Router>;
   let gtmSpy: jasmine.SpyObj<GtmService>;
@@ -36,7 +36,7 @@ describe('CardComponent', () => {
     gtmSpy = jasmine.createSpyObj('GtmService', ['pushEvent']);
 
     await TestBed.configureTestingModule({
-      imports: [CardComponent],
+      imports: [Card],
       providers: [
         { provide: Store, useValue: storeSpy },
         { provide: Router, useValue: routerSpy },
@@ -44,7 +44,7 @@ describe('CardComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CardComponent);
+    fixture = TestBed.createComponent(Card);
     component = fixture.componentInstance;
 
     (component as any).product = signal(mockProduct);

@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import {
   KEYCLOAK_EVENT_SIGNAL,
   KeycloakEventType,
@@ -10,9 +10,12 @@ import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
+  standalone: true,
+  imports: [],
+  templateUrl: './login.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class Login {
   authenticated = false;
 
   private readonly keycloak = environment.useKeycloak ? inject(Keycloak, { optional: true }) : null;

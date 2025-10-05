@@ -1,13 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CartActions, CartSelectors } from '../../../core/state/cart';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  templateUrl: './cart.component.html',
+  templateUrl: './cart.html',
+  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartComponent {
+export class Cart {
   private _store = inject(Store);
 
   items = this._store.selectSignal(CartSelectors.selectCartItems);

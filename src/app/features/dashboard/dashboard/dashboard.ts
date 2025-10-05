@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { Store } from '@ngrx/store';
 import { Product } from '../../../core/state/products/products.reducer';
@@ -9,14 +15,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CardComponent } from '../../../shared/card/card.component';
+import { Card } from '../../../shared/card/card';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  imports: [FormsModule, ReactiveFormsModule, CardComponent],
+  standalone: true,
+  templateUrl: './dashboard.html',
+  imports: [FormsModule, ReactiveFormsModule, Card],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class Dashboard implements OnInit {
   private _store = inject(Store);
   private _cdr = inject(ChangeDetectorRef);
   products = this._store.selectSignal(ProductsSelectors.selectAllProducts);

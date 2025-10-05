@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CartComponent } from './cart.component';
+import { Cart } from './cart';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { CartSelectors, CartActions } from '../../../core/state/cart';
 import { CartState } from '../../../core/state/cart/cart.reducer';
 
-describe('CartComponent', () => {
-  let component: CartComponent;
-  let fixture: ComponentFixture<CartComponent>;
+describe('Cart', () => {
+  let component: Cart;
+  let fixture: ComponentFixture<Cart>;
   let store: MockStore;
 
   const initialState: CartState = {
@@ -44,7 +44,7 @@ describe('CartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CartComponent],
+      imports: [Cart],
       providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
@@ -52,7 +52,7 @@ describe('CartComponent', () => {
     store.overrideSelector(CartSelectors.selectCartItems, initialState.items);
     store.overrideSelector(CartSelectors.selectCartTotal, 2500);
 
-    fixture = TestBed.createComponent(CartComponent);
+    fixture = TestBed.createComponent(Cart);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Product } from '../../core/state/products/products.reducer';
 import { CartItem } from '../../core/state/cart/cart.reducer';
 import { CartActions } from '../../core/state/cart';
@@ -17,9 +17,10 @@ import { GtmService } from '../../core/services/gtm.service';
       }
     `,
   ],
-  templateUrl: './card.component.html',
+  templateUrl: './card.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardComponent {
+export class Card {
   private _store = inject(Store);
   private _router = inject(Router);
   private _gtmService = inject(GtmService);

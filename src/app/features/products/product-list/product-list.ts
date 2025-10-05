@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ProductsSelectors } from '../../../core/state/products';
@@ -6,15 +13,16 @@ import { CartActions } from '../../../core/state/cart';
 import { Product } from '../../../core/state/products/products.reducer';
 import { CartItem } from '../../../core/state/cart/cart.reducer';
 import { SeoService } from '../../../core/services/seo.service';
-import { CardComponent } from '../../../shared/card/card.component';
+import { Card } from '../../../shared/card/card';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  templateUrl: './product-list.component.html',
-  imports: [CardComponent],
+  templateUrl: './product-list.html',
+  imports: [Card],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent implements OnInit {
+export class ProductList implements OnInit {
   private _store = inject(Store);
   private _router = inject(Router);
   private _seoService = inject(SeoService);
