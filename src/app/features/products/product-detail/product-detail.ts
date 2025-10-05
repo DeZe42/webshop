@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CartActions } from '../../../core/state/cart';
@@ -9,9 +9,11 @@ import { SeoService } from '../../../core/services/seo.service';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  templateUrl: './product-detail.component.html',
+  imports: [],
+  templateUrl: './product-detail.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetail implements OnInit {
   private _store = inject(Store);
   private _seoService = inject(SeoService);
   private _route = inject(ActivatedRoute);

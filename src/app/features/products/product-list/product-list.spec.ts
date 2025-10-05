@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductListComponent } from './product-list.component';
+import { ProductList } from './product-list';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { SeoService } from '../../../core/services/seo.service';
 import { signal } from '@angular/core';
 import { Product } from '../../../core/state/products/products.reducer';
-import { CardComponent } from '../../../shared/card/card.component';
+import { Card } from '../../../shared/card/card';
 import { CartActions } from '../../../core/state/cart';
 import { By } from '@angular/platform-browser';
 
-describe('ProductListComponent', () => {
-  let fixture: ComponentFixture<ProductListComponent>;
-  let component: ProductListComponent;
+describe('ProductList', () => {
+  let fixture: ComponentFixture<ProductList>;
+  let component: ProductList;
   let storeSpy: jasmine.SpyObj<Store>;
   let routerSpy: jasmine.SpyObj<Router>;
   let seoSpy: jasmine.SpyObj<SeoService>;
@@ -53,7 +53,7 @@ describe('ProductListComponent', () => {
     storeSpy.selectSignal.and.returnValue(signal(mockProducts));
 
     await TestBed.configureTestingModule({
-      imports: [ProductListComponent, CardComponent],
+      imports: [ProductList, Card],
       providers: [
         { provide: Store, useValue: storeSpy },
         { provide: Router, useValue: routerSpy },
@@ -61,7 +61,7 @@ describe('ProductListComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductListComponent);
+    fixture = TestBed.createComponent(ProductList);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -79,9 +79,9 @@ describe('ProductListComponent', () => {
     component.updateSearch('Laptop');
     fixture.detectChanges();
 
-    const cards = fixture.debugElement.queryAll(By.directive(CardComponent));
+    const cards = fixture.debugElement.queryAll(By.directive(Card));
     expect(cards.length).toBe(1);
-    const cardComponentInstance = cards[0].componentInstance as CardComponent;
+    const cardComponentInstance = cards[0].componentInstance as Card;
     expect(cardComponentInstance.product()).toEqual(mockProducts[0]);
   });
 
@@ -89,9 +89,9 @@ describe('ProductListComponent', () => {
     component.updateCategory('phone');
     fixture.detectChanges();
 
-    const cards = fixture.debugElement.queryAll(By.directive(CardComponent));
+    const cards = fixture.debugElement.queryAll(By.directive(Card));
     expect(cards.length).toBe(1);
-    const cardComponentInstance = cards[0].componentInstance as CardComponent;
+    const cardComponentInstance = cards[0].componentInstance as Card;
     expect(cardComponentInstance.product()).toEqual(mockProducts[1]);
   });
 

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CardComponent } from './card.component';
+import { Card } from './card';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { GtmService } from '../../core/services/gtm.service';
@@ -9,9 +9,9 @@ import { Product } from '../../core/state/products/products.reducer';
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-describe('CardComponent', () => {
-  let fixture: ComponentFixture<CardComponent>;
-  let component: CardComponent;
+describe('Card', () => {
+  let fixture: ComponentFixture<Card>;
+  let component: Card;
   let storeSpy: jasmine.SpyObj<Store>;
   let routerSpy: jasmine.SpyObj<Router>;
   let gtmSpy: jasmine.SpyObj<GtmService>;
@@ -36,7 +36,7 @@ describe('CardComponent', () => {
     gtmSpy = jasmine.createSpyObj('GtmService', ['pushEvent']);
 
     await TestBed.configureTestingModule({
-      imports: [CardComponent],
+      imports: [Card],
       providers: [
         { provide: Store, useValue: storeSpy },
         { provide: Router, useValue: routerSpy },
@@ -44,9 +44,10 @@ describe('CardComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CardComponent);
+    fixture = TestBed.createComponent(Card);
     component = fixture.componentInstance;
 
+    // Jelezzük a componentnek a signals-t
     (component as any).product = signal(mockProduct);
     (component as any).isDashboard = signal(false);
 
@@ -107,10 +108,11 @@ describe('CardComponent', () => {
   });
 
   it('should render dashboard buttons correctly', () => {
-    const el = fixture.nativeElement;
-    (component as any).isDashboard = signal(true);
+    // A meglévő signal értékét állítjuk, nem cseréljük le
+    (component.isDashboard as any).set(true);
     fixture.detectChanges();
 
+    const el = fixture.nativeElement;
     const deleteBtn = el.querySelector('button.bg-red-700');
     expect(deleteBtn).toBeTruthy();
 
@@ -119,7 +121,7 @@ describe('CardComponent', () => {
   });
 
   it('should render non-dashboard buttons correctly', () => {
-    (component as any).isDashboard = signal(false);
+    (component.isDashboard as any).set(false);
     fixture.detectChanges();
 
     const addToCartBtn = fixture.debugElement.query(By.css('button.bg-white'));
@@ -127,7 +129,7 @@ describe('CardComponent', () => {
     expect(addToCartBtn).toBeTruthy();
     expect(detailBtn).toBeTruthy();
 
-    const deleteBtn = fixture.debugElement.query(By.css('button.bg-red-500'));
+    const deleteBtn = fixture.debugElement.query(By.css('button.bg-red-700'));
     expect(deleteBtn).toBeNull();
   });
 

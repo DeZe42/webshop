@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SeoService } from './core/services/seo.service';
 import { CartSyncService } from './core/services/cart-sync.service';
 import { PLATFORM_ID } from '@angular/core';
-import { HeaderComponent } from './shared/header/header.component';
+import { Header } from './shared/header/header';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { App } from './app';
 
@@ -15,7 +15,7 @@ describe('App Component', () => {
     const spy = jasmine.createSpyObj('SeoService', ['init', 'destroy']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterOutlet, HeaderComponent, RouterModule.forRoot([])],
+      imports: [RouterOutlet, Header, RouterModule.forRoot([])],
       providers: [
         { provide: CartSyncService, useValue: {} },
         { provide: SeoService, useValue: spy },

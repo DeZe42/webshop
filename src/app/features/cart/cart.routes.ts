@@ -1,4 +1,4 @@
 import { Routes } from '@angular/router';
-import { CartComponent } from './cart/cart.component';
+import { Cart } from './cart/cart';
 
-export const CART_ROUTES: Routes = [{ path: '', component: CartComponent }];
+export const CART_ROUTES: Routes = [{ path: '', component: Cart }];

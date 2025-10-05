@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoginComponent } from './login.component';
+import { Login } from './login';
 import Keycloak from 'keycloak-js';
 import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
 import { environment } from '@environments/environment';
 import { signal } from '@angular/core';
 
-describe('LoginComponent', () => {
-  let fixture: ComponentFixture<LoginComponent>;
-  let component: LoginComponent;
+describe('Login', () => {
+  let fixture: ComponentFixture<Login>;
+  let component: Login;
   let keycloakMock: any;
   let keycloakEventSignal: ReturnType<typeof signal>;
   let keycloakSignalMock: jasmine.Spy;
@@ -23,14 +23,14 @@ describe('LoginComponent', () => {
       .and.callFake(() => keycloakEventSignal());
 
     await TestBed.configureTestingModule({
-      imports: [LoginComponent],
+      imports: [Login],
       providers: [
         { provide: Keycloak, useValue: keycloakMock },
         { provide: KEYCLOAK_EVENT_SIGNAL, useValue: keycloakSignalMock },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -64,7 +64,7 @@ describe('LoginComponent', () => {
   it('should warn if Keycloak is not enabled', () => {
     (environment as any).useKeycloak = false;
     spyOn(console, 'warn');
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
 
     component.login();

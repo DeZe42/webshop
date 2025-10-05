@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { CART_PATH, DASHBOARD_PATH, LOGIN_PATH, PRODUCTS_PATH } from '../../app.routes';
 import { RouterLink } from '@angular/router';
 import {
@@ -13,10 +13,11 @@ import { environment } from '@environments/environment';
 @Component({
   selector: 'app-header',
   standalone: true,
-  templateUrl: './header.component.html',
+  templateUrl: './header.html',
   imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class Header {
   protected readonly PRODUCTS_PATH = PRODUCTS_PATH;
   protected readonly CART_PATH = CART_PATH;
   protected readonly DASHBOARD_PATH = DASHBOARD_PATH;

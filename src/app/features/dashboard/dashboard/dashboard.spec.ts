@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardComponent } from './dashboard.component';
+import { Dashboard } from './dashboard';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('Dashboard', () => {
+  let component: Dashboard;
+  let fixture: ComponentFixture<Dashboard>;
   let store: MockStore;
   let dispatchSpy: jasmine.Spy;
 
@@ -18,7 +18,7 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule, DashboardComponent],
+      imports: [ReactiveFormsModule, FormsModule, Dashboard],
       providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
@@ -27,7 +27,7 @@ describe('DashboardComponent', () => {
 
     dispatchSpy = spyOn(store, 'dispatch');
 
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(Dashboard);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

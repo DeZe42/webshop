@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HeaderComponent } from './header.component';
+import { Header } from './header';
 import { RouterModule } from '@angular/router';
 import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
 import { environment } from '@environments/environment';
 
-describe('HeaderComponent', () => {
-  let fixture: ComponentFixture<HeaderComponent>;
-  let component: HeaderComponent;
+describe('Header', () => {
+  let fixture: ComponentFixture<Header>;
+  let component: Header;
   let keycloakMock: any;
   let keycloakSignalMock: jasmine.Spy;
 
@@ -18,14 +18,14 @@ describe('HeaderComponent', () => {
     (environment as any).useKeycloak = true;
 
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent, RouterModule.forRoot([])],
+      imports: [Header, RouterModule.forRoot([])],
       providers: [
         { provide: Keycloak, useValue: keycloakMock },
         { provide: KEYCLOAK_EVENT_SIGNAL, useValue: keycloakSignalMock },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
   });
 
@@ -39,7 +39,7 @@ describe('HeaderComponent', () => {
 
   it('should set authenticated signal to false on Keycloak AuthLogout event', () => {
     keycloakSignalMock.and.returnValue({ type: KeycloakEventType.AuthLogout, args: null });
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
     expect(component.authenticated()).toBeFalse();
   });
