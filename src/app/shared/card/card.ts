@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { Product } from '../../core/state/products/products.reducer';
 import { CartItem } from '../../core/state/cart/cart.reducer';
 import { CartActions } from '../../core/state/cart';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { ProductsActions } from '../../core/state/products';
 import { GtmService } from '../../core/services/gtm.service';
+import { Product } from '../../core/models/product.model';
 
 @Component({
   selector: 'app-card',

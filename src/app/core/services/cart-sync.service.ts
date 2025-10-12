@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { effect } from '@angular/core';
 import { CartActions, CartSelectors } from '../state/cart';
 import { CartItem } from '../state/cart/cart.reducer';
+import { isProduct } from '../utils/type-guards';
+import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class CartSyncService implements OnDestroy {
@@ -30,14 +32,23 @@ export class CartSyncService implements OnDestroy {
 
     // --- BroadcastChannel: listen to other tabs ---
     this.channel.onmessage = (event) => {
-      const incoming: CartItem[] = event.data;
+      const incoming = event.data;
+
+      // Defensive check: ensure it's an array of Products
+      if (!Array.isArray(incoming) || !incoming.every(isProduct)) {
+        console.warn('Invalid broadcast message received', incoming);
+        return;
+      }
+
+      const typedItems: CartItem[] = incoming.map((p: Product) => ({ ...p, quantity: 1 }));
+
       const current = this.store.selectSignal(CartSelectors.selectCartItems)();
       const currentIds = current.map((i) => i.id + i.quantity).join(',');
-      const incomingIds = incoming.map((i) => i.id + i.quantity).join(',');
+      const incomingIds = typedItems.map((i) => i.id + i.quantity).join(',');
 
       if (currentIds !== incomingIds) {
         this.store.dispatch(CartActions.clearCart());
-        incoming.forEach((item) => this.store.dispatch(CartActions.addToCart({ item })));
+        typedItems.forEach((item) => this.store.dispatch(CartActions.addToCart({ item })));
       }
     };
 

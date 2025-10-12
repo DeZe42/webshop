@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ProductsSelectors } from '../../../core/state/products';
 import { CartActions } from '../../../core/state/cart';
-import { Product } from '../../../core/state/products/products.reducer';
 import { CartItem } from '../../../core/state/cart/cart.reducer';
 import { SeoService } from '../../../core/services/seo.service';
 import { Card } from '../../../shared/card/card';
+import { Product } from '../../../core/models/product.model';
 
 @Component({
   selector: 'app-product-list',

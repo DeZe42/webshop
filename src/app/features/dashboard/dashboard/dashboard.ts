@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { Store } from '@ngrx/store';
-import { Product } from '../../../core/state/products/products.reducer';
 import {
   FormControl,
   FormGroup,
@@ -16,6 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Card } from '../../../shared/card/card';
+import { Product } from '../../../core/models/product.model';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Product } from './products.reducer';
+import { Product } from '../../models/product.model';
 
 export interface ProductError {
   message: string;

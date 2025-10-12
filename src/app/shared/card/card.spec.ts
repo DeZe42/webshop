@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { GtmService } from '../../core/services/gtm.service';
 import { CartActions } from '../../core/state/cart';
 import { ProductsActions } from '../../core/state/products';
-import { Product } from '../../core/state/products/products.reducer';
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Product } from '../../core/models/product.model';
 
 describe('Card', () => {
   let fixture: ComponentFixture<Card>;
