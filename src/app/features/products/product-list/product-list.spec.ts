@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { SeoService } from '../../../core/services/seo.service';
 import { signal } from '@angular/core';
-import { Product } from '../../../core/state/products/products.reducer';
 import { Card } from '../../../shared/card/card';
 import { CartActions } from '../../../core/state/cart';
 import { By } from '@angular/platform-browser';
+import { Product } from '../../../core/models/product.model';
 
 describe('ProductList', () => {
   let fixture: ComponentFixture<ProductList>;

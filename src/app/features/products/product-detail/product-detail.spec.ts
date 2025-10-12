@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { SeoService } from '../../../core/services/seo.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartActions } from '../../../core/state/cart';
-import { Product } from '../../../core/state/products/products.reducer';
 import { signal } from '@angular/core';
+import { Product } from '../../../core/models/product.model';
 
 describe('ProductDetail', () => {
   let fixture: ComponentFixture<ProductDetail>;
