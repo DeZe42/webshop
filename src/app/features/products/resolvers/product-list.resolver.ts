@@ -3,9 +3,9 @@ import { Resolve } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Product } from '../../../core/state/products/products.reducer';
 import { loadProductsSuccess } from '../../../core/state/products/products.actions';
 import { ProductsService } from '../../../core/services/products.service';
+import { Product } from '../../../core/models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductListResolver implements Resolve<Product[] | null> {

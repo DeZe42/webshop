@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CartActions } from '../../../core/state/cart';
-import { Product } from '../../../core/state/products/products.reducer';
 import { CartItem } from '../../../core/state/cart/cart.reducer';
 import { SeoService } from '../../../core/services/seo.service';
+import { Product } from '../../../core/models/product.model';
 
 @Component({
   selector: 'app-product-detail',

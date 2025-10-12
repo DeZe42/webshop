@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import * as CartActions from './cart.actions';
-import { Product } from '../products/products.reducer';
+import { Product } from '../../models/product.model';
 
-export interface CartItem extends Product {
+export type CartItem = Product & {
   quantity: number;
-}
+};
 
 export interface CartState {
   items: CartItem[];
