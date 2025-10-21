@@ -14,12 +14,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
     return next.handle(req).pipe(
       catchError((err: unknown) => {
+        //deffensive
         if (err instanceof HttpErrorResponse) {
           console.error('HTTP Error', { url: req.url, status: err.status, message: err.message });
         } else {
           console.error('Unknown HTTP error', err);
         }
-        // defensive: adjon vissza kontrollált hibát a komponenseknek
+        //offensive
         return throwError(() => ({ message: 'Hálózati hiba történt', original: err }));
       }),
     );
