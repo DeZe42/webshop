@@ -26,6 +26,13 @@ export class App implements OnInit, OnDestroy {
   isBrowser = isPlatformBrowser(this.platformId);
 
   public ngOnInit(): void {
+    if (this.isBrowser) {
+      window.addEventListener('message', (event) => {
+        if (event.data?.type === 'CART_UPDATED') {
+          console.log('Kosár frissült', event.data.data);
+        }
+      });
+    }
     this._seoService.init();
   }
 
