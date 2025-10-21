@@ -21,6 +21,24 @@ export class ProductDetail implements OnInit {
 
   public ngOnInit(): void {
     this.product.set(this._route.snapshot.data['product']);
+    const product = this.product();
+    // type narrowing
+    if (!product) return;
+
+    switch (product.type) {
+      case 'laptop':
+        console.log(product.ramGb);
+        break;
+
+      case 'phone':
+        console.log(product.os);
+        break;
+
+      case 'accessory':
+        console.log(product.compatibleWith);
+        break;
+    }
+
     if (this.product()) {
       this._seoService.setMeta({
         title: this.product()?.name,
