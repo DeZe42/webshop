@@ -35,6 +35,7 @@ export class Card {
       name: product.name,
       price: product.price,
     });
+    window.postMessage({ type: 'CART_UPDATED', data: product }, '*');
   }
 
   goToDetail(product: Product): void {

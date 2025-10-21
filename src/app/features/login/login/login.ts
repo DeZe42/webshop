@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit } from '@angular/core';
 import {
   KEYCLOAK_EVENT_SIGNAL,
   KeycloakEventType,
@@ -7,6 +7,7 @@ import {
 } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
 import { environment } from '@environments/environment';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ import { environment } from '@environments/environment';
   templateUrl: './login.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Login {
+export class Login implements OnInit {
+  private _seoService = inject(SeoService);
   authenticated = false;
 
   private readonly keycloak = environment.useKeycloak ? inject(Keycloak, { optional: true }) : null;
@@ -37,6 +39,18 @@ export class Login {
         }
       });
     }
+  }
+
+  public ngOnInit(): void {
+    this._seoService.setMeta({
+      title: 'Webshop – Bejelentkezés',
+      description:
+        'Ezen az oldalon bejelentkezhetsz a Webshop fiókodba, hogy hozzáférj az admin felülethez.',
+      keywords: 'bejelentkezés, irányítópúlt, termékek',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
   }
 
   login() {
