@@ -12,7 +12,7 @@ export class CartSyncService implements OnDestroy {
   private store = inject(Store);
   private platformId = inject(PLATFORM_ID);
   private channel?: BroadcastChannel;
-  private lastSent = '';
+  private lastSent = ''; //test
 
   constructor() {
     if (!isPlatformBrowser(this.platformId)) return; // SSR-safe
