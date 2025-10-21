@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface GtmEvent {
   event: string;
-  [key: string]: string | number | boolean | undefined | object; // opcionális extra paraméterek
+  [key: string]: string | number | boolean | undefined | object;
 }
 
 declare global {
@@ -13,8 +14,12 @@ declare global {
 
 @Injectable({ providedIn: 'root' })
 export class GtmService {
+  private _platformId = inject(PLATFORM_ID);
+
   constructor() {
-    window.dataLayer = window.dataLayer || [];
+    if (isPlatformBrowser(this._platformId)) {
+      window.dataLayer = window.dataLayer || [];
+    }
   }
 
   pushEvent(event: string, params?: Omit<GtmEvent, 'event'>) {
