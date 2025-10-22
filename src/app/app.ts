@@ -22,7 +22,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class App implements OnInit, OnDestroy {
   private _cartSync = inject(CartSyncService);
   private _seoService = inject(SeoService);
-  private _platformId = inject(PLATFORM_ID);
+  private _platformId = inject(PLATFORM_ID); //test
   private _messageHandler = (event: MessageEvent) => {
     if (event.data?.type === 'CART_UPDATED') {
       console.log('Kosár frissült', event.data.data);
