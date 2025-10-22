@@ -28,7 +28,7 @@ export class App implements OnInit, OnDestroy {
       console.log('Kosár frissült', event.data.data);
     }
   };
-  isBrowser = isPlatformBrowser(this._platformId);
+  isBrowser = isPlatformBrowser(this._platformId); //test
 
   public ngOnInit(): void {
     if (this.isBrowser) window.addEventListener('message', this._messageHandler);
