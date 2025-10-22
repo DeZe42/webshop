@@ -22,13 +22,13 @@ import { isPlatformBrowser } from '@angular/common';
 export class App implements OnInit, OnDestroy {
   private _cartSync = inject(CartSyncService);
   private _seoService = inject(SeoService);
-  private _platformId = inject(PLATFORM_ID); //test
+  private _platformId = inject(PLATFORM_ID);
   private _messageHandler = (event: MessageEvent) => {
     if (event.data?.type === 'CART_UPDATED') {
       console.log('Kosár frissült', event.data.data);
     }
   };
-  isBrowser = isPlatformBrowser(this._platformId); //test
+  isBrowser = isPlatformBrowser(this._platformId);
 
   public ngOnInit(): void {
     if (this.isBrowser) window.addEventListener('message', this._messageHandler);
