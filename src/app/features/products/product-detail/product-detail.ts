@@ -5,11 +5,12 @@ import { CartActions } from '../../../core/state/cart';
 import { CartItem } from '../../../core/state/cart/cart.reducer';
 import { SeoService } from '../../../core/services/seo.service';
 import { Product } from '../../../core/models/product.model';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './product-detail.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProductsActions } from '../../core/state/products';
 import { GtmService } from '../../core/services/gtm.service';
 import { Product } from '../../core/models/product.model';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-card',
@@ -19,6 +20,7 @@ import { Product } from '../../core/models/product.model';
   ],
   templateUrl: './card.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgOptimizedImage],
 })
 export class Card {
   private _store = inject(Store);
