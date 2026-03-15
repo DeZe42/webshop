@@ -9,12 +9,14 @@ import {
 } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
 import { environment } from '@environments/environment';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.html',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
@@ -26,7 +28,9 @@ export class Header {
   private keycloakSignal = environment.useKeycloak
     ? inject(KEYCLOAK_EVENT_SIGNAL, { optional: true })
     : null;
+  private translate = inject(TranslateService);
   authenticated = signal(false);
+  currentLang = signal(this.translate.currentLang || 'hu');
 
   constructor() {
     if (environment.useKeycloak && this.keycloakSignal) {
@@ -45,6 +49,14 @@ export class Header {
   public logout(): void {
     if (this.keycloak) {
       this.keycloak.logout({ redirectUri: window.location.href });
+    }
+  }
+
+  public switchLang(lang: string): void {
+    this.translate.use(lang);
+    this.currentLang.set(lang);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('lang', lang);
     }
   }
 }

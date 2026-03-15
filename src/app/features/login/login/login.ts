@@ -1,24 +1,31 @@
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit } from '@angular/core';
-import {
-  KEYCLOAK_EVENT_SIGNAL,
-  KeycloakEventType,
-  typeEventArgs,
-  ReadyArgs,
-} from 'keycloak-angular';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { KEYCLOAK_EVENT_SIGNAL } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
 import { environment } from '@environments/environment';
 import { SeoService } from '../../../core/services/seo.service';
+import * as AuthActions from '../../../core/state/auth/auth.actions';
+import { selectAuthError, selectAuthLoading } from '../../../core/state/auth/auth.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './login.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login implements OnInit {
   private _seoService = inject(SeoService);
-  authenticated = false;
+  private _store = inject(Store);
+
+  email = '';
+  password = '';
+  useKeycloak = environment.useKeycloak;
+
+  loading = toSignal(this._store.select(selectAuthLoading), { initialValue: false });
+  error = toSignal(this._store.select(selectAuthError), { initialValue: null });
 
   private readonly keycloak = environment.useKeycloak ? inject(Keycloak, { optional: true }) : null;
   private readonly keycloakSignal = environment.useKeycloak
@@ -27,17 +34,7 @@ export class Login implements OnInit {
 
   constructor() {
     if (environment.useKeycloak && this.keycloakSignal) {
-      effect(() => {
-        if (this.keycloakSignal) {
-          const keycloakEvent = this.keycloakSignal();
-          if (keycloakEvent.type === KeycloakEventType.Ready) {
-            this.authenticated = typeEventArgs<ReadyArgs>(keycloakEvent.args);
-          }
-          if (keycloakEvent.type === KeycloakEventType.AuthLogout) {
-            this.authenticated = false;
-          }
-        }
-      });
+      // keycloak signal effect handled externally if needed
     }
   }
 
@@ -53,11 +50,16 @@ export class Login implements OnInit {
     });
   }
 
-  login() {
+  loginWithJwt(): void {
+    if (!this.email || !this.password) return;
+    this._store.dispatch(
+      AuthActions.login({ credentials: { email: this.email, password: this.password } }),
+    );
+  }
+
+  loginWithKeycloak(): void {
     if (this.keycloak) {
       this.keycloak.login();
-    } else {
-      console.warn('Keycloak nincs engedélyezve ebben a környezetben.');
     }
   }
 }

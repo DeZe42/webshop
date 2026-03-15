@@ -1,0 +1,63 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "PRODUCTS": "Products",
+    "CART": "Cart",
+    "DASHBOARD": "Dashboard",
+    "LOGOUT": "Logout",
+    "LOGIN": "Login"
+  },
+  "LANG": {
+    "LABEL": "Language"
+  },
+  "HOME": {
+    "TITLE": "Welcome to Webshop!",
+    "SUBTITLE": "Check out our latest products, add them to your cart, and enjoy fast shopping!",
+    "FAST_SHOPPING": "Fast Shopping",
+    "FAST_SHOPPING_DESC": "You can easily add our products to your cart with a few clicks.",
+    "VARIETY": "Various Products",
+    "VARIETY_DESC": "Laptops, phones, tablets – you can find them all in one place.",
+    "SECURE_PAYMENT": "Secure Payment",
+    "SECURE_PAYMENT_DESC": "Every transaction is fast and secure. Shop with confidence!"
+  },
+  "PRODUCTS": {
+    "SEARCH_LABEL": "Search products",
+    "ALL_CATEGORIES": "All categories"
+  },
+  "PRODUCT_DETAIL": {
+    "ADD_TO_CART": "Add to cart"
+  },
+  "CART": {
+    "TITLE": "Cart Contents",
+    "QUANTITY": "Quantity",
+    "SUBTOTAL": "Subtotal",
+    "REMOVE": "Remove",
+    "TOTAL": "Total:",
+    "CLEAR": "Clear Cart"
+  },
+  "CARD": {
+    "DELETE": "Delete",
+    "ADD_TO_CART": "Add to cart",
+    "DETAILS": "Details"
+  },
+  "DASHBOARD": {
+    "TITLE": "Dashboard",
+    "ADD_PRODUCT_TITLE": "Add New Product",
+    "NAME_REQUIRED": "Name is required.",
+    "NAME_MIN_LENGTH": "At least 3 characters required.",
+    "PRICE_REQUIRED": "Price is required.",
+    "PRICE_MIN": "Price must be at least 1.",
+    "TYPE_LABEL": "Product type",
+    "TYPE_REQUIRED": "Type selection is required.",
+    "DESCRIPTION_REQUIRED": "Description is required.",
+    "DESCRIPTION_MIN_LENGTH": "Description must contain at least 10 characters.",
+    "IMAGE_REQUIRED": "Image upload is required.",
+    "IMAGE_PREVIEW": "Preview:",
+    "SUBMIT": "Add product"
+  },
+  "LOGIN": {
+    "TITLE": "Login with Keycloak",
+    "SUBTITLE": "Your dashboard account",
+    "BUTTON": "Login"
+  }
+}

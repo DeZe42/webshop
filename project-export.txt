@@ -1,0 +1,4314 @@
+PROJECT STRUCTURE AND CODE EXPORT
+==================================================
+
+DIRECTORY STRUCTURE:
+
+📁 .husky/
+  📁 _/
+    📄 applypatch-msg
+    📄 commit-msg
+    📄 h
+    📄 husky.sh
+    📄 post-applypatch
+    📄 post-checkout
+    📄 post-commit
+    📄 post-merge
+    📄 post-rewrite
+    📄 pre-applypatch
+    📄 pre-auto-gc
+    📄 pre-commit
+    📄 pre-merge-commit
+    📄 pre-push
+    📄 pre-rebase
+    📄 prepare-commit-msg
+  📄 pre-commit
+📄 .postcssrc.json
+📄 .prettierignore
+📄 CHANGELOG.md
+📄 README.md
+📄 angular.json
+📄 eslint.config.js
+📄 export.js
+📄 keycloak.config.ts
+📄 package.json
+📄 project-export.txt
+📁 public/
+  📁 images/
+  📄 products.json
+  📄 robots.txt
+  📄 silent-check-sso.html
+  📄 sitemap.xml
+📁 src/
+  📁 app/
+    📄 app.config.server.ts
+    📄 app.config.ts
+    📄 app.html
+    📄 app.routes.server.ts
+    📄 app.routes.ts
+    📄 app.scss
+    📄 app.spec.ts
+    📄 app.ts
+    📁 core/
+      📁 guards/
+        📄 auth.guard.ts
+      📁 interceptors/
+        📄 http-error.interceptor.ts
+      📁 models/
+        📄 product.model.ts
+      📁 services/
+        📄 cart-sync.service.ts
+        📄 gtm.service.ts
+        📄 notification.service.ts
+        📄 products.service.ts
+        📄 seo.service.ts
+      📁 state/
+        📁 cart/
+          📄 cart.actions.ts
+          📄 cart.reducer.ts
+          📄 cart.selectors.ts
+          📄 index.ts
+        📁 products/
+          📄 index.ts
+          📄 products.actions.ts
+          📄 products.effects.ts
+          📄 products.reducer.ts
+          📄 products.selectors.ts
+      📁 utils/
+        📄 type-guards.ts
+    📁 features/
+      📁 cart/
+        📁 cart/
+          📄 cart.html
+          📄 cart.spec.ts
+          📄 cart.ts
+        📄 cart.routes.ts
+      📁 dashboard/
+        📁 dashboard/
+          📄 dashboard.html
+          📄 dashboard.spec.ts
+          📄 dashboard.ts
+        📄 dashboard.routes.ts
+      📁 home/
+        📁 home/
+          📄 home.html
+          📄 home.spec.ts
+          📄 home.ts
+        📄 home.routes.ts
+      📁 login/
+        📁 login/
+          📄 login.html
+          📄 login.spec.ts
+          📄 login.ts
+        📄 login.routes.ts
+      📁 products/
+        📁 product-detail/
+          📄 product-detail.html
+          📄 product-detail.spec.ts
+          📄 product-detail.ts
+        📁 product-list/
+          📄 product-list.html
+          📄 product-list.spec.ts
+          📄 product-list.ts
+        📄 products.routes.ts
+        📁 resolvers/
+          📄 product-detail.resolver.ts
+          📄 product-list.resolver.ts
+    📁 shared/
+      📁 card/
+        📄 card.html
+        📄 card.spec.ts
+        📄 card.ts
+      📁 header/
+        📄 header.html
+        📄 header.spec.ts
+        📄 header.ts
+  📁 environments/
+    📄 environment.development.ts
+    📄 environment.ts
+  📄 index.html
+  📄 main.server.ts
+  📄 main.ts
+  📄 polyfills.ts
+  📄 server.ts
+  📄 styles.scss
+📄 tsconfig.app.json
+📄 tsconfig.json
+📄 tsconfig.spec.json
+
+==================================================
+
+FILE CONTENTS:
+
+==================================================
+FILE: .husky/_/applypatch-msg
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/commit-msg
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/h
+==================================================
+
+#!/usr/bin/env sh
+[ "$HUSKY" = "2" ] && set -x
+n=$(basename "$0")
+s=$(dirname "$(dirname "$0")")/$n
+
+[ ! -f "$s" ] && exit 0
+
+if [ -f "$HOME/.huskyrc" ]; then
+	echo "husky - '~/.huskyrc' is DEPRECATED, please move your code to ~/.config/husky/init.sh"
+fi
+i="${XDG_CONFIG_HOME:-$HOME/.config}/husky/init.sh"
+[ -f "$i" ] && . "$i"
+
+[ "${HUSKY-}" = "0" ] && exit 0
+
+export PATH="node_modules/.bin:$PATH"
+sh -e "$s" "$@"
+c=$?
+
+[ $c != 0 ] && echo "husky - $n script failed (code $c)"
+[ $c = 127 ] && echo "husky - command not found in PATH=$PATH"
+exit $c
+
+
+==================================================
+FILE: .husky/_/husky.sh
+==================================================
+
+echo "husky - DEPRECATED
+
+Please remove the following two lines from $0:
+
+#!/usr/bin/env sh
+. \"\$(dirname -- \"\$0\")/_/husky.sh\"
+
+They WILL FAIL in v10.0.0
+"
+
+==================================================
+FILE: .husky/_/post-applypatch
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/post-checkout
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/post-commit
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/post-merge
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/post-rewrite
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/pre-applypatch
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/pre-auto-gc
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/pre-commit
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/pre-merge-commit
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/pre-push
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/pre-rebase
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/_/prepare-commit-msg
+==================================================
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+==================================================
+FILE: .husky/pre-commit
+==================================================
+
+#!/usr/bin/env sh
+
+npx pretty-quick --staged
+npm run lint
+
+
+==================================================
+FILE: .postcssrc.json
+==================================================
+
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+
+
+==================================================
+FILE: .prettierignore
+==================================================
+
+package.json
+package-lock.json
+dist
+node_modules
+
+
+==================================================
+FILE: CHANGELOG.md
+==================================================
+
+# Changelog
+
+## [1.2.0] - 2025-10-10
+
+### Added
+
+- Implemented cart synchronization via BroadcastChannel
+- Added discriminated union type for Product model
+
+### Fixed
+
+- Race condition between localStorage sync and UI signal update
+
+### Improved
+
+- Lazy loaded routes to reduce initial bundle size
+
+## [1.1.0] - 2025-09-20
+
+### Added
+
+- SEO and Open Graph meta management via SeoService
+
+## [1.0.0] - 2025-09-01
+
+### Initial release
+
+- Base product list, cart, login, dashboard
+
+
+==================================================
+FILE: README.md
+==================================================
+
+# Webshop
+
+## Verzió
+
+0.0.0
+
+## Telepítés
+
+npm install
+
+---
+
+## Tesztelés
+
+npm run test
+
+---
+
+## Lint
+
+npm run lint
+
+---
+
+## Ptrettier
+
+npm run pretty-quick
+
+---
+
+## Használat local környezetben (keycloak OFF)
+
+npm run build-dev
+npm run serve:ssr:webshop
+
+---
+
+## Használat production környezetben (keycloak ON)
+
+npm run build
+npm run serve:ssr:webshop
+
+---
+
+## Docker keycloak run
+
+docker run -d --name keycloak \
+-p 8080:8080 \
+-e KEYCLOAK_ADMIN=admin \
+-e KEYCLOAK_ADMIN_PASSWORD=admin \
+-v keycloak_data:/opt/keycloak/data \
+quay.io/keycloak/keycloak:latest start-dev
+
+docker start keycloak
+
+docker stop keycloak
+
+## 🧩 Design Decisions
+
+### 1. Change Detection Strategy: OnPush
+
+Az **OnPush** stratégiát minden komponensnél alapértelmezettként alkalmaztam, hogy csökkentsem a fölösleges DOM újrarendereléseket és optimalizáljam a teljesítményt.
+
+- Az Angular alapértelmezett „Default” stratégiája minden esemény után futtatja a change detection ciklust az egész komponensfán.
+- Az **OnPush** ezzel szemben csak akkor renderel, ha a bemenet (`@Input`), `signal`, vagy `Observable` új referenciát ad vissza.
+- Ezzel az architektúra determinisztikusabb, a komponensek „pure”-ként viselkednek, így jobban tesztelhetők és memoizálhatók.
+
+**Cél:** reaktív adatfolyamokra épülő, stabil UI, amely nagyobb lista- vagy állapotváltozások mellett is gyors marad.
+
+---
+
+### 2. Signals az Input bindinghoz
+
+Az Angular **signals** API-ját használtam a klasszikus `@Input()` helyett ott, ahol a komponens állapota és az üzleti logika szorosan összefügg.
+
+**Indoklás:**
+
+- A `signal` típusú értékek automatikusan reaktívak, és **nem igényelnek async pipe-ot vagy subscription-t**.
+- Könnyebb követni a **data flow-t**, mert minden függőség explicit.
+- `computed()` és `effect()` segítségével a komponens deklaratívan reagál az állapotváltozásokra.
+- Az `@Input()` alapú kommunikáció sok esetben referenciaváltozásra épül — a signals ehelyett **reaktív értékként** működik, ami pontosabb frissítéseket biztosít.
+
+**Cél:** a komponensek közötti adatátadás egyszerűsítése és a boilerplate kód csökkentése (pl. `ngOnChanges`, `async` pipe elhagyható).
+
+---
+
+### 3. BroadcastChannel a tab-szintű szinkronizációhoz
+
+A **Broadcast Channel API-t** választottam a `LocalStorageEvent` helyett a kosár (cart) és az auth state több böngészőfül közötti szinkronizálásához.
+
+**Indoklás:**
+
+- A `BroadcastChannel` natív böngésző API, amely lehetővé teszi az **azonos origin-en belüli aszinkron üzenetküldést** több tab között.
+- A `localStorage` event csak `setItem`-re triggel, és nem továbbít komplex objektumokat (csak stringeket).
+- A `BroadcastChannel` közvetlenül JSON objektumokat továbbít, és `message` eseményen keresztül hallgatható.
+- Az API jól illeszkedik a **reaktív programozási modellhez** – a `CartSyncService` figyeli az üzeneteket és `signal`-lel frissíti az állapotot.
+
+**Cél:** megbízható, valós idejű szinkronizáció a tabok között extra könyvtárak nélkül, tisztán böngésző API-val.
+
+---
+
+### 4. Összegzés
+
+A fenti döntések együttesen támogatják a projekt fő célját:  
+**reaktív, teljesítményorientált és jól tesztelhető Angular architektúra**, ami SSR-kompatibilis és hosszú távon karbantartható.
+
+
+==================================================
+FILE: angular.json
+==================================================
+
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "changeDetection": "OnPush",
+        "standalone": true
+      }
+    }
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "webshop": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": ["src/styles.scss"],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "webshop:build:production"
+            },
+            "development": {
+              "buildTarget": "webshop:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "polyfills": ["src/polyfills.ts"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": ["src/styles.scss"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "schematicCollections": ["angular-eslint"]
+  }
+}
+
+
+==================================================
+FILE: eslint.config.js
+==================================================
+
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const prettierPlugin = require('eslint-plugin-prettier');
+const prettierConfig = require('eslint-config-prettier');
+
+module.exports = tseslint.config(
+  {
+    files: ['**/*.ts'],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+      prettierConfig,
+    ],
+    plugins: {
+      prettier: prettierPlugin,
+    },
+    processor: angular.processInlineTemplates,
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
+        },
+      ],
+      'prettier/prettier': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
+    files: ['**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    rules: {},
+  },
+);
+
+
+==================================================
+FILE: export.js
+==================================================
+
+const fs = require('fs');
+const path = require('path');
+
+const OUTPUT = 'project-export.txt';
+
+// Mappák amiket kihagyunk
+const EXCLUDE_DIRS = [
+  'node_modules',
+  'dist',
+  'coverage',
+  '.angular',
+  '.git',
+  '.vscode',
+  '.idea',
+  '.nx',           // ⭐ Ha Nx van
+  'tmp',
+  '.cache'
+];
+
+// Pontos fájlnevek amiket kihagyunk
+const EXCLUDE_FILES = [
+  'package-lock.json',
+  'yarn.lock',
+  'pnpm-lock.yaml',
+  '.DS_Store',
+  'Thumbs.db',
+  '.gitignore',
+  '.editorconfig',
+  '.prettierrc',
+  '.eslintrc.json'  // Opcionális, ha nem kell
+];
+
+// Fájl kiterjesztések amiket kihagyunk
+const EXCLUDE_EXTENSIONS = [
+  '.jpg',
+  '.jpeg',
+  '.png',
+  '.gif',
+  '.svg',
+  '.ico',
+  '.pdf',
+  '.zip',
+  '.tar',
+  '.gz',
+  '.map',
+  '.woff',
+  '.woff2',
+  '.ttf',
+  '.eot'
+];
+
+// Fájlnév pattern-ek (regex)
+const EXCLUDE_PATTERNS = [
+  /\.min\.(js|css)$/,  // Minified fájlok
+  /\.bundle\.(js|css)$/,
+  /-lock\.json$/,       // Bármilyen lock fájl
+];
+
+const MAX_FILE_SIZE = 1024 * 1024; // 1MB
+
+let output = 'PROJECT STRUCTURE AND CODE EXPORT\n';
+output += '='.repeat(50) + '\n\n';
+output += 'DIRECTORY STRUCTURE:\n\n';
+
+const allFiles = [];
+
+function shouldExcludeFile(file, relativePath) {
+  // Fájlnév alapján
+  if (EXCLUDE_FILES.includes(file)) return true;
+
+  // Kiterjesztés alapján
+  const ext = path.extname(file);
+  if (EXCLUDE_EXTENSIONS.includes(ext)) return true;
+
+  // Pattern alapján
+  if (EXCLUDE_PATTERNS.some(pattern => pattern.test(file))) return true;
+
+  return false;
+}
+
+function walkDir(dir, indent = '') {
+  const files = fs.readdirSync(dir);
+
+  files.forEach(file => {
+    const filePath = path.join(dir, file);
+    const relativePath = path.relative(process.cwd(), filePath);
+
+    // Mappa kizárás
+    if (EXCLUDE_DIRS.some(ex => relativePath.includes(ex))) return;
+
+    const stat = fs.statSync(filePath);
+
+    if (stat.isDirectory()) {
+      output += `${indent}📁 ${file}/\n`;
+      walkDir(filePath, indent + '  ');
+    } else {
+      // Fájl kizárások
+      if (shouldExcludeFile(file, relativePath)) return;
+
+      // Méret ellenőrzés
+      if (stat.size >= MAX_FILE_SIZE) {
+        console.warn(`⚠️  Skipping large file: ${relativePath} (${(stat.size / 1024).toFixed(2)} KB)`);
+        return;
+      }
+
+      output += `${indent}📄 ${file}\n`;
+      allFiles.push(relativePath);
+    }
+  });
+}
+
+walkDir(process.cwd());
+
+output += '\n' + '='.repeat(50) + '\n\n';
+output += 'FILE CONTENTS:\n';
+
+allFiles.forEach(file => {
+  try {
+    const content = fs.readFileSync(file, 'utf8');
+    output += '\n' + '='.repeat(50) + '\n';
+    output += `FILE: ${file}\n`;
+    output += '='.repeat(50) + '\n\n';
+    output += content + '\n';
+  } catch (err) {
+    console.error(`❌ Error reading ${file}:`, err.message);
+  }
+});
+
+fs.writeFileSync(OUTPUT, output);
+console.log(`✅ Export complete: ${OUTPUT}`);
+console.log(`📊 Total files: ${allFiles.length}`);
+console.log(`💾 Output size: ${(fs.statSync(OUTPUT).size / 1024 / 1024).toFixed(2)} MB`);
+
+
+==================================================
+FILE: keycloak.config.ts
+==================================================
+
+import {
+  AutoRefreshTokenService,
+  createInterceptorCondition,
+  INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+  IncludeBearerTokenCondition,
+  provideKeycloak,
+  UserActivityService,
+  withAutoRefreshToken,
+} from 'keycloak-angular';
+import { environment } from '@environments/environment';
+
+export function provideKeycloakAngular() {
+  if (!environment.useKeycloak || typeof window === 'undefined') {
+    return [];
+  }
+
+  const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
+    urlPattern: /^(http:\/\/localhost:8080)(\/.*)?$/i,
+  });
+
+  return [
+    provideKeycloak({
+      config: {
+        realm: environment.keycloak.realm!,
+        url: environment.keycloak.url!,
+        clientId: environment.keycloak.clientId!,
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
+        redirectUri: window.location.origin,
+      },
+      features: [
+        withAutoRefreshToken({
+          onInactivityTimeout: 'logout',
+          sessionTimeout: 60000,
+        }),
+      ],
+      providers: [
+        AutoRefreshTokenService,
+        UserActivityService,
+        {
+          provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+          useValue: [localhostCondition],
+        },
+      ],
+    }),
+  ];
+}
+
+
+==================================================
+FILE: package.json
+==================================================
+
+{
+  "name": "webshop",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build-dev": "ng build --configuration development",
+    "build": "ng build --configuration production",
+    "serve:ssr:webshop": "node dist/webshop/server/server.mjs",
+    "watch": "ng build --watch --configuration development",
+    "prepare": "husky",
+    "lint": "ng lint --fix",
+    "test": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
+    "pretty-quick": "pretty-quick --staged"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/cdk": "^20.2.14",
+    "@angular/common": "^20.3.6",
+    "@angular/compiler": "^20.3.6",
+    "@angular/core": "^20.3.6",
+    "@angular/forms": "^20.3.6",
+    "@angular/platform-browser": "^20.3.6",
+    "@angular/platform-browser-dynamic": "^20.3.6",
+    "@angular/platform-server": "^20.3.6",
+    "@angular/router": "^20.3.6",
+    "@angular/ssr": "^20.3.2",
+    "@ngrx/effects": "^20.0.1",
+    "@ngrx/store": "^20.0.1",
+    "@ngrx/store-devtools": "^20.0.1",
+    "express": "^5.1.0",
+    "keycloak-angular": "^20.0.0",
+    "keycloak-js": "^26.2.0",
+    "postcss": "^8.5.6",
+    "rxjs": "~7.8.0",
+    "tailwindcss": "^4.1.13",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.3.6",
+    "@angular/cli": "^20.3.6",
+    "@angular/compiler-cli": "^20.3.6",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/express": "^5.0.1",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.17.19",
+    "angular-eslint": "20.3.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
+    "pretty-quick": "^4.2.2",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.40.0",
+    "zone.js": "^0.15.1"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix",
+    "*.html": "prettier --write"
+  }
+}
+
+
+==================================================
+FILE: project-export.txt
+==================================================
+
+
+
+==================================================
+FILE: public/products.json
+==================================================
+
+[
+  {
+    "id": "p001",
+    "name": "Laptop Pro 14",
+    "price": 1299,
+    "type": "laptop",
+    "ramGb": 16,
+    "cpu": "Intel i7",
+    "screenInch": 14,
+    "os": "Windows",
+    "description": "High-performance Laptop Pro 14 with Intel i7 CPU, 16GB RAM and 14-inch display.",
+    "image": "/images/laptop-001.jpg",
+    "keywords": ["laptop", "Intel", "Windows", "webshop"]
+  },
+  {
+    "id": "p002",
+    "name": "Laptop Air 13",
+    "price": 999,
+    "type": "laptop",
+    "ramGb": 8,
+    "cpu": "Intel i5",
+    "screenInch": 13,
+    "os": "Windows",
+    "description": "Lightweight Laptop Air 13 with Intel i5 CPU, 8GB RAM and 13-inch screen.",
+    "image": "/images/laptop-002.jpg",
+    "keywords": ["laptop", "Intel", "Windows", "webshop"]
+  },
+  {
+    "id": "p003",
+    "name": "Smartphone X",
+    "price": 799,
+    "type": "phone",
+    "os": "Android",
+    "screenInch": 6.1,
+    "description": "Smartphone X with Android OS, 6.1-inch display, perfect for everyday use.",
+    "image": "/images/phone-003.jpg",
+    "keywords": ["phone", "Android", "smartphone", "webshop"]
+  },
+  {
+    "id": "p004",
+    "name": "Smartphone Y",
+    "price": 699,
+    "type": "phone",
+    "os": "iOS",
+    "screenInch": 6.5,
+    "description": "Smartphone Y running iOS with 6.5-inch display, sleek design for modern users.",
+    "image": "/images/phone-004.jpg",
+    "keywords": ["phone", "iOS", "smartphone", "webshop"]
+  },
+  {
+    "id": "p005",
+    "name": "Tablet S",
+    "price": 499,
+    "type": "tablet",
+    "os": "Android",
+    "screenInch": 10.1,
+    "description": "Tablet S with Android OS and 10.1-inch screen, perfect for media and productivity.",
+    "image": "/images/tablet-005.jpg",
+    "keywords": ["tablet", "Android", "webshop"]
+  },
+  {
+    "id": "p006",
+    "name": "Tablet M",
+    "price": 599,
+    "type": "tablet",
+    "os": "iOS",
+    "screenInch": 11.0,
+    "description": "Tablet M with iOS and 11-inch screen, ideal for professional and personal use.",
+    "image": "/images/tablet-006.jpg",
+    "keywords": ["tablet", "iOS", "webshop"]
+  },
+  {
+    "id": "p007",
+    "name": "Wireless Mouse",
+    "price": 49,
+    "type": "accessory",
+    "description": "Reliable wireless mouse for smooth navigation and comfortable use.",
+    "image": "/images/accessory-007.jpg",
+    "keywords": ["mouse", "accessory", "webshop"]
+  },
+  {
+    "id": "p008",
+    "name": "Mechanical Keyboard",
+    "price": 129,
+    "type": "accessory",
+    "description": "Mechanical keyboard with tactile keys, perfect for gaming and typing.",
+    "image": "/images/accessory-008.jpg",
+    "keywords": ["keyboard", "accessory", "webshop"]
+  },
+  {
+    "id": "p009",
+    "name": "Gaming Headset",
+    "price": 89,
+    "type": "accessory",
+    "description": "Comfortable gaming headset with excellent sound quality for immersive gaming.",
+    "image": "/images/accessory-009.jpg",
+    "keywords": ["headset", "accessory", "webshop"]
+  },
+  {
+    "id": "p010",
+    "name": "External SSD 1TB",
+    "price": 159,
+    "type": "accessory",
+    "description": "Fast and reliable 1TB external SSD for data storage and transfer.",
+    "image": "/images/accessory-010.jpg",
+    "keywords": ["ssd", "storage", "accessory", "webshop"]
+  },
+  {
+    "id": "p011",
+    "name": "Laptop Ultra 16",
+    "price": 1599,
+    "type": "laptop",
+    "ramGb": 32,
+    "cpu": "Intel i9",
+    "screenSizeInch": 16,
+    "os": "Windows",
+    "description": "Powerful Laptop Ultra 16 with Intel i9, 32GB RAM and 16-inch high-resolution display.",
+    "image": "/images/laptop-011.jpg",
+    "keywords": ["laptop", "Intel", "Windows", "webshop"]
+  },
+  {
+    "id": "p012",
+    "name": "Smartphone Z",
+    "price": 899,
+    "type": "phone",
+    "os": "Android",
+    "screenInch": 6.8,
+    "description": "Smartphone Z with 6.8-inch Android display, perfect for productivity and media.",
+    "image": "/images/phone-012.jpg",
+    "keywords": ["phone", "Android", "smartphone", "webshop"]
+  },
+  {
+    "id": "p013",
+    "name": "Tablet Pro",
+    "price": 799,
+    "type": "tablet",
+    "os": "iOS",
+    "screenInch": 12.9,
+    "description": "Tablet Pro with iOS and 12.9-inch display, ideal for professional creative work.",
+    "image": "/images/tablet-013.jpg",
+    "keywords": ["tablet", "iOS", "webshop"]
+  }
+]
+
+
+==================================================
+FILE: public/robots.txt
+==================================================
+
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /cart
+
+Sitemap: https://yourwebshop.com/sitemap.xml
+
+
+==================================================
+FILE: public/silent-check-sso.html
+==================================================
+
+<html>
+  <body>
+    <script>
+      parent.postMessage(location.href, location.origin);
+    </script>
+  </body>
+</html>
+
+
+==================================================
+FILE: public/sitemap.xml
+==================================================
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yourwebshop.com/</loc>
+    <lastmod>2025-02-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yourwebshop.com/products</loc>
+    <lastmod>2025-02-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yourwebshop.com/login</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
+
+
+==================================================
+FILE: src/app/app.config.server.ts
+==================================================
+
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering, withRoutes } from '@angular/ssr';
+import { appConfig } from './app.config';
+import { serverRoutes } from './app.routes.server';
+
+const serverConfig: ApplicationConfig = {
+  providers: [provideServerRendering(withRoutes(serverRoutes))],
+};
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
+
+
+==================================================
+FILE: src/app/app.config.ts
+==================================================
+
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { provideHttpClient } from '@angular/common/http';
+import { productsReducer } from './core/state/products';
+import { cartReducer } from './core/state/cart';
+import { provideKeycloakAngular } from '../../keycloak.config';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from './core/state/products/products.effects';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...provideKeycloakAngular(),
+    provideHttpClient(),
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideClientHydration(withEventReplay()),
+    importProvidersFrom(
+      StoreModule.forRoot({ cart: cartReducer, products: productsReducer }),
+      EffectsModule.forRoot([ProductsEffects]),
+      StoreDevtoolsModule.instrument({ maxAge: 25 }),
+    ),
+  ],
+};
+
+
+==================================================
+FILE: src/app/app.html
+==================================================
+
+@if (this.isBrowser) {
+  <app-header></app-header>
+}
+<main class="bg-gray-100 min-h-screen">
+  <section class="max-w-7xl mx-auto p-6">
+    <router-outlet></router-outlet>
+  </section>
+</main>
+
+
+==================================================
+FILE: src/app/app.routes.server.ts
+==================================================
+
+import { RenderMode, ServerRoute } from '@angular/ssr';
+
+export const serverRoutes: ServerRoute[] = [
+  {
+    path: 'login',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: 'dashboard',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: '**',
+    renderMode: RenderMode.Server,
+  },
+];
+
+
+==================================================
+FILE: src/app/app.routes.ts
+==================================================
+
+import { Routes } from '@angular/router';
+import { authCanMatch } from './core/guards/auth.guard';
+
+export const PRODUCTS_PATH = 'products';
+export const CART_PATH = 'cart';
+export const LOGIN_PATH = 'login';
+export const DASHBOARD_PATH = 'dashboard';
+
+export const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./features/home/home.routes').then((m) => m.HOME_ROUTES),
+  },
+  {
+    path: PRODUCTS_PATH,
+    loadChildren: () =>
+      import('./features/products/products.routes').then((m) => m.PRODUCTS_ROUTES),
+  },
+  {
+    path: CART_PATH,
+    loadChildren: () => import('./features/cart/cart.routes').then((m) => m.CART_ROUTES),
+  },
+  {
+    path: LOGIN_PATH,
+    loadChildren: () => import('./features/login/login.routes').then((m) => m.LOGIN_ROUTES),
+  },
+  {
+    path: DASHBOARD_PATH,
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
+    canMatch: [authCanMatch],
+  },
+];
+
+
+==================================================
+FILE: src/app/app.scss
+==================================================
+
+
+
+==================================================
+FILE: src/app/app.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SeoService } from './core/services/seo.service';
+import { CartSyncService } from './core/services/cart-sync.service';
+import { PLATFORM_ID } from '@angular/core';
+import { Header } from './shared/header/header';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { App } from './app';
+
+describe('App Component', () => {
+  let fixture: ComponentFixture<App>;
+  let component: App;
+  let seoServiceSpy: jasmine.SpyObj<SeoService>;
+
+  beforeEach(async () => {
+    const spy = jasmine.createSpyObj('SeoService', ['init', 'destroy']);
+
+    await TestBed.configureTestingModule({
+      imports: [RouterOutlet, Header, RouterModule.forRoot([])],
+      providers: [
+        { provide: CartSyncService, useValue: {} },
+        { provide: SeoService, useValue: spy },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(App);
+    component = fixture.componentInstance;
+    seoServiceSpy = TestBed.inject(SeoService) as jasmine.SpyObj<SeoService>;
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should detect browser platform', () => {
+    expect(component.isBrowser).toBeTrue();
+  });
+
+  it('should call seoService.init on ngOnInit', () => {
+    component.ngOnInit();
+    expect(seoServiceSpy.init).toHaveBeenCalled();
+  });
+
+  it('should call seoService.destroy on ngOnDestroy', () => {
+    component.ngOnDestroy();
+    expect(seoServiceSpy.destroy).toHaveBeenCalled();
+  });
+});
+
+
+==================================================
+FILE: src/app/app.ts
+==================================================
+
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CartSyncService } from './core/services/cart-sync.service';
+import { SeoService } from './core/services/seo.service';
+import { Header } from './shared/header/header';
+import { isPlatformBrowser } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, Header],
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class App implements OnInit, OnDestroy {
+  private _cartSync = inject(CartSyncService);
+  private _seoService = inject(SeoService);
+  private _platformId = inject(PLATFORM_ID); //test
+  private _messageHandler = (event: MessageEvent) => {
+    if (event.data?.type === 'CART_UPDATED') {
+      console.log('Kosár frissült', event.data.data);
+    }
+  };
+  isBrowser = isPlatformBrowser(this._platformId);
+
+  public ngOnInit(): void {
+    if (this.isBrowser) window.addEventListener('message', this._messageHandler);
+    this._seoService.init();
+  }
+
+  public ngOnDestroy(): void {
+    if (this.isBrowser) window.removeEventListener('message', this._messageHandler);
+    this._seoService.destroy();
+  }
+}
+
+
+==================================================
+FILE: src/app/core/guards/auth.guard.ts
+==================================================
+
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
+import {
+  KEYCLOAK_EVENT_SIGNAL,
+  KeycloakEventType,
+  ReadyArgs,
+  typeEventArgs,
+} from 'keycloak-angular';
+import { LOGIN_PATH } from '../../app.routes';
+import { environment } from '@environments/environment';
+
+export const authCanMatch = () => {
+  const platformId = inject(PLATFORM_ID);
+  const router = inject(Router);
+
+  if (!isPlatformBrowser(platformId)) {
+    return true;
+  }
+
+  if (!environment.useKeycloak) {
+    router.navigate([LOGIN_PATH]);
+    return false;
+  }
+
+  const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL, { optional: true });
+  if (!keycloakSignal) {
+    router.navigate([LOGIN_PATH]);
+    return false;
+  }
+
+  let authenticated = false;
+  const event = keycloakSignal();
+
+  if (event.type === KeycloakEventType.Ready) {
+    authenticated = typeEventArgs<ReadyArgs>(event.args);
+  }
+
+  if (!authenticated) {
+    router.navigate([LOGIN_PATH]);
+    return false;
+  }
+
+  return true;
+};
+
+
+==================================================
+FILE: src/app/core/interceptors/http-error.interceptor.ts
+==================================================
+
+import { Injectable } from '@angular/core';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpErrorResponse,
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+@Injectable()
+export class HttpErrorInterceptor implements HttpInterceptor {
+  intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
+    return next.handle(req).pipe(
+      catchError((err: unknown) => {
+        //deffensive
+        if (err instanceof HttpErrorResponse) {
+          console.error('HTTP Error', { url: req.url, status: err.status, message: err.message });
+        } else {
+          console.error('Unknown HTTP error', err);
+        }
+        //offensive
+        return throwError(() => ({ message: 'Hálózati hiba történt', original: err }));
+      }),
+    );
+  }
+}
+
+
+==================================================
+FILE: src/app/core/models/product.model.ts
+==================================================
+
+export interface BaseProduct {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  keywords: string[];
+}
+
+export interface LaptopProduct extends BaseProduct {
+  type: 'laptop';
+  ramGb: number;
+  cpu: string;
+  os: string;
+  screenInch: number;
+}
+
+export interface PhoneProduct extends BaseProduct {
+  type: 'phone';
+  os: string;
+  screenInch: number;
+  ramGb: number;
+  cpu: string;
+}
+
+export interface TabletProduct extends BaseProduct {
+  type: 'tablet';
+  os: string;
+  screenInch: number;
+  ramGb: number;
+  cpu: string;
+}
+
+export interface AccessoryProduct extends BaseProduct {
+  type: 'accessory';
+  compatibleWith?: string;
+}
+
+export type Product = LaptopProduct | PhoneProduct | TabletProduct | AccessoryProduct;
+
+
+==================================================
+FILE: src/app/core/services/cart-sync.service.ts
+==================================================
+
+import { Injectable, inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { effect } from '@angular/core';
+import { CartActions, CartSelectors } from '../state/cart';
+import { CartItem } from '../state/cart/cart.reducer';
+import { isProduct } from '../utils/type-guards';
+import { Product } from '../models/product.model';
+
+@Injectable({ providedIn: 'root' })
+export class CartSyncService implements OnDestroy {
+  private store = inject(Store);
+  private platformId = inject(PLATFORM_ID);
+  private channel?: BroadcastChannel;
+  private lastSent = '';
+
+  constructor() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.channel = new BroadcastChannel('cart_channel');
+
+    // --- Kosár visszatöltése localStorage-ből betöltéskor ---
+    const saved = localStorage.getItem('cart_items');
+    if (saved) {
+      try {
+        const items: CartItem[] = JSON.parse(saved);
+        items.forEach((item) => this.store.dispatch(CartActions.addToCart({ item })));
+      } catch (err) {
+        console.error('Failed to parse saved cart from localStorage', err);
+      }
+    }
+
+    // --- Másik böngészőfülből érkező üzenetek kezelése ---
+    this.channel.onmessage = (event) => {
+      const incoming = event.data;
+
+      // Defensive check: biztosítja, hogy a bejövő adat tényleg Product tömb
+      if (!Array.isArray(incoming) || !incoming.every(isProduct)) {
+        console.warn('Invalid broadcast message received', incoming);
+        return;
+      }
+
+      const typedItems: CartItem[] = incoming.map((p: Product) => ({ ...p, quantity: 1 }));
+
+      // Jelenlegi és bejövő kosár összehasonlítása, hogy ne frissítsen feleslegesen
+      const current = this.store.selectSignal(CartSelectors.selectCartItems)();
+      const currentIds = current.map((i) => i.id + i.quantity).join(',');
+      const incomingIds = typedItems.map((i) => i.id + i.quantity).join(',');
+
+      // Csak akkor írja felül, ha változott a tartalom
+      if (currentIds !== incomingIds) {
+        this.store.dispatch(CartActions.clearCart());
+        typedItems.forEach((item) => this.store.dispatch(CartActions.addToCart({ item })));
+      }
+    };
+
+    // --- Reaktív effect: ha változik a store állapota, frissíti a localStorage-t és broadcastolja más tabokra ---
+    effect(() => {
+      const items = this.store.selectSignal(CartSelectors.selectCartItems)();
+      const currentIds = items.map((i) => i.id + i.quantity).join(',');
+
+      // Csak akkor küld frissítést, ha ténylegesen változott az állapot
+      if (currentIds !== this.lastSent) {
+        this.channel?.postMessage(items);
+        localStorage.setItem('cart_items', JSON.stringify(items));
+        this.lastSent = currentIds;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.channel?.close();
+  }
+}
+
+
+==================================================
+FILE: src/app/core/services/gtm.service.ts
+==================================================
+
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
+export interface GtmEvent {
+  event: string;
+  [key: string]: string | number | boolean | undefined | object;
+}
+
+declare global {
+  interface Window {
+    dataLayer: GtmEvent[];
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class GtmService {
+  private _platformId = inject(PLATFORM_ID);
+
+  constructor() {
+    if (isPlatformBrowser(this._platformId)) {
+      window.dataLayer = window.dataLayer || [];
+    }
+  }
+
+  pushEvent(event: string, params?: Omit<GtmEvent, 'event'>) {
+    window.dataLayer.push({ event, ...params });
+  }
+}
+
+
+==================================================
+FILE: src/app/core/services/notification.service.ts
+==================================================
+
+import { Injectable, inject, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
+export interface Notification {
+  id: string;
+  message: string;
+  type: 'info' | 'success' | 'warning' | 'error';
+  timestamp: Date;
+}
+
+@Injectable({ providedIn: 'root' })
+export class NotificationService {
+  private platformId = inject(PLATFORM_ID);
+  private ws?: WebSocket;
+  private reconnectAttempts = 0;
+  private maxReconnectAttempts = 5;
+
+  notifications = signal<Notification[]>([]);
+  isConnected = signal(false);
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.connect();
+    }
+  }
+
+  private connect(): void {
+    // Mock WebSocket (mivel nincs igazi backend)
+    // Valós projektben: new WebSocket('ws://localhost:8080/notifications')
+
+    // Szimulált kapcsolat
+    this.isConnected.set(true);
+    console.log('WebSocket connected (simulated)');
+
+    // Mock értesítések 10 másodpercenként
+    setInterval(() => {
+      this.addMockNotification();
+    }, 10000);
+  }
+
+  private addMockNotification(): void {
+    const messages = [
+      'Új termék érkezett a raktárba',
+      'Valaki kosárba tette a Laptop Pro 14-et',
+      'Akciós termék: 20% kedvezmény',
+      'Új megrendelés érkezett'
+    ];
+
+    const notification: Notification = {
+      id: Date.now().toString(),
+      message: messages[Math.floor(Math.random() * messages.length)],
+      type: Math.random() > 0.5 ? 'info' : 'success',
+      timestamp: new Date()
+    };
+
+    this.notifications.update(list => [...list, notification]);
+  }
+
+  removeNotification(id: string): void {
+    this.notifications.update(list => list.filter(n => n.id !== id));
+  }
+
+  clearAll(): void {
+    this.notifications.set([]);
+  }
+}
+
+
+==================================================
+FILE: src/app/core/services/products.service.ts
+==================================================
+
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Product } from '../models/product.model';
+
+@Injectable({ providedIn: 'root' })
+export class ProductsService {
+  _http = inject(HttpClient);
+
+  getAll(): Observable<Product[]> {
+    return this._http.get<Product[]>('/products.json').pipe(
+      catchError((err) => {
+        console.error('Products fetch error', err);
+        return of([]);
+      }),
+    );
+  }
+}
+
+
+==================================================
+FILE: src/app/core/services/seo.service.ts
+==================================================
+
+import {DOCUMENT, inject, Injectable} from '@angular/core';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import {Product} from '../models/product.model';
+
+const isValidMetaContent = (content: string | null | undefined): content is string => {
+  return content !== null && content !== undefined && content !== '';
+};
+
+export interface PageMeta {
+  readonly title: string;
+  readonly description: string;
+  readonly keywords: string;
+  readonly siteName: string;
+  readonly image: string;
+  readonly themeColor: string;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SeoService {
+  destroy$ = new Subject<void>();
+  private _title = inject(Title);
+  private _meta = inject(Meta);
+  private _document = inject(DOCUMENT);
+
+  public init(): void {
+    this.setMeta({
+      title: 'Webshop',
+      description: 'Welcome to our webshop',
+    });
+  }
+
+  public destroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public setMeta(overridedMeta: Partial<PageMeta>): void {
+    const meta: PageMeta = {
+      title: overridedMeta.title ?? 'Webshop',
+      description: overridedMeta.description ?? 'Welcome to our webshop',
+      keywords: overridedMeta.keywords ?? 'webshop, angular',
+      siteName: overridedMeta.siteName ?? 'My Angular Webshop',
+      image: overridedMeta.image ?? '/assets/default-image.png',
+      themeColor: overridedMeta.themeColor ?? '#ffffff',
+    };
+
+    this._title.setTitle(meta.title);
+
+    this.updateTag({
+      name: 'theme-color',
+      content: meta.themeColor,
+    });
+    this.updateTag({
+      name: 'description',
+      content: meta.description,
+    });
+    this.updateTag({
+      name: 'keywords',
+      content: meta.keywords,
+    });
+    this.updateTag({
+      name: 'og:title',
+      property: 'og:title',
+      content: meta.title,
+    });
+    this.updateTag({
+      name: 'og:image',
+      property: 'og:image',
+      content: meta.image,
+    });
+    this.updateTag({
+      name: 'og:image:secure_url',
+      property: 'og:image:secure_url',
+      content: meta.image,
+    });
+    this.updateTag({
+      name: 'og:description',
+      property: 'og:description',
+      content: meta.description,
+    });
+    this.updateTag({
+      name: 'og:site_name',
+      property: 'og:site_name',
+      content: meta.siteName,
+    });
+    this.updateTag({
+      name: 'twitter:site',
+      content: meta.siteName,
+    });
+    this.updateTag({
+      name: 'twitter:title',
+      content: meta.title,
+    });
+    this.updateTag({
+      name: 'twitter:description',
+      content: meta.description,
+    });
+    this.updateTag({
+      name: 'twitter:image',
+      content: meta.image,
+    });
+  }
+
+  private updateTag(tag: MetaDefinition): void {
+    if (!isValidMetaContent(tag.content)) {
+      return;
+    }
+
+    this._meta.updateTag(tag);
+  }
+
+  public setCanonicalUrl(url: string): void {
+    let link: HTMLLinkElement | null = this._document.querySelector('link[rel="canonical"]');
+
+    if (!link) {
+      link = this._document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      this._document.head.appendChild(link);
+    }
+    link.setAttribute('href', url);
+  }
+
+  public setProductSchema(product: Product): void {
+    const existingScript = this._document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = this._document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "image": product.image,
+      "description": product.description,
+      "offers": {
+        "@type": "Offer",
+        "price": product.price,
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "24"
+      }
+    });
+    this._document.head.appendChild(script);
+  }
+}
+
+
+==================================================
+FILE: src/app/core/state/cart/cart.actions.ts
+==================================================
+
+import { createAction, props } from '@ngrx/store';
+import { CartItem } from './cart.reducer';
+
+export const addToCart = createAction(
+  '[Cart] Add To Cart',
+  props<{ item: CartItem }>(), // <-- CartItem, ami Product + quantity
+);
+
+export const removeFromCart = createAction('[Cart] Remove From Cart', props<{ id: string }>());
+
+export const clearCart = createAction('[Cart] Clear Cart');
+
+
+==================================================
+FILE: src/app/core/state/cart/cart.reducer.ts
+==================================================
+
+import { createReducer, on } from '@ngrx/store';
+import * as CartActions from './cart.actions';
+import { Product } from '../../models/product.model';
+
+export type CartItem = Product & {
+  quantity: number;
+};
+
+export interface CartState {
+  items: CartItem[];
+}
+
+export const initialState: CartState = { items: [] };
+
+export const cartReducer = createReducer(
+  initialState,
+  on(CartActions.addToCart, (state, { item }) => {
+    const existing = state.items.find((i) => i.id === item.id);
+    return {
+      ...state,
+      items: existing
+        ? state.items.map((i) =>
+            i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i,
+          )
+        : [...state.items, item],
+    };
+  }),
+  on(CartActions.removeFromCart, (state, { id }) => ({
+    ...state,
+    items: state.items.filter((i) => i.id !== id),
+  })),
+  on(CartActions.clearCart, (state) => ({ ...state, items: [] })),
+);
+
+
+==================================================
+FILE: src/app/core/state/cart/cart.selectors.ts
+==================================================
+
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CartState } from './cart.reducer';
+
+export const selectCartState = createFeatureSelector<CartState>('cart');
+
+export const selectCartItems = createSelector(selectCartState, (state) => state.items);
+
+export const selectCartTotal = createSelector(selectCartItems, (items) =>
+  items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+);
+
+
+==================================================
+FILE: src/app/core/state/cart/index.ts
+==================================================
+
+import * as CartActions from './cart.actions';
+import * as CartSelectors from './cart.selectors';
+import { cartReducer } from './cart.reducer';
+
+export { CartActions, CartSelectors, cartReducer };
+
+
+==================================================
+FILE: src/app/core/state/products/index.ts
+==================================================
+
+import * as ProductsActions from './products.actions';
+import * as ProductsSelectors from './products.selectors';
+import { productsReducer } from './products.reducer';
+
+export { ProductsActions, ProductsSelectors, productsReducer };
+
+
+==================================================
+FILE: src/app/core/state/products/products.actions.ts
+==================================================
+
+import { createAction, props } from '@ngrx/store';
+import { Product } from '../../models/product.model';
+
+export interface ProductError {
+  message: string;
+  code?: number;
+}
+
+export const loadProducts = createAction('[Products] Load Products');
+export const loadProductsSuccess = createAction(
+  '[Products] Load Products Success',
+  props<{ products: Product[] }>(),
+);
+export const loadProductsFailure = createAction(
+  '[Products] Load Products Failure',
+  props<{ error: ProductError | null }>(),
+);
+export const addProduct = createAction('[Products] Add Product', props<{ product: Product }>());
+export const deleteProduct = createAction('[Products] Delete Product', props<{ id: string }>());
+
+
+==================================================
+FILE: src/app/core/state/products/products.effects.ts
+==================================================
+
+import { Injectable, inject } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, switchMap, of } from 'rxjs';
+import { ProductsService } from '../../services/products.service';
+import * as ProductsActions from './products.actions';
+
+@Injectable()
+export class ProductsEffects {
+  private actions$ = inject(Actions);
+  private productsService = inject(ProductsService);
+
+  loadProducts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductsActions.loadProducts),
+      switchMap(() =>
+        this.productsService.getAll().pipe(
+          map((products) => ProductsActions.loadProductsSuccess({ products })),
+          catchError((error) =>
+            of(ProductsActions.loadProductsFailure({ error: { message: error.message } })),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+
+==================================================
+FILE: src/app/core/state/products/products.reducer.ts
+==================================================
+
+import { createReducer, on } from '@ngrx/store';
+import * as ProductsActions from './products.actions';
+import { ProductError } from './products.actions';
+import { Product } from '../../models/product.model';
+
+export interface ProductsState {
+  products: Product[];
+  loading: boolean;
+  error: ProductError | null;
+}
+
+export const initialState: ProductsState = {
+  products: [],
+  loading: false,
+  error: null,
+};
+
+export const productsReducer = createReducer(
+  initialState,
+  on(ProductsActions.loadProducts, (state) => ({ ...state, loading: true, error: null })),
+  on(ProductsActions.loadProductsSuccess, (state, { products }) => ({
+    ...state,
+    products,
+    loading: false,
+  })),
+  on(ProductsActions.loadProductsFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
+  on(ProductsActions.addProduct, (state, { product }) => ({
+    ...state,
+    products: [...state.products, product],
+  })),
+  on(ProductsActions.deleteProduct, (state, { id }) => ({
+    ...state,
+    products: state.products.filter((p) => p.id !== id),
+  })),
+);
+
+
+==================================================
+FILE: src/app/core/state/products/products.selectors.ts
+==================================================
+
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ProductsState } from './products.reducer';
+
+export const selectProductsState = createFeatureSelector<ProductsState>('products');
+
+export const selectAllProducts = createSelector(selectProductsState, (state) => state.products);
+
+export const selectProductsLoading = createSelector(selectProductsState, (state) => state.loading);
+
+export const selectProductsError = createSelector(selectProductsState, (state) => state.error);
+
+
+==================================================
+FILE: src/app/core/utils/type-guards.ts
+==================================================
+
+import { Product } from '../models/product.model';
+
+export function isProduct(item: unknown): item is Product {
+  return (
+    typeof item === 'object' && item !== null && 'id' in item && 'name' in item && 'price' in item
+  );
+}
+
+
+==================================================
+FILE: src/app/features/cart/cart/cart.html
+==================================================
+
+<div class="bg-gray-100 p-6 min-h-screen">
+  <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">Kosár tartalma</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    @for (item of items(); track item) {
+      <div
+        class="bg-gray-900 text-white rounded-xl shadow-lg p-6 flex flex-col justify-between transform hover:scale-105 transition"
+      >
+        <div>
+          <h3 class="text-xl font-semibold mb-2 text-white">{{ item.name }}</h3>
+          <p class="text-gray-300 mb-2">Quantity: {{ item.quantity }} x $ {{ item.price }}</p>
+          <p class="text-gray-300 font-semibold">Subtotal: $ {{ item.price * item.quantity }}</p>
+        </div>
+
+        <button
+          (click)="remove(item.id)"
+          class="mt-4 bg-white text-gray-900 py-2 rounded-lg font-semibold hover:bg-gray-300 transition"
+        >
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+
+  <div class="mt-6 max-w-md mx-auto text-center">
+    <p class="text-xl font-bold mb-4 text-gray-900">Összesen: $ {{ total() }}</p>
+    <button
+      (click)="clear()"
+      class="w-full bg-white text-gray-900 py-3 rounded-xl font-semibold hover:bg-gray-300 transition"
+    >
+      Kosár ürítése
+    </button>
+  </div>
+</div>
+
+
+==================================================
+FILE: src/app/features/cart/cart/cart.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Cart } from './cart';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { CartSelectors, CartActions } from '../../../core/state/cart';
+import { CartState } from '../../../core/state/cart/cart.reducer';
+
+describe('Cart', () => {
+  let component: Cart;
+  let fixture: ComponentFixture<Cart>;
+  let store: MockStore;
+
+  const initialState: CartState = {
+    items: [
+      {
+        id: '1',
+        name: 'Test Laptop',
+        price: 1000,
+        type: 'laptop',
+        ramGb: 16,
+        cpu: 'Intel i7',
+        os: 'Windows 11',
+        screenInch: 15.6,
+        description: 'A powerful laptop',
+        image: 'image.jpg',
+        keywords: ['tech', 'laptop'],
+        quantity: 2,
+      },
+      {
+        id: '2',
+        name: 'Phone',
+        price: 500,
+        type: 'laptop',
+        ramGb: 16,
+        cpu: 'Intel i7',
+        os: 'Windows 11',
+        screenInch: 15.6,
+        description: 'A powerful laptop',
+        image: 'image.jpg',
+        keywords: ['tech', 'laptop'],
+        quantity: 1,
+      },
+    ],
+  };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Cart],
+      providers: [provideMockStore({ initialState })],
+    }).compileComponents();
+
+    store = TestBed.inject(MockStore);
+    store.overrideSelector(CartSelectors.selectCartItems, initialState.items);
+    store.overrideSelector(CartSelectors.selectCartTotal, 2500);
+
+    fixture = TestBed.createComponent(Cart);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should select items from store', () => {
+    const items = component.items();
+    expect(items.length).toBe(2);
+    expect(items[0].name).toBe('Test Laptop');
+    expect(items[1].name).toBe('Phone');
+  });
+
+  it('should select total from store', () => {
+    const total = component.total();
+    expect(total).toBe(2500);
+  });
+
+  it('should dispatch removeFromCart action', () => {
+    const spy = spyOn(store, 'dispatch');
+    component.remove('1');
+    expect(spy).toHaveBeenCalledWith(CartActions.removeFromCart({ id: '1' }));
+  });
+
+  it('should dispatch clearCart action', () => {
+    const spy = spyOn(store, 'dispatch');
+    component.clear();
+    expect(spy).toHaveBeenCalledWith(CartActions.clearCart());
+  });
+
+  it('should render items correctly in the template', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const itemTitles = compiled.querySelectorAll('h3');
+    expect(itemTitles.length).toBe(2);
+    expect(itemTitles[0].textContent).toContain('Laptop');
+    expect(itemTitles[1].textContent).toContain('Phone');
+
+    const subtotalTexts = compiled.querySelectorAll('p.font-semibold');
+    expect(subtotalTexts[0].textContent).toContain('2000');
+    expect(subtotalTexts[1].textContent).toContain('500');
+  });
+
+  it('should render total correctly', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const totalEl = compiled.querySelector('p.text-xl.font-bold');
+    expect(totalEl?.textContent).toContain('2500');
+  });
+});
+
+
+==================================================
+FILE: src/app/features/cart/cart/cart.ts
+==================================================
+
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { CartActions, CartSelectors } from '../../../core/state/cart';
+import { SeoService } from '../../../core/services/seo.service';
+
+@Component({
+  selector: 'app-cart',
+  standalone: true,
+  templateUrl: './cart.html',
+  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Cart implements OnInit {
+  private _store = inject(Store);
+  private _seoService = inject(SeoService);
+
+  items = this._store.selectSignal(CartSelectors.selectCartItems);
+  total = this._store.selectSignal(CartSelectors.selectCartTotal);
+
+  public ngOnInit(): void {
+    this._seoService.setMeta({
+      title: 'Webshop – Kosár',
+      description: 'Ellenőrizd a kosarad tartalmát és folytasd a vásárlást nálunk.',
+      keywords: 'laptop, tablet, phone, cart, kosár',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
+  }
+
+  remove(id: string) {
+    this._store.dispatch(CartActions.removeFromCart({ id }));
+  }
+
+  clear() {
+    this._store.dispatch(CartActions.clearCart());
+  }
+}
+
+
+==================================================
+FILE: src/app/features/cart/cart.routes.ts
+==================================================
+
+import { Routes } from '@angular/router';
+import { Cart } from './cart/cart';
+
+export const CART_ROUTES: Routes = [{ path: '', component: Cart }];
+
+
+==================================================
+FILE: src/app/features/dashboard/dashboard/dashboard.html
+==================================================
+
+<div class="max-w-7xl mx-auto p-6">
+  <!-- ✅ Header: Title + Notification Button egy sorban -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold text-gray-900">Irányítópult</h2>
+
+    <!-- Notification Badge - csak ha van értesítés -->
+    @if (notifications().length > 0) {
+      <div class="relative">
+        <button
+          (click)="toggleNotifications()"
+          class="relative flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-md"
+          [attr.aria-label]="'Értesítések: ' + notifications().length + ' db'">
+          <!-- Icon: Bell SVG -->
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+
+          <!-- Badge count -->
+          <span class="font-semibold">{{ notifications().length }}</span>
+        </button>
+
+        <!-- Notification Dropdown -->
+        @if (showNotifications()) {
+          <div class="absolute right-0 mt-3 w-96 bg-white rounded-lg shadow-2xl z-50 border border-gray-200 max-h-[32rem] overflow-hidden">
+            <!-- Header -->
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+              <h3 class="font-semibold text-gray-900 text-sm">
+                Értesítések ({{ notifications().length }})
+              </h3>
+              <button
+                (click)="clearNotifications()"
+                class="text-xs text-blue-600 hover:text-blue-800 font-medium transition">
+                Összes törlése
+              </button>
+            </div>
+
+            <!-- Notification List -->
+            <div class="max-h-96 overflow-y-auto">
+              @for (notif of notifications(); track notif.id) {
+                <div class="px-4 py-3 border-b border-gray-100 hover:bg-blue-50 transition-colors group">
+                  <div class="flex items-start gap-3">
+                    <!-- Icon based on type -->
+                    <div class="flex-shrink-0 mt-0.5">
+                      @switch (notif.type) {
+                        @case ('success') {
+                          <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        }
+                        @case ('warning') {
+                          <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        }
+                        @case ('error') {
+                          <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        }
+                        @default {
+                          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        }
+                      }
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm text-gray-800 leading-relaxed">{{ notif.message }}</p>
+                      <p class="text-xs text-gray-500 mt-1">
+                        {{ notif.timestamp | date:'short':'hu' }}
+                      </p>
+                    </div>
+
+                    <!-- Close button -->
+                    <button
+                      (click)="removeNotification(notif.id); $event.stopPropagation()"
+                      class="flex-shrink-0 text-gray-400 hover:text-gray-600 transition opacity-0 group-hover:opacity-100"
+                      aria-label="Értesítés eltávolítása">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Footer (opcionális) -->
+            <div class="px-4 py-2 bg-gray-50 border-t border-gray-200 text-center">
+              <button
+                (click)="showNotifications.set(false)"
+                class="text-xs text-gray-600 hover:text-gray-900 transition">
+                Bezárás
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- ✅ Új termék form - változatlan -->
+  <div class="mb-8 bg-gray-300 p-6 rounded-xl shadow">
+    <h3 class="text-xl font-semibold mb-4 text-gray-900">Új termék hozzáadása</h3>
+    <form [formGroup]="newProductForm" (ngSubmit)="addNewProduct()" class="space-y-4">
+      <input
+        formControlName="name"
+        placeholder="Name"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      />
+      @if (form.name.touched && form.name.invalid) {
+        <div class="text-red-700 text-sm">
+          @if (form.name.errors?.['required']) {
+            <div>A név megadása kötelező.</div>
+          }
+          @if (form.name.errors?.['minlength']) {
+            <div>Legalább 3 karakter szükséges.</div>
+          }
+        </div>
+      }
+
+      <input
+        formControlName="price"
+        type="number"
+        placeholder="Price"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      />
+      @if (form.price.touched && form.price.invalid) {
+        <div class="text-red-700 text-sm">
+          @if (form.price.errors?.['required']) {
+            <div>Az ár megadása kötelező.</div>
+          }
+          @if (form.price.errors?.['min']) {
+            <div>Az árnak legalább 1-nek kell lennie.</div>
+          }
+        </div>
+      }
+
+      <label for="typeSelect" class="sr-only">Termék típusa</label>
+      <select
+        id="typeSelect"
+        formControlName="type"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      >
+        <option value="laptop">Laptop</option>
+        <option value="phone">Phone</option>
+        <option value="tablet">Tablet</option>
+        <option value="accessory">Accessory</option>
+      </select>
+      @if (form.type.touched && form.type.invalid) {
+        <div class="text-red-700 text-sm">
+          @if (form.type.errors?.['required']) {
+            <div>A típus kiválasztása kötelező.</div>
+          }
+        </div>
+      }
+
+      <textarea
+        formControlName="description"
+        placeholder="Description"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      ></textarea>
+      @if (form.description.touched && form.description.invalid) {
+        <div class="text-red-700 text-sm">
+          @if (form.description.errors?.['required']) {
+            <div>A leírás megadása kötelező.</div>
+          }
+          @if (form.description.errors?.['minlength']) {
+            <div>A leírásnak legalább 10 karakterből kell állnia.</div>
+          }
+        </div>
+      }
+
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      />
+      @if (form.image.touched && form.image.invalid) {
+        <div class="text-red-700 text-sm">
+          @if (form.image.errors?.['required']) {
+            <div>A kép feltöltése kötelező.</div>
+          }
+        </div>
+      }
+
+      @if (form.image.value) {
+        <div class="mt-4">
+          <p class="text-sm text-gray-600 mb-2">Előnézet:</p>
+          <img
+            [src]="form.image.value"
+            alt="Preview"
+            class="w-32 h-32 object-cover rounded-lg shadow"
+          />
+        </div>
+      }
+
+      <button
+        type="submit"
+        class="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 transition"
+        [class.disabled]="newProductForm.invalid"
+        [disabled]="newProductForm.invalid"
+      >
+        Termék hozzáadása
+      </button>
+    </form>
+  </div>
+
+  <!-- ✅ Termékek grid - változatlan -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    @for (product of products(); track product) {
+      <app-card [product]="product" [isDashboard]="true"></app-card>
+    }
+  </div>
+</div>
+
+
+==================================================
+FILE: src/app/features/dashboard/dashboard/dashboard.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Dashboard } from './dashboard';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+describe('Dashboard', () => {
+  let component: Dashboard;
+  let fixture: ComponentFixture<Dashboard>;
+  let store: MockStore;
+  let dispatchSpy: jasmine.Spy;
+
+  const initialState = {
+    products: {
+      products: [],
+    },
+  };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, FormsModule, Dashboard],
+      providers: [provideMockStore({ initialState })],
+    }).compileComponents();
+
+    store = TestBed.inject(MockStore);
+    store.overrideSelector(ProductsSelectors.selectAllProducts, []);
+
+    dispatchSpy = spyOn(store, 'dispatch');
+
+    fixture = TestBed.createComponent(Dashboard);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should dispatch loadProducts on init', () => {
+    expect(dispatchSpy).toHaveBeenCalledWith(ProductsActions.loadProducts());
+  });
+
+  it('should make form invalid when empty', () => {
+    component.newProductForm.reset();
+    expect(component.newProductForm.invalid).toBeTrue();
+  });
+
+  it('should validate name control (required + minlength)', () => {
+    const name = component.form.name;
+    name.setValue('');
+    expect(name.hasError('required')).toBeTrue();
+
+    name.setValue('ab');
+    expect(name.hasError('minlength')).toBeTrue();
+
+    name.setValue('abc');
+    expect(name.valid).toBeTrue();
+  });
+
+  it('should validate price control (required + min)', () => {
+    const price = component.form.price;
+    price.setValue(null);
+    expect(price.hasError('required')).toBeTrue();
+
+    price.setValue(0);
+    expect(price.hasError('min')).toBeTrue();
+
+    price.setValue(10);
+    expect(price.valid).toBeTrue();
+  });
+
+  it('should validate type control (required)', () => {
+    const type = component.form.type;
+    type.setValue('');
+    expect(type.hasError('required')).toBeTrue();
+
+    type.setValue('laptop');
+    expect(type.valid).toBeTrue();
+  });
+
+  it('should validate description control (required + minlength)', () => {
+    const description = component.form.description;
+    description.setValue('');
+    expect(description.hasError('required')).toBeTrue();
+
+    description.setValue('short');
+    expect(description.hasError('minlength')).toBeTrue();
+
+    description.setValue('valid description here');
+    expect(description.valid).toBeTrue();
+  });
+
+  it('should validate image control (required)', () => {
+    const image = component.form.image;
+    image.setValue('');
+    expect(image.hasError('required')).toBeTrue();
+
+    image.setValue('data:image/png;base64,xxx');
+    expect(image.valid).toBeTrue();
+  });
+
+  it('should dispatch addProduct when form is valid', () => {
+    component.newProductForm.setValue({
+      name: 'Test product',
+      price: 100,
+      type: 'laptop',
+      description: 'This is a valid description',
+      image: 'data:image/png;base64,xxx',
+    });
+
+    component.addNewProduct();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        type: ProductsActions.addProduct.type,
+        product: jasmine.objectContaining({
+          name: 'Test product',
+          price: 100,
+          type: 'laptop',
+        }),
+      }),
+    );
+  });
+
+  it('should reset form after successful add', () => {
+    component.newProductForm.setValue({
+      name: 'Test product',
+      price: 100,
+      type: 'laptop',
+      description: 'This is a valid description',
+      image: 'data:image/png;base64,xxx',
+    });
+
+    component.addNewProduct();
+
+    expect(component.form.type.value).toBe('accessory');
+    expect(component.form.price.value).toBe(0);
+    expect(component.form.name.value).toBeNull();
+    expect(component.form.description.value).toBeNull();
+    expect(component.form.image.value).toBeNull();
+  });
+
+  it('should not dispatch addProduct if form is invalid', () => {
+    component.form.name.setValue('');
+    component.addNewProduct();
+    expect(dispatchSpy).not.toHaveBeenCalledWith(
+      jasmine.objectContaining({ type: ProductsActions.addProduct.type }),
+    );
+  });
+});
+
+
+==================================================
+FILE: src/app/features/dashboard/dashboard/dashboard.ts
+==================================================
+
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit, signal,
+} from '@angular/core';
+import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+import { Store } from '@ngrx/store';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Card } from '../../../shared/card/card';
+import { Product } from '../../../core/models/product.model';
+import {NotificationService} from '../../../core/services/notification.service';
+import {DatePipe} from '@angular/common';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  templateUrl: './dashboard.html',
+  imports: [FormsModule, ReactiveFormsModule, Card, DatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Dashboard implements OnInit {
+  private _store = inject(Store);
+  private _cdr = inject(ChangeDetectorRef);
+  private _notificationService = inject(NotificationService);
+  notifications = this._notificationService.notifications;
+  showNotifications = signal(false);
+  products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
+
+  newProductForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    price: new FormControl(0, [Validators.required, Validators.min(1)]),
+    type: new FormControl('accessory', Validators.required),
+    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    image: new FormControl('', [Validators.required]),
+  });
+
+  public ngOnInit(): void {
+    this._store.dispatch(ProductsActions.loadProducts());
+  }
+
+  public onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.newProductForm.patchValue({ image: reader.result as string });
+        this._cdr.markForCheck();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  public addNewProduct(): void {
+    if (this.newProductForm.valid) {
+      const newProduct: Product = {
+        id: Date.now().toString(),
+        name: this.newProductForm.value.name!,
+        price: this.newProductForm.value.price!,
+        type: this.newProductForm.value.type as Product['type'],
+        ramGb: 0,
+        cpu: '',
+        os: '',
+        screenInch: 0,
+        description: this.newProductForm.value.description!,
+        image: this.newProductForm.value.image!,
+        keywords: [],
+      };
+      this._store.dispatch(ProductsActions.addProduct({ product: newProduct }));
+      this.newProductForm.reset({ type: 'accessory', price: 0 });
+    }
+  }
+
+  public toggleNotifications(): void {
+    this.showNotifications.update(v => !v);
+  }
+
+  public removeNotification(id: string): void {
+    this._notificationService.removeNotification(id);
+  }
+
+  public clearNotifications(): void {
+    this._notificationService.clearAll();
+    this.showNotifications.set(false);
+  }
+
+  get form() {
+    return this.newProductForm.controls;
+  }
+}
+
+
+==================================================
+FILE: src/app/features/dashboard/dashboard.routes.ts
+==================================================
+
+import { Routes } from '@angular/router';
+import { Dashboard } from './dashboard/dashboard';
+
+export const DASHBOARD_ROUTES: Routes = [{ path: '', component: Dashboard }];
+
+
+==================================================
+FILE: src/app/features/home/home/home.html
+==================================================
+
+<section class="flex flex-col items-center justify-center p-6">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">Üdvözöl a Webshop!</h1>
+  <p class="text-lg md:text-xl text-gray-700 mb-12 text-center max-w-2xl">
+    Nézd meg a legújabb termékeinket, add a kosaradhoz, és élvezd a gyors vásárlást!
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl">
+    <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+      <h2 class="text-2xl font-bold mb-2">Gyors vásárlás</h2>
+      <p>Könnyen hozzáadhatod termékeinket a kosaradhoz néhány kattintással.</p>
+    </div>
+    <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+      <h2 class="text-2xl font-bold mb-2">Különböző termékek</h2>
+      <p>Laptopok, telefonok, tabletek – mind megtalálod nálunk egy helyen.</p>
+    </div>
+    <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+      <h2 class="text-2xl font-bold mb-2">Biztonságos fizetés</h2>
+      <p>Minden tranzakció gyors és biztonságos. Vásárolj nyugodtan!</p>
+    </div>
+  </div>
+</section>
+
+
+==================================================
+FILE: src/app/features/home/home/home.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Home } from './home';
+
+describe('Home', () => {
+  let fixture: ComponentFixture<Home>;
+  let component: Home;
+  let element: HTMLElement;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Home],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Home);
+    component = fixture.componentInstance;
+    element = fixture.nativeElement;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should render main title', () => {
+    const title = element.querySelector('h1')!;
+    expect(title.textContent).toContain('Üdvözöl a Webshop!');
+  });
+
+  it('should render description paragraph', () => {
+    const paragraph = element.querySelector('p')!;
+    expect(paragraph.textContent).toContain('Nézd meg a legújabb termékeinket');
+  });
+
+  it('should render 3 feature cards', () => {
+    const cards = element.querySelectorAll('.bg-gray-900');
+    expect(cards.length).toBe(3);
+
+    expect(cards[0].textContent).toContain('Gyors vásárlás');
+    expect(cards[1].textContent).toContain('Különböző termékek');
+    expect(cards[2].textContent).toContain('Biztonságos fizetés');
+  });
+});
+
+
+==================================================
+FILE: src/app/features/home/home/home.ts
+==================================================
+
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [],
+  templateUrl: './home.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Home implements OnInit {
+  private _seoService = inject(SeoService);
+
+  public ngOnInit(): void {
+    this._seoService.setMeta({
+      title: 'Webshop – Főoldal',
+      description: 'Laptopok, telefonok, tabletek – mind megtalálod nálunk egy helyen.',
+      keywords: 'laptop, tablet, phone',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
+  }
+}
+
+
+==================================================
+FILE: src/app/features/home/home.routes.ts
+==================================================
+
+import { Routes } from '@angular/router';
+import { Home } from './home/home';
+
+export const HOME_ROUTES: Routes = [{ path: '', component: Home }];
+
+
+==================================================
+FILE: src/app/features/login/login/login.html
+==================================================
+
+<div class="min-h-screen">
+  <div class="flex flex-1 items-center justify-center p-8 bg-gray-100">
+    <div class="w-full max-w-md text-center bg-white rounded-2xl shadow-lg p-8">
+      <h4 class="text-3xl font-bold mb-2 text-gray-900">Bejelentkezés Keycloak-al</h4>
+      <span class="text-sm text-gray-600 mb-6 inline-block">Az irányítópúlt felhasználód</span>
+      <button
+        (click)="login()"
+        class="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
+      >
+        Bejelentkezés
+      </button>
+    </div>
+  </div>
+</div>
+
+
+==================================================
+FILE: src/app/features/login/login/login.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Login } from './login';
+import Keycloak from 'keycloak-js';
+import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
+import { environment } from '@environments/environment';
+import { signal } from '@angular/core';
+
+describe('Login', () => {
+  let fixture: ComponentFixture<Login>;
+  let component: Login;
+  let keycloakMock: any;
+  let keycloakEventSignal: ReturnType<typeof signal>;
+  let keycloakSignalMock: jasmine.Spy;
+
+  beforeEach(async () => {
+    keycloakMock = { login: jasmine.createSpy('login') };
+    (environment as any).useKeycloak = true;
+
+    keycloakEventSignal = signal({ type: KeycloakEventType.AuthLogout, args: null });
+
+    keycloakSignalMock = jasmine
+      .createSpy('keycloakSignal')
+      .and.callFake(() => keycloakEventSignal());
+
+    await TestBed.configureTestingModule({
+      imports: [Login],
+      providers: [
+        { provide: Keycloak, useValue: keycloakMock },
+        { provide: KEYCLOAK_EVENT_SIGNAL, useValue: keycloakSignalMock },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Login);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should create the component with authenticated false', () => {
+    expect(component).toBeTruthy();
+    expect(component.authenticated).toBeFalse();
+  });
+
+  it('should call keycloak.login on login()', () => {
+    component.login();
+    expect(keycloakMock.login).toHaveBeenCalled();
+  });
+
+  it('should set authenticated to true on Keycloak Ready event', () => {
+    keycloakEventSignal.set({ type: KeycloakEventType.Ready, args: true });
+    fixture.detectChanges();
+
+    expect(component.authenticated).toBeTrue();
+  });
+
+  it('should set authenticated to false on Keycloak AuthLogout event', () => {
+    keycloakEventSignal.set({ type: KeycloakEventType.AuthLogout, args: null });
+    expect(component.authenticated).toBeFalse();
+  });
+
+  it('should warn if Keycloak is not enabled', () => {
+    (environment as any).useKeycloak = false;
+    spyOn(console, 'warn');
+    fixture = TestBed.createComponent(Login);
+    component = fixture.componentInstance;
+
+    component.login();
+    expect(console.warn).toHaveBeenCalledWith('Keycloak nincs engedélyezve ebben a környezetben.');
+  });
+});
+
+
+==================================================
+FILE: src/app/features/login/login/login.ts
+==================================================
+
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit } from '@angular/core';
+import {
+  KEYCLOAK_EVENT_SIGNAL,
+  KeycloakEventType,
+  typeEventArgs,
+  ReadyArgs,
+} from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
+import { environment } from '@environments/environment';
+import { SeoService } from '../../../core/services/seo.service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [],
+  templateUrl: './login.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Login implements OnInit {
+  private _seoService = inject(SeoService);
+  authenticated = false;
+
+  private readonly keycloak = environment.useKeycloak ? inject(Keycloak, { optional: true }) : null;
+  private readonly keycloakSignal = environment.useKeycloak
+    ? inject(KEYCLOAK_EVENT_SIGNAL, { optional: true })
+    : null;
+
+  constructor() {
+    if (environment.useKeycloak && this.keycloakSignal) {
+      effect(() => {
+        if (this.keycloakSignal) {
+          const keycloakEvent = this.keycloakSignal();
+          if (keycloakEvent.type === KeycloakEventType.Ready) {
+            this.authenticated = typeEventArgs<ReadyArgs>(keycloakEvent.args);
+          }
+          if (keycloakEvent.type === KeycloakEventType.AuthLogout) {
+            this.authenticated = false;
+          }
+        }
+      });
+    }
+  }
+
+  public ngOnInit(): void {
+    this._seoService.setMeta({
+      title: 'Webshop – Bejelentkezés',
+      description:
+        'Ezen az oldalon bejelentkezhetsz a Webshop fiókodba, hogy hozzáférj az admin felülethez.',
+      keywords: 'bejelentkezés, irányítópúlt, termékek',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
+  }
+
+  login() {
+    if (this.keycloak) {
+      this.keycloak.login();
+    } else {
+      console.warn('Keycloak nincs engedélyezve ebben a környezetben.');
+    }
+  }
+}
+
+
+==================================================
+FILE: src/app/features/login/login.routes.ts
+==================================================
+
+import { Routes } from '@angular/router';
+import { Login } from './login/login';
+
+export const LOGIN_ROUTES: Routes = [{ path: '', component: Login }];
+
+
+==================================================
+FILE: src/app/features/products/product-detail/product-detail.html
+==================================================
+
+@if (product(); as product) {
+  <div
+    class="max-w-xl mx-auto mt-8 bg-gray-800 text-white rounded-2xl shadow-lg p-8 transition hover:scale-105"
+  >
+    <img
+      ngSrc="{{ product.image }}"
+      width="600"
+      height="400"
+      alt="{{ product.name }}"
+      class="w-full h-64 object-cover rounded-xl mb-4"
+      decoding="async"
+      fetchpriority="high"
+      priority
+    />
+    <h2 class="text-3xl font-bold mb-4 text-white">{{ product.name }}</h2>
+    <p class="text-gray-300 text-lg mb-4">$ {{ product.price }}</p>
+    @switch (product.type) {
+      @case ('laptop') {
+        <p class="mb-2 text-gray-300">RAM: {{ product.ramGb }} GB</p>
+        <p class="mb-2 text-gray-300">CPU: {{ product.cpu }}</p>
+        <p class="mb-2 text-gray-300">OS: {{ product.os }}</p>
+        <p class="mb-2 text-gray-300">Screen: {{ product.screenInch }}"</p>
+      }
+      @case ('phone') {
+        <p class="mb-2 text-gray-300">OS: {{ product.os }}</p>
+        <p class="mb-2 text-gray-300">Screen: {{ product.screenInch }}"</p>
+      }
+      @case ('tablet') {
+        <p class="mb-2 text-gray-300">OS: {{ product.os }}</p>
+        <p class="mb-2 text-gray-300">Screen: {{ product.screenInch }}"</p>
+      }
+      @case ('accessory') {
+        <p class="mb-2 text-gray-300">{{ product.description }}</p>
+      }
+    }
+    <p class="mt-4 text-gray-300">{{ product.description }}</p>
+    <button
+      (click)="addToCart()"
+      class="mt-6 w-full bg-white text-gray-900 py-3 rounded-xl font-semibold hover:bg-gray-200 transition"
+    >
+      Kosárba tesz
+    </button>
+  </div>
+}
+
+
+==================================================
+FILE: src/app/features/products/product-detail/product-detail.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ProductDetail } from './product-detail';
+import { Store } from '@ngrx/store';
+import { SeoService } from '../../../core/services/seo.service';
+import { ActivatedRoute } from '@angular/router';
+import { CartActions } from '../../../core/state/cart';
+import { signal } from '@angular/core';
+import { Product } from '../../../core/models/product.model';
+
+describe('ProductDetail', () => {
+  let fixture: ComponentFixture<ProductDetail>;
+  let component: ProductDetail;
+  let storeSpy: jasmine.SpyObj<Store>;
+  let seoSpy: jasmine.SpyObj<SeoService>;
+
+  const mockProduct: Product = {
+    id: '1',
+    name: 'Test Laptop',
+    price: 999,
+    type: 'laptop',
+    ramGb: 16,
+    cpu: 'Intel i7',
+    os: 'Windows 11',
+    screenInch: 15.6,
+    description: 'A powerful laptop',
+    image: 'image.jpg',
+    keywords: ['tech', 'laptop'],
+  };
+
+  beforeEach(async () => {
+    storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
+    seoSpy = jasmine.createSpyObj('SeoService', ['setMeta']);
+
+    await TestBed.configureTestingModule({
+      imports: [ProductDetail],
+      providers: [
+        { provide: Store, useValue: storeSpy },
+        { provide: SeoService, useValue: seoSpy },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: { data: { product: mockProduct } },
+          },
+        },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ProductDetail);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should set product signal from route snapshot', () => {
+    expect(component.product()).toEqual(mockProduct);
+  });
+
+  it('should call seoService.setMeta on init', () => {
+    expect(seoSpy.setMeta).toHaveBeenCalledWith({
+      title: mockProduct.name,
+      description: mockProduct.description,
+      image: mockProduct.image,
+      siteName: 'My Angular Webshop',
+      keywords: mockProduct.keywords.join(', '),
+      themeColor: '#ffffff',
+    });
+  });
+
+  it('should dispatch addToCart action', () => {
+    component.addToCart();
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(
+      CartActions.addToCart({ item: { ...mockProduct, quantity: 1 } }),
+    );
+  });
+
+  it('should not dispatch addToCart if product is null', () => {
+    (component as any).product = signal(null);
+    component.addToCart();
+    expect(storeSpy.dispatch).not.toHaveBeenCalledWith(
+      jasmine.objectContaining({ item: jasmine.anything() }),
+    );
+  });
+});
+
+
+==================================================
+FILE: src/app/features/products/product-detail/product-detail.ts
+==================================================
+
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { CartActions } from '../../../core/state/cart';
+import { CartItem } from '../../../core/state/cart/cart.reducer';
+import { SeoService } from '../../../core/services/seo.service';
+import { Product } from '../../../core/models/product.model';
+import { NgOptimizedImage } from '@angular/common';
+
+@Component({
+  selector: 'app-product-detail',
+  standalone: true,
+  imports: [NgOptimizedImage],
+  templateUrl: './product-detail.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductDetail implements OnInit {
+  private _store = inject(Store);
+  private _seoService = inject(SeoService);
+  private _route = inject(ActivatedRoute);
+  product = signal<Product | null>(null);
+
+  public ngOnInit(): void {
+    this.product.set(this._route.snapshot.data['product']);
+    const product = this.product();
+    // type narrowing
+    if (!product) return;
+
+    switch (product.type) {
+      case 'laptop':
+        console.log(product.ramGb);
+        break;
+
+      case 'phone':
+        console.log(product.os);
+        break;
+
+      case 'accessory':
+        console.log(product.compatibleWith);
+        break;
+    }
+
+    // Canonical URL
+    this._seoService.setCanonicalUrl(`https://yourwebshop.com/products/${product.id}`);
+
+    // Schema.org JSON-LD
+    this._seoService.setProductSchema(product);
+
+    if (this.product()) {
+      this._seoService.setMeta({
+        title: this.product()?.name,
+        description: this.product()?.description,
+        image: this.product()?.image,
+        siteName: 'My Angular Webshop',
+        keywords: this.product()?.keywords.join(', '),
+        themeColor: '#ffffff',
+      });
+    }
+  }
+
+  addToCart() {
+    const product = this.product();
+    if (product) {
+      const item: CartItem = { ...product, quantity: 1 };
+      this._store.dispatch(CartActions.addToCart({ item }));
+    }
+  }
+}
+
+
+==================================================
+FILE: src/app/features/products/product-list/product-list.html
+==================================================
+
+<div class="mb-6 flex flex-col sm:flex-row gap-4 items-center">
+  <label for="search" class="sr-only">Keresés termékek között</label>
+  <input
+    id="search"
+    type="text"
+    placeholder="Airpods"
+    (input)="updateSearch($any($event.target).value)"
+    class="p-2 border border-gray-700 rounded-lg flex-1 text-gray-900 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-800"
+  />
+  <label for="category" class="sr-only">Kategória</label>
+  <select
+    id="category"
+    (change)="updateCategory($any($event.target).value || null)"
+    class="p-2 border border-gray-700 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-gray-800"
+  >
+    <option value="all">Összes kategória</option>
+    <option value="laptop">Laptop</option>
+    <option value="phone">Phone</option>
+    <option value="tablet">Tablet</option>
+  </select>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  @for (product of filteredProducts(); track product) {
+    <app-card [product]="product" [isDashboard]="false"></app-card>
+  }
+</div>
+
+
+==================================================
+FILE: src/app/features/products/product-list/product-list.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ProductList } from './product-list';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { SeoService } from '../../../core/services/seo.service';
+import { signal } from '@angular/core';
+import { Card } from '../../../shared/card/card';
+import { CartActions } from '../../../core/state/cart';
+import { By } from '@angular/platform-browser';
+import { Product } from '../../../core/models/product.model';
+
+describe('ProductList', () => {
+  let fixture: ComponentFixture<ProductList>;
+  let component: ProductList;
+  let storeSpy: jasmine.SpyObj<Store>;
+  let routerSpy: jasmine.SpyObj<Router>;
+  let seoSpy: jasmine.SpyObj<SeoService>;
+
+  const mockProducts: Product[] = [
+    {
+      id: '1',
+      name: 'Laptop One',
+      price: 1000,
+      type: 'laptop',
+      ramGb: 16,
+      cpu: 'i7',
+      os: 'Windows',
+      screenInch: 15,
+      description: '',
+      image: 'laptop1.jpg',
+      keywords: [],
+    },
+    {
+      id: '2',
+      name: 'Phone One',
+      price: 500,
+      type: 'phone',
+      ramGb: 4,
+      cpu: '',
+      os: 'Android',
+      screenInch: 6,
+      description: '',
+      image: 'phone1.jpg',
+      keywords: [],
+    },
+  ];
+
+  beforeEach(async () => {
+    storeSpy = jasmine.createSpyObj('Store', ['dispatch', 'selectSignal']);
+    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    seoSpy = jasmine.createSpyObj('SeoService', ['setMeta']);
+
+    storeSpy.selectSignal.and.returnValue(signal(mockProducts));
+
+    await TestBed.configureTestingModule({
+      imports: [ProductList, Card],
+      providers: [
+        { provide: Store, useValue: storeSpy },
+        { provide: Router, useValue: routerSpy },
+        { provide: SeoService, useValue: seoSpy },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ProductList);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should set SEO meta on init', () => {
+    component.ngOnInit();
+    expect(seoSpy.setMeta).toHaveBeenCalled();
+  });
+
+  it('should filter products by search term', () => {
+    component.updateSearch('Laptop');
+    fixture.detectChanges();
+
+    const cards = fixture.debugElement.queryAll(By.directive(Card));
+    expect(cards.length).toBe(1);
+    const cardComponentInstance = cards[0].componentInstance as Card;
+    expect(cardComponentInstance.product()).toEqual(mockProducts[0]);
+  });
+
+  it('should filter products by category', () => {
+    component.updateCategory('phone');
+    fixture.detectChanges();
+
+    const cards = fixture.debugElement.queryAll(By.directive(Card));
+    expect(cards.length).toBe(1);
+    const cardComponentInstance = cards[0].componentInstance as Card;
+    expect(cardComponentInstance.product()).toEqual(mockProducts[1]);
+  });
+
+  it('should update searchTerm signal when input changes', () => {
+    component.updateSearch('Test');
+    expect(component.searchTerm()).toBe('Test');
+  });
+
+  it('should update selectedCategory signal when select changes', () => {
+    component.updateCategory('tablet');
+    expect(component.selectedCategory()).toBe('tablet');
+  });
+
+  it('should dispatch addToCart action', () => {
+    component.addToCart(mockProducts[0]);
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(
+      CartActions.addToCart({ item: { ...mockProducts[0], quantity: 1 } }),
+    );
+  });
+
+  it('should navigate to product detail', () => {
+    component.goToDetail(mockProducts[1]);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/products', mockProducts[1].id]);
+  });
+});
+
+
+==================================================
+FILE: src/app/features/products/product-list/product-list.ts
+==================================================
+
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ProductsSelectors } from '../../../core/state/products';
+import { CartActions } from '../../../core/state/cart';
+import { CartItem } from '../../../core/state/cart/cart.reducer';
+import { SeoService } from '../../../core/services/seo.service';
+import { Card } from '../../../shared/card/card';
+import { Product } from '../../../core/models/product.model';
+
+@Component({
+  selector: 'app-product-list',
+  standalone: true,
+  templateUrl: './product-list.html',
+  imports: [Card],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductList implements OnInit {
+  private _store = inject(Store);
+  private _router = inject(Router);
+  private _seoService = inject(SeoService);
+
+  products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
+  searchTerm = signal('');
+  selectedCategory = signal<string | null>(null);
+
+  filteredProducts = computed(() =>
+    this.products().filter((product) => {
+      const matchesName = product.name.toLowerCase().includes(this.searchTerm().toLowerCase());
+      const matchesCategory = this.selectedCategory()
+        ? product.type === this.selectedCategory()
+        : true;
+      return matchesName && matchesCategory;
+    }),
+  );
+
+  public ngOnInit(): void {
+    this._seoService.setMeta({
+      title: 'Webshop – Termékek',
+      description:
+        'Böngéssz a Webshop termékei között – laptopok, telefonok, tabletek és kiegészítők.',
+      keywords: 'webshop, laptop, telefon, tablet, kiegészítők',
+      siteName: 'My Angular Webshop',
+      image: '/assets/default-list-image.png',
+      themeColor: '#ffffff',
+    });
+  }
+
+  updateSearch(term: string) {
+    this.searchTerm.set(term);
+  }
+
+  updateCategory(category: string | null) {
+    this.selectedCategory.set(category);
+  }
+
+  addToCart(product: Product) {
+    const item: CartItem = { ...product, quantity: 1 };
+    this._store.dispatch(CartActions.addToCart({ item }));
+  }
+
+  goToDetail(product: Product) {
+    this._router.navigate(['/products', product.id]);
+  }
+}
+
+
+==================================================
+FILE: src/app/features/products/products.routes.ts
+==================================================
+
+import { Routes } from '@angular/router';
+import { ProductList } from './product-list/product-list';
+import { ProductDetail } from './product-detail/product-detail';
+import { ProductDetailResolver } from './resolvers/product-detail.resolver';
+import { ProductListResolver } from './resolvers/product-list.resolver';
+
+export const PRODUCTS_ROUTES: Routes = [
+  { path: '', component: ProductList, resolve: { product: ProductListResolver } },
+  { path: ':id', component: ProductDetail, resolve: { product: ProductDetailResolver } },
+];
+
+
+==================================================
+FILE: src/app/features/products/resolvers/product-detail.resolver.ts
+==================================================
+
+import { inject, Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { filter, firstValueFrom, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Product } from '../../../core/models/product.model';
+import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+
+@Injectable({ providedIn: 'root' })
+export class ProductDetailResolver implements Resolve<Product | null> {
+  private _store = inject(Store);
+
+  async resolve(route: ActivatedRouteSnapshot): Promise<Product | null> {
+    const id = route.params['id'];
+    this._store.dispatch(ProductsActions.loadProducts());
+    const products = await firstValueFrom(
+      this._store.select(ProductsSelectors.selectAllProducts).pipe(
+        filter((p) => p.length > 0),
+        catchError(() => of([])),
+      ),
+    );
+    return products.find((p) => p.id === id) || null;
+  }
+}
+
+
+==================================================
+FILE: src/app/features/products/resolvers/product-list.resolver.ts
+==================================================
+
+import { inject, Injectable } from '@angular/core';
+import { Resolve } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { filter, firstValueFrom, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Product } from '../../../core/models/product.model';
+import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
+
+@Injectable({ providedIn: 'root' })
+export class ProductListResolver implements Resolve<Product[] | null> {
+  private _store = inject(Store);
+
+  async resolve(): Promise<Product[] | null> {
+    this._store.dispatch(ProductsActions.loadProducts());
+    const products = await firstValueFrom(
+      this._store.select(ProductsSelectors.selectAllProducts).pipe(
+        filter((p) => p.length > 0),
+        catchError(() => of([])),
+      ),
+    );
+    return products;
+  }
+}
+
+
+==================================================
+FILE: src/app/shared/card/card.html
+==================================================
+
+@if (product(); as product) {
+  <div
+    class="bg-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl transition p-6 flex flex-col justify-between transform hover:scale-105"
+  >
+    <img
+      src="{{ product.image }}"
+      width="455"
+      height="256"
+      alt="{{ product.name }}"
+      class="w-full h-64 object-cover rounded-xl mb-4"
+      loading="lazy"
+      decoding="async"
+    />
+    <div>
+      <h3 class="text-xl font-semibold mb-2 text-white">{{ product.name }}</h3>
+      <p class="text-gray-300 mb-2">$ {{ product.price }}</p>
+      <p class="text-gray-300 mb-2 text-sm">{{ product.description }}</p>
+      @switch (product.type) {
+        @case ('laptop') {
+          <p class="text-gray-300 text-sm">RAM: {{ product.ramGb }} GB</p>
+          <p class="text-gray-300 text-sm">CPU: {{ product.cpu }}</p>
+          <p class="text-gray-300 text-sm">OS: {{ product.os }}</p>
+          <p class="text-gray-300 text-sm">Screen: {{ product.screenInch }}"</p>
+        }
+        @case ('phone') {
+          <p class="text-gray-300 text-sm">OS: {{ product.os }}</p>
+          <p class="text-gray-300 text-sm">Screen: {{ product.screenInch }}"</p>
+        }
+        @case ('tablet') {
+          <p class="text-gray-300 text-sm">OS: {{ product.os }}</p>
+          <p class="text-gray-300 text-sm">Screen: {{ product.screenInch }}"</p>
+        }
+        @case ('accessory') {
+          <p class="text-gray-300 text-sm">{{ product.keywords.join(', ') }}</p>
+        }
+      }
+    </div>
+    <div class="mt-4 flex gap-2">
+      @if (isDashboard()) {
+        <button
+          (click)="deleteProduct(product.id)"
+          class="flex-1 bg-red-700 text-white py-2 rounded-lg font-semibold hover:bg-red-800 transition"
+        >
+          Törlés
+        </button>
+      } @else {
+        <button
+          (click)="addToCart(product)"
+          class="flex-1 bg-white text-gray-800 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+        >
+          Kosárba tesz
+        </button>
+        <button
+          (click)="goToDetail(product)"
+          class="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg font-semibold hover:bg-white transition"
+        >
+          Részletek
+        </button>
+      }
+    </div>
+  </div>
+}
+
+
+==================================================
+FILE: src/app/shared/card/card.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Card } from './card';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { GtmService } from '../../core/services/gtm.service';
+import { CartActions } from '../../core/state/cart';
+import { ProductsActions } from '../../core/state/products';
+import { signal } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { Product } from '../../core/models/product.model';
+
+describe('Card', () => {
+  let fixture: ComponentFixture<Card>;
+  let component: Card;
+  let storeSpy: jasmine.SpyObj<Store>;
+  let routerSpy: jasmine.SpyObj<Router>;
+  let gtmSpy: jasmine.SpyObj<GtmService>;
+
+  const mockProduct: Product = {
+    id: '1',
+    name: 'Test Laptop',
+    price: 999,
+    type: 'laptop',
+    ramGb: 16,
+    cpu: 'Intel i7',
+    os: 'Windows 11',
+    screenInch: 15.6,
+    description: 'A powerful laptop',
+    image: 'image.jpg',
+    keywords: ['tech', 'laptop'],
+  };
+
+  beforeEach(async () => {
+    storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
+    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    gtmSpy = jasmine.createSpyObj('GtmService', ['pushEvent']);
+
+    await TestBed.configureTestingModule({
+      imports: [Card],
+      providers: [
+        { provide: Store, useValue: storeSpy },
+        { provide: Router, useValue: routerSpy },
+        { provide: GtmService, useValue: gtmSpy },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Card);
+    component = fixture.componentInstance;
+
+    // Jelezzük a componentnek a signals-t
+    (component as any).product = signal(mockProduct);
+    (component as any).isDashboard = signal(false);
+
+    fixture.detectChanges();
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should dispatch addToCart and push GTM event', () => {
+    component.addToCart(mockProduct);
+
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(
+      CartActions.addToCart({ item: { ...mockProduct, quantity: 1 } }),
+    );
+
+    expect(gtmSpy.pushEvent).toHaveBeenCalledWith('add_to_cart', {
+      product_id: mockProduct.id,
+      name: mockProduct.name,
+      price: mockProduct.price,
+    });
+  });
+
+  it('should navigate to product detail', () => {
+    component.goToDetail(mockProduct);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/products', mockProduct.id]);
+  });
+
+  it('should dispatch deleteProduct action', () => {
+    component.deleteProduct(mockProduct.id);
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(
+      ProductsActions.deleteProduct({ id: mockProduct.id }),
+    );
+  });
+
+  it('should render product info correctly', () => {
+    const el = fixture.nativeElement;
+
+    const name = el.querySelector('h3')?.textContent;
+    expect(name).toContain(mockProduct.name);
+
+    const price = el.querySelector('p')?.textContent;
+    expect(price).toContain(mockProduct.price.toString());
+
+    const img = el.querySelector('img') as HTMLImageElement;
+    expect(img.src).toContain(mockProduct.image);
+    expect(img.alt).toBe(mockProduct.name);
+  });
+
+  it('should display laptop-specific fields', () => {
+    const el = fixture.nativeElement;
+
+    expect(el.textContent).toContain(`RAM: ${mockProduct.ramGb} GB`);
+    expect(el.textContent).toContain(`CPU: ${mockProduct.cpu}`);
+    expect(el.textContent).toContain(`OS: ${mockProduct.os}`);
+    expect(el.textContent).toContain(`Screen: ${mockProduct.screenInch}"`);
+  });
+
+  it('should render dashboard buttons correctly', () => {
+    // A meglévő signal értékét állítjuk, nem cseréljük le
+    (component.isDashboard as any).set(true);
+    fixture.detectChanges();
+
+    const el = fixture.nativeElement;
+    const deleteBtn = el.querySelector('button.bg-red-700');
+    expect(deleteBtn).toBeTruthy();
+
+    const addToCartBtn = el.querySelector('button.bg-white');
+    expect(addToCartBtn).toBeNull();
+  });
+
+  it('should render non-dashboard buttons correctly', () => {
+    (component.isDashboard as any).set(false);
+    fixture.detectChanges();
+
+    const addToCartBtn = fixture.debugElement.query(By.css('button.bg-white'));
+    const detailBtn = fixture.debugElement.query(By.css('button.bg-gray-200'));
+    expect(addToCartBtn).toBeTruthy();
+    expect(detailBtn).toBeTruthy();
+
+    const deleteBtn = fixture.debugElement.query(By.css('button.bg-red-700'));
+    expect(deleteBtn).toBeNull();
+  });
+
+  it('should call addToCart when button clicked', () => {
+    spyOn(component, 'addToCart');
+    fixture.detectChanges();
+
+    const btn = fixture.debugElement.query(By.css('button.bg-white'));
+    btn.triggerEventHandler('click', null);
+    expect(component.addToCart).toHaveBeenCalledWith(mockProduct);
+  });
+});
+
+
+==================================================
+FILE: src/app/shared/card/card.ts
+==================================================
+
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { CartItem } from '../../core/state/cart/cart.reducer';
+import { CartActions } from '../../core/state/cart';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { ProductsActions } from '../../core/state/products';
+import { GtmService } from '../../core/services/gtm.service';
+import { Product } from '../../core/models/product.model';
+
+@Component({
+  selector: 'app-card',
+  standalone: true,
+  styles: [
+    `
+      :host {
+        display: flex;
+      }
+    `,
+  ],
+  templateUrl: './card.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [],
+})
+export class Card {
+  private _store = inject(Store);
+  private _router = inject(Router);
+  private _gtmService = inject(GtmService);
+  product = input<Product>();
+  isDashboard = input<boolean>();
+
+  addToCart(product: Product): void {
+    const item: CartItem = { ...product, quantity: 1 };
+    this._store.dispatch(CartActions.addToCart({ item }));
+    this._gtmService.pushEvent('add_to_cart', {
+      product_id: product.id,
+      name: product.name,
+      price: product.price,
+    });
+    window.postMessage({ type: 'CART_UPDATED', data: product }, '*');
+  }
+
+  goToDetail(product: Product): void {
+    this._router.navigate(['/products', product.id]);
+  }
+
+  deleteProduct(id: string) {
+    this._store.dispatch(ProductsActions.deleteProduct({ id }));
+  }
+}
+
+
+==================================================
+FILE: src/app/shared/header/header.html
+==================================================
+
+<header>
+  <nav class="bg-gray-900 text-white p-4 shadow-md">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="text-2xl font-bold text-white">Webshop</div>
+      <div class="space-x-4">
+        <a routerLink="/" class="text-white hover:text-gray-300 transition font-semibold"
+          >Főoldal</a
+        >
+        <a
+          [routerLink]="PRODUCTS_PATH"
+          class="text-white hover:text-gray-300 transition font-semibold"
+          >Termékek</a
+        >
+        <a [routerLink]="CART_PATH" class="text-white hover:text-gray-300 transition font-semibold"
+          >Kosár</a
+        >
+        @if (authenticated()) {
+          <a
+            [routerLink]="DASHBOARD_PATH"
+            class="text-white hover:text-gray-300 transition font-semibold"
+            >Irányítópult</a
+          >
+          <button
+            (click)="logout()"
+            class="text-white hover:text-gray-300 transition font-semibold"
+          >
+            Kijelentkezés
+          </button>
+        } @else {
+          <a
+            [routerLink]="LOGIN_PATH"
+            class="text-white hover:text-gray-300 transition font-semibold"
+            >Bejelentkezés</a
+          >
+        }
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+==================================================
+FILE: src/app/shared/header/header.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Header } from './header';
+import { RouterModule } from '@angular/router';
+import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
+import { environment } from '@environments/environment';
+
+describe('Header', () => {
+  let fixture: ComponentFixture<Header>;
+  let component: Header;
+  let keycloakMock: any;
+  let keycloakSignalMock: jasmine.Spy;
+
+  beforeEach(async () => {
+    keycloakMock = { logout: jasmine.createSpy('logout') };
+    keycloakSignalMock = jasmine.createSpy('keycloakSignal');
+
+    (environment as any).useKeycloak = true;
+
+    await TestBed.configureTestingModule({
+      imports: [Header, RouterModule.forRoot([])],
+      providers: [
+        { provide: Keycloak, useValue: keycloakMock },
+        { provide: KEYCLOAK_EVENT_SIGNAL, useValue: keycloakSignalMock },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Header);
+    component = fixture.componentInstance;
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize authenticated signal to false', () => {
+    expect(component.authenticated()).toBeFalse();
+  });
+
+  it('should set authenticated signal to false on Keycloak AuthLogout event', () => {
+    keycloakSignalMock.and.returnValue({ type: KeycloakEventType.AuthLogout, args: null });
+    fixture = TestBed.createComponent(Header);
+    component = fixture.componentInstance;
+    expect(component.authenticated()).toBeFalse();
+  });
+
+  it('should call keycloak.logout on logout()', () => {
+    component.logout();
+    expect(keycloakMock.logout).toHaveBeenCalledWith({ redirectUri: window.location.href });
+  });
+});
+
+
+==================================================
+FILE: src/app/shared/header/header.ts
+==================================================
+
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { CART_PATH, DASHBOARD_PATH, LOGIN_PATH, PRODUCTS_PATH } from '../../app.routes';
+import { RouterLink } from '@angular/router';
+import {
+  KEYCLOAK_EVENT_SIGNAL,
+  KeycloakEventType,
+  ReadyArgs,
+  typeEventArgs,
+} from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
+import { environment } from '@environments/environment';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  templateUrl: './header.html',
+  imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Header {
+  protected readonly PRODUCTS_PATH = PRODUCTS_PATH;
+  protected readonly CART_PATH = CART_PATH;
+  protected readonly DASHBOARD_PATH = DASHBOARD_PATH;
+  protected readonly LOGIN_PATH = LOGIN_PATH;
+  private keycloak = environment.useKeycloak ? inject(Keycloak, { optional: true }) : null;
+  private keycloakSignal = environment.useKeycloak
+    ? inject(KEYCLOAK_EVENT_SIGNAL, { optional: true })
+    : null;
+  authenticated = signal(false);
+
+  constructor() {
+    if (environment.useKeycloak && this.keycloakSignal) {
+      effect(() => {
+        const event = this.keycloakSignal!();
+        if (event.type === KeycloakEventType.Ready) {
+          this.authenticated.set(typeEventArgs<ReadyArgs>(event.args));
+        }
+        if (event.type === KeycloakEventType.AuthLogout) {
+          this.authenticated.set(false);
+        }
+      });
+    }
+  }
+
+  public logout(): void {
+    if (this.keycloak) {
+      this.keycloak.logout({ redirectUri: window.location.href });
+    }
+  }
+}
+
+
+==================================================
+FILE: src/environments/environment.development.ts
+==================================================
+
+export const environment = {
+  production: false,
+  useKeycloak: true,
+  keycloak: {
+    url: 'http://localhost:8080',
+    realm: 'myRealm',
+    clientId: 'angular-app',
+  },
+};
+
+
+==================================================
+FILE: src/environments/environment.ts
+==================================================
+
+export const environment = {
+  production: true,
+  useKeycloak: false,
+  keycloak: {
+    url: '',
+    realm: '',
+    clientId: '',
+  },
+};
+
+
+==================================================
+FILE: src/index.html
+==================================================
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Webshop</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-TTVTW5LZ');
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TTVTW5LZ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <app-root></app-root>
+  </body>
+</html>
+
+
+==================================================
+FILE: src/main.server.ts
+==================================================
+
+import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
+import { App } from './app/app';
+import { config } from './app/app.config.server';
+
+const bootstrap = (context: BootstrapContext) => bootstrapApplication(App, config, context);
+
+export default bootstrap;
+
+
+==================================================
+FILE: src/main.ts
+==================================================
+
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
+
+bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+
+
+==================================================
+FILE: src/polyfills.ts
+==================================================
+
+import 'zone.js';
+import 'zone.js/testing';
+
+
+==================================================
+FILE: src/server.ts
+==================================================
+
+import {
+  AngularNodeAppEngine,
+  createNodeRequestHandler,
+  isMainModule,
+  writeResponseToNodeResponse,
+} from '@angular/ssr/node';
+import express from 'express';
+import { join } from 'node:path';
+
+const browserDistFolder = join(import.meta.dirname, '../browser');
+
+const app = express();
+const angularApp = new AngularNodeAppEngine();
+
+/**
+ * Example Express Rest API endpoints can be defined here.
+ * Uncomment and define endpoints as necessary.
+ *
+ * Example:
+ * ```ts
+ * app.get('/api/{*splat}', (req, res) => {
+ *   // Handle API request
+ * });
+ * ```
+ */
+
+/**
+ * Serve static files from /browser
+ */
+app.use(
+  express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: false,
+    redirect: false,
+  }),
+);
+
+/**
+ * Handle all other requests by rendering the Angular application.
+ */
+app.use((req, res, next) => {
+  angularApp
+    .handle(req)
+    .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))
+    .catch(next);
+});
+
+/**
+ * Start the server if this module is the main entry point.
+ * The server listens on the port defined by the `PORT` environmentDevelopment variable, or defaults to 4000.
+ */
+
+if (isMainModule(import.meta.url)) {
+  const port = process.env['PORT'] || 4000;
+  app.listen(port, (error) => {
+    if (error) {
+      throw error;
+    }
+
+    console.log(`Node Express server listening on http://localhost:${port}`);
+  });
+}
+
+/**
+ * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
+ */
+export const reqHandler = createNodeRequestHandler(app);
+
+
+==================================================
+FILE: src/styles.scss
+==================================================
+
+/* You can add global styles to this file, and also import other style files */
+@use 'tailwindcss';
+
+
+==================================================
+FILE: tsconfig.app.json
+==================================================
+
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["node"],
+    "paths": {
+      "@environments/*": ["src/environments/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}
+
+
+==================================================
+FILE: tsconfig.json
+==================================================
+
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@environments/*": ["src/environments/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
+
+
+==================================================
+FILE: tsconfig.spec.json
+==================================================
+
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
+

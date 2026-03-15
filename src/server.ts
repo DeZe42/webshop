@@ -6,23 +6,22 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { environment } from './environments/environment';
+import { generateSitemap } from './sitemap';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+const SITE_URL = process.env['SITE_URL'] ?? environment.siteUrl;
+const API_URL = process.env['API_URL'] ?? environment.apiUrl;
+
+app.get('/sitemap.xml', async (_req, res) => {
+  const xml = await generateSitemap(SITE_URL, API_URL);
+  res.setHeader('Content-Type', 'application/xml');
+  res.send(xml);
+});
 
 /**
  * Serve static files from /browser

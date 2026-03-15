@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { SeoService } from '../../../core/services/seo.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

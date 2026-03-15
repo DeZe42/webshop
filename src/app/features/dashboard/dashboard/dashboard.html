@@ -1,7 +1,9 @@
 <div class="max-w-7xl mx-auto p-6">
-  <h2 class="text-3xl font-bold mb-6 text-gray-900">Irányítópult</h2>
+  <h2 class="text-3xl font-bold mb-6 text-gray-900">{{ 'DASHBOARD.TITLE' | translate }}</h2>
   <div class="mb-8 bg-gray-300 p-6 rounded-xl shadow">
-    <h3 class="text-xl font-semibold mb-4 text-gray-900">Új termék hozzáadása</h3>
+    <h3 class="text-xl font-semibold mb-4 text-gray-900">
+      {{ 'DASHBOARD.ADD_PRODUCT_TITLE' | translate }}
+    </h3>
     <form [formGroup]="newProductForm" (ngSubmit)="addNewProduct()" class="space-y-4">
       <input
         formControlName="name"
@@ -11,10 +13,10 @@
       @if (form.name.touched && form.name.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.name.errors?.['required']) {
-            <div>A név megadása kötelező.</div>
+            <div>{{ 'DASHBOARD.NAME_REQUIRED' | translate }}</div>
           }
           @if (form.name.errors?.['minlength']) {
-            <div>Legalább 3 karakter szükséges.</div>
+            <div>{{ 'DASHBOARD.NAME_MIN_LENGTH' | translate }}</div>
           }
         </div>
       }
@@ -28,15 +30,15 @@
       @if (form.price.touched && form.price.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.price.errors?.['required']) {
-            <div>Az ár megadása kötelező.</div>
+            <div>{{ 'DASHBOARD.PRICE_REQUIRED' | translate }}</div>
           }
           @if (form.price.errors?.['min']) {
-            <div>Az árnak legalább 1-nek kell lennie.</div>
+            <div>{{ 'DASHBOARD.PRICE_MIN' | translate }}</div>
           }
         </div>
       }
 
-      <label for="typeSelect" class="sr-only">Termék típusa</label>
+      <label for="typeSelect" class="sr-only">{{ 'DASHBOARD.TYPE_LABEL' | translate }}</label>
       <select
         id="typeSelect"
         formControlName="type"
@@ -50,7 +52,7 @@
       @if (form.type.touched && form.type.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.type.errors?.['required']) {
-            <div>A típus kiválasztása kötelező.</div>
+            <div>{{ 'DASHBOARD.TYPE_REQUIRED' | translate }}</div>
           }
         </div>
       }
@@ -63,10 +65,10 @@
       @if (form.description.touched && form.description.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.description.errors?.['required']) {
-            <div>A leírás megadása kötelező.</div>
+            <div>{{ 'DASHBOARD.DESCRIPTION_REQUIRED' | translate }}</div>
           }
           @if (form.description.errors?.['minlength']) {
-            <div>A leírásnak legalább 10 karakterből kell állnia.</div>
+            <div>{{ 'DASHBOARD.DESCRIPTION_MIN_LENGTH' | translate }}</div>
           }
         </div>
       }
@@ -80,16 +82,16 @@
       @if (form.image.touched && form.image.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.image.errors?.['required']) {
-            <div>A kép feltöltése kötelező.</div>
+            <div>{{ 'DASHBOARD.IMAGE_REQUIRED' | translate }}</div>
           }
         </div>
       }
 
       @if (form.image.value) {
         <div class="mt-4">
-          <p class="text-sm text-gray-600 mb-2">Előnézet:</p>
+          <p class="text-sm text-gray-600 mb-2">{{ 'DASHBOARD.IMAGE_PREVIEW' | translate }}</p>
           <img
-            [src]="form.image.value"
+            [src]="safeImageSrc"
             alt="Preview"
             class="w-32 h-32 object-cover rounded-lg shadow"
           />
@@ -102,7 +104,7 @@
         [class.disabled]="newProductForm.invalid"
         [disabled]="newProductForm.invalid"
       >
-        Termék hozzáadása
+        {{ 'DASHBOARD.SUBMIT' | translate }}
       </button>
     </form>
   </div>

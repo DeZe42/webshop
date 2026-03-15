@@ -9,37 +9,41 @@ import {
 } from 'keycloak-angular';
 import { LOGIN_PATH } from '../../app.routes';
 import { environment } from '@environments/environment';
+import { Store } from '@ngrx/store';
+import { AuthSelectors } from '../state/auth';
 
 export const authCanMatch = () => {
   const platformId = inject(PLATFORM_ID);
   const router = inject(Router);
+  const store = inject(Store);
 
   if (!isPlatformBrowser(platformId)) {
     return true;
   }
 
-  if (!environment.useKeycloak) {
-    router.navigate([LOGIN_PATH]);
-    return false;
+  if (store.selectSignal(AuthSelectors.selectIsAuthenticated)()) {
+    return true;
   }
 
-  const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL, { optional: true });
-  if (!keycloakSignal) {
-    router.navigate([LOGIN_PATH]);
-    return false;
+  if (environment.useKeycloak) {
+    const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL, { optional: true });
+    if (!keycloakSignal) {
+      router.navigate([LOGIN_PATH]);
+      return false;
+    }
+
+    let authenticated = false;
+    const event = keycloakSignal();
+
+    if (event.type === KeycloakEventType.Ready) {
+      authenticated = typeEventArgs<ReadyArgs>(event.args);
+    }
+
+    if (authenticated) {
+      return true;
+    }
   }
 
-  let authenticated = false;
-  const event = keycloakSignal();
-
-  if (event.type === KeycloakEventType.Ready) {
-    authenticated = typeEventArgs<ReadyArgs>(event.args);
-  }
-
-  if (!authenticated) {
-    router.navigate([LOGIN_PATH]);
-    return false;
-  }
-
-  return true;
+  router.navigate([LOGIN_PATH]);
+  return false;
 };

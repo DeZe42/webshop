@@ -14,12 +14,13 @@ import { CartItem } from '../../../core/state/cart/cart.reducer';
 import { SeoService } from '../../../core/services/seo.service';
 import { Card } from '../../../shared/card/card';
 import { Product } from '../../../core/models/product.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.html',
-  imports: [Card],
+  imports: [Card, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductList implements OnInit {

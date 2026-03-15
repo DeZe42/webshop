@@ -16,17 +16,20 @@ import {
 } from '@angular/forms';
 import { Card } from '../../../shared/card/card';
 import { Product } from '../../../core/models/product.model';
+import { TranslatePipe } from '@ngx-translate/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.html',
-  imports: [FormsModule, ReactiveFormsModule, Card],
+  imports: [FormsModule, ReactiveFormsModule, Card, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dashboard implements OnInit {
   private _store = inject(Store);
   private _cdr = inject(ChangeDetectorRef);
+  private _sanitizer = inject(DomSanitizer);
   products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
 
   newProductForm = new FormGroup({
@@ -76,5 +79,10 @@ export class Dashboard implements OnInit {
 
   get form() {
     return this.newProductForm.controls;
+  }
+
+  get safeImageSrc(): SafeUrl | null {
+    const value = this.form.image.value;
+    return value ? this._sanitizer.bypassSecurityTrustUrl(value) : null;
   }
 }

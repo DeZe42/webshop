@@ -11,6 +11,9 @@ import { CartSyncService } from './core/services/cart-sync.service';
 import { SeoService } from './core/services/seo.service';
 import { Header } from './shared/header/header';
 import { isPlatformBrowser } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AuthActions } from './core/state/auth';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +23,10 @@ import { isPlatformBrowser } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnInit, OnDestroy {
+  private _store = inject(Store);
   private _cartSync = inject(CartSyncService);
   private _seoService = inject(SeoService);
+  private _translate = inject(TranslateService);
   private _platformId = inject(PLATFORM_ID); //test
   private _messageHandler = (event: MessageEvent) => {
     if (event.data?.type === 'CART_UPDATED') {
@@ -30,7 +35,13 @@ export class App implements OnInit, OnDestroy {
   };
   isBrowser = isPlatformBrowser(this._platformId);
 
+  constructor() {
+    const savedLang = this.isBrowser ? (localStorage.getItem('lang') ?? 'hu') : 'hu';
+    this._translate.use(savedLang);
+  }
+
   public ngOnInit(): void {
+    this._store.dispatch(AuthActions.initAuth());
     if (this.isBrowser) window.addEventListener('message', this._messageHandler);
     this._seoService.init();
   }

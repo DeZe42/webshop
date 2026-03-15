@@ -2,37 +2,48 @@
   <nav class="bg-gray-900 text-white p-4 shadow-md">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="text-2xl font-bold text-white">Webshop</div>
-      <div class="space-x-4">
-        <a routerLink="/" class="text-white hover:text-gray-300 transition font-semibold"
-          >Főoldal</a
-        >
+      <div class="flex items-center gap-4">
+        <a routerLink="/" class="text-white hover:text-gray-300 transition font-semibold">{{
+          'NAV.HOME' | translate
+        }}</a>
         <a
           [routerLink]="PRODUCTS_PATH"
           class="text-white hover:text-gray-300 transition font-semibold"
-          >Termékek</a
+          >{{ 'NAV.PRODUCTS' | translate }}</a
         >
-        <a [routerLink]="CART_PATH" class="text-white hover:text-gray-300 transition font-semibold"
-          >Kosár</a
+        <a
+          [routerLink]="CART_PATH"
+          class="text-white hover:text-gray-300 transition font-semibold"
+          >{{ 'NAV.CART' | translate }}</a
         >
         @if (authenticated()) {
           <a
             [routerLink]="DASHBOARD_PATH"
             class="text-white hover:text-gray-300 transition font-semibold"
-            >Irányítópult</a
+            >{{ 'NAV.DASHBOARD' | translate }}</a
           >
           <button
             (click)="logout()"
             class="text-white hover:text-gray-300 transition font-semibold"
           >
-            Kijelentkezés
+            {{ 'NAV.LOGOUT' | translate }}
           </button>
         } @else {
           <a
             [routerLink]="LOGIN_PATH"
             class="text-white hover:text-gray-300 transition font-semibold"
-            >Bejelentkezés</a
+            >{{ 'NAV.LOGIN' | translate }}</a
           >
         }
+        <select
+          [value]="currentLang()"
+          (change)="switchLang($any($event.target).value)"
+          class="bg-gray-700 text-white text-sm rounded px-2 py-1 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 cursor-pointer"
+          [attr.aria-label]="'LANG.LABEL' | translate"
+        >
+          <option value="hu">Magyar</option>
+          <option value="en">English</option>
+        </select>
       </div>
     </div>
   </nav>

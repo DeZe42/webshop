@@ -1,0 +1,9 @@
+User-agent: *
+
+# Disallow private/user-specific pages
+Disallow: /cart
+Disallow: /dashboard
+Disallow: /login
+
+# Sitemap
+Sitemap: https://yourwebshop.com/sitemap.xml
