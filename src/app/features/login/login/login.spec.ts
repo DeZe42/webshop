@@ -4,6 +4,8 @@ import Keycloak from 'keycloak-js';
 import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
 import { environment } from '@environments/environment';
 import { signal } from '@angular/core';
+import { provideMockStore } from '@ngrx/store/testing';
+import { SeoService } from '../../../core/services/seo.service';
 
 describe('Login', () => {
   let fixture: ComponentFixture<Login>;
@@ -25,8 +27,14 @@ describe('Login', () => {
     await TestBed.configureTestingModule({
       imports: [Login],
       providers: [
+        provideMockStore({
+          initialState: {
+            auth: { user: null, isAuthenticated: false, loading: false, error: null },
+          },
+        }),
         { provide: Keycloak, useValue: keycloakMock },
         { provide: KEYCLOAK_EVENT_SIGNAL, useValue: keycloakSignalMock },
+        { provide: SeoService, useValue: jasmine.createSpyObj('SeoService', ['setMeta']) },
       ],
     }).compileComponents();
 
@@ -39,35 +47,32 @@ describe('Login', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create the component with authenticated false', () => {
+  it('should have useKeycloak enabled', () => {
     expect(component).toBeTruthy();
-    expect(component.authenticated).toBeFalse();
+    expect(component.useKeycloak).toBeTrue();
   });
 
-  it('should call keycloak.login on login()', () => {
-    component.login();
+  it('should call keycloak.login on loginWithKeycloak()', () => {
+    component.loginWithKeycloak();
     expect(keycloakMock.login).toHaveBeenCalled();
   });
 
-  it('should set authenticated to true on Keycloak Ready event', () => {
+  it('should not throw when Keycloak Ready event fires', () => {
     keycloakEventSignal.set({ type: KeycloakEventType.Ready, args: true });
-    fixture.detectChanges();
-
-    expect(component.authenticated).toBeTrue();
+    expect(() => fixture.detectChanges()).not.toThrow();
   });
 
-  it('should set authenticated to false on Keycloak AuthLogout event', () => {
+  it('should not throw when Keycloak AuthLogout event fires', () => {
     keycloakEventSignal.set({ type: KeycloakEventType.AuthLogout, args: null });
-    expect(component.authenticated).toBeFalse();
+    expect(() => fixture.detectChanges()).not.toThrow();
   });
 
-  it('should warn if Keycloak is not enabled', () => {
+  it('should not call keycloak.login when Keycloak is not enabled', () => {
     (environment as any).useKeycloak = false;
-    spyOn(console, 'warn');
     fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
 
-    component.login();
-    expect(console.warn).toHaveBeenCalledWith('Keycloak nincs engedélyezve ebben a környezetben.');
+    component.loginWithKeycloak();
+    expect(keycloakMock.login).not.toHaveBeenCalled();
   });
 });

@@ -3,6 +3,7 @@ import { Dashboard } from './dashboard';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('Dashboard', () => {
   let component: Dashboard;
@@ -19,7 +20,7 @@ describe('Dashboard', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, FormsModule, Dashboard],
-      providers: [provideMockStore({ initialState })],
+      providers: [provideMockStore({ initialState }), provideTranslateService()],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
@@ -99,20 +100,26 @@ describe('Dashboard', () => {
     expect(image.valid).toBeTrue();
   });
 
-  it('should dispatch addProduct when form is valid', () => {
+  it('should dispatch createProduct when form is valid', () => {
     component.newProductForm.setValue({
       name: 'Test product',
       price: 100,
       type: 'laptop',
       description: 'This is a valid description',
       image: 'data:image/png;base64,xxx',
+      keywords: null,
+      ramGb: 8,
+      cpu: 'Intel i5',
+      os: 'Windows',
+      screenInch: 15,
+      compatibleWith: null,
     });
 
     component.addNewProduct();
 
     expect(dispatchSpy).toHaveBeenCalledWith(
       jasmine.objectContaining({
-        type: ProductsActions.addProduct.type,
+        type: ProductsActions.createProduct.type,
         product: jasmine.objectContaining({
           name: 'Test product',
           price: 100,
@@ -129,6 +136,12 @@ describe('Dashboard', () => {
       type: 'laptop',
       description: 'This is a valid description',
       image: 'data:image/png;base64,xxx',
+      keywords: null,
+      ramGb: 8,
+      cpu: 'Intel i5',
+      os: 'Windows',
+      screenInch: 15,
+      compatibleWith: null,
     });
 
     component.addNewProduct();
@@ -140,11 +153,11 @@ describe('Dashboard', () => {
     expect(component.form.image.value).toBeNull();
   });
 
-  it('should not dispatch addProduct if form is invalid', () => {
+  it('should not dispatch createProduct if form is invalid', () => {
     component.form.name.setValue('');
     component.addNewProduct();
     expect(dispatchSpy).not.toHaveBeenCalledWith(
-      jasmine.objectContaining({ type: ProductsActions.addProduct.type }),
+      jasmine.objectContaining({ type: ProductsActions.createProduct.type }),
     );
   });
 });
