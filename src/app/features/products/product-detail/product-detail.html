@@ -3,14 +3,11 @@
     class="max-w-xl mx-auto mt-8 bg-gray-800 text-white rounded-2xl shadow-lg p-8 transition hover:scale-105"
   >
     <img
-      ngSrc="{{ product.image }}"
-      width="600"
-      height="400"
-      alt="{{ product.name }}"
+      [src]="product.image"
+      [alt]="product.name"
       class="w-full h-64 object-cover rounded-xl mb-4"
+      loading="lazy"
       decoding="async"
-      fetchpriority="high"
-      priority
     />
     <h2 class="text-3xl font-bold mb-4 text-white">{{ product.name }}</h2>
     <p class="text-gray-300 text-lg mb-4">$ {{ product.price }}</p>
