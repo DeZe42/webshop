@@ -83,7 +83,7 @@ describe('ProductList', () => {
 
     const cards = fixture.debugElement.queryAll(By.directive(Card));
     expect(cards.length).toBe(1);
-    const cardComponentInstance = cards[0].componentInstance as Card;
+    const cardComponentInstance = cards[0]!.componentInstance as Card;
     expect(cardComponentInstance.product()).toEqual(mockProducts[0]);
   });
 
@@ -93,7 +93,7 @@ describe('ProductList', () => {
 
     const cards = fixture.debugElement.queryAll(By.directive(Card));
     expect(cards.length).toBe(1);
-    const cardComponentInstance = cards[0].componentInstance as Card;
+    const cardComponentInstance = cards[0]!.componentInstance as Card;
     expect(cardComponentInstance.product()).toEqual(mockProducts[1]);
   });
 
@@ -108,14 +108,14 @@ describe('ProductList', () => {
   });
 
   it('should dispatch addToCart action', () => {
-    component.addToCart(mockProducts[0]);
+    component.addToCart(mockProducts[0]!);
     expect(storeSpy.dispatch).toHaveBeenCalledWith(
-      CartActions.addToCart({ item: { ...mockProducts[0], quantity: 1 } }),
+      CartActions.addToCart({ item: { ...mockProducts[0]!, quantity: 1 } }),
     );
   });
 
   it('should navigate to product detail', () => {
-    component.goToDetail(mockProducts[1]);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/products', mockProducts[1].id]);
+    component.goToDetail(mockProducts[1]!);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/products', mockProducts[1]!.id]);
   });
 });
