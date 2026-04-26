@@ -6,6 +6,24 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import * as AuthActions from './auth.actions';
 
+interface StoredUser {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+}
+
+function isStoredUser(value: unknown): value is StoredUser {
+  if (typeof value !== 'object' || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    typeof v['id'] === 'string' &&
+    typeof v['email'] === 'string' &&
+    typeof v['name'] === 'string' &&
+    typeof v['role'] === 'string'
+  );
+}
+
 @Injectable()
 export class AuthEffects {
   private actions$ = inject(Actions);
@@ -18,10 +36,18 @@ export class AuthEffects {
       ofType(AuthActions.initAuth),
       map(() => {
         if (isPlatformBrowser(this.platformId)) {
-          const token = localStorage.getItem('access_token');
-          const userJson = localStorage.getItem('user');
+          const token = sessionStorage.getItem('access_token');
+          const userJson = sessionStorage.getItem('user');
           if (token && userJson) {
-            return AuthActions.initAuthSuccess({ user: JSON.parse(userJson), token });
+            try {
+              const parsed: unknown = JSON.parse(userJson);
+              if (isStoredUser(parsed)) {
+                return AuthActions.initAuthSuccess({ user: parsed, token });
+              }
+            } catch {
+              sessionStorage.removeItem('user');
+              sessionStorage.removeItem('access_token');
+            }
           }
         }
         return { type: '[Auth] Init Auth No Session' };
@@ -55,10 +81,10 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess),
         tap(({ user, token }) => {
           if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('access_token', token);
-            localStorage.setItem('user', JSON.stringify(user));
+            sessionStorage.setItem('access_token', token);
+            sessionStorage.setItem('user', JSON.stringify(user));
           }
-          this.router.navigate(['/dashboard']);
+          void this.router.navigate(['/dashboard']);
         }),
       ),
     { dispatch: false },
@@ -70,10 +96,10 @@ export class AuthEffects {
         ofType(AuthActions.logout),
         tap(() => {
           if (isPlatformBrowser(this.platformId)) {
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('user');
+            sessionStorage.removeItem('access_token');
+            sessionStorage.removeItem('user');
           }
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
         }),
       ),
     { dispatch: false },

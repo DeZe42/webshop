@@ -37,11 +37,11 @@ export class Card {
       name: product.name,
       price: product.price,
     });
-    window.postMessage({ type: 'CART_UPDATED', data: product }, '*');
+    window.postMessage({ type: 'CART_UPDATED', data: product }, window.location.origin);
   }
 
   goToDetail(product: Product): void {
-    this._router.navigate(['/products', product.id]);
+    void this._router.navigate(['/products', product.id]);
   }
 
   deleteProduct(id: string) {

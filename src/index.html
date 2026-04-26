@@ -1,11 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="hu">
   <head>
     <meta charset="utf-8" />
     <title>Webshop</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Google Consent Mode v2 — non-essential storage alapból tiltva, PKCE GTM előtt -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
+    </script>
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {

@@ -41,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Run Unit Tests with Coverage
-        run: npm run test
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
@@ -91,3 +91,110 @@ jobs:
         with:
           name: dist
           path: dist/
+
+  accessibility:
+    name: Accessibility & Performance
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Install serve
+        run: npm install -g @angular/ssr serve
+
+      - name: Serve built app
+        run: npx serve dist/webshop/browser -l 4200 &
+        shell: bash
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:4200 --timeout 30000
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:4200
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 1
+          budgetPath: .github/lighthouse-budget.json
+
+  bundle-analysis:
+    name: Bundle Analysis
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with source maps
+        run: npm run build -- --source-map
+
+      - name: Install source-map-explorer
+        run: npm install -g source-map-explorer
+
+      - name: Generate bundle report
+        run: |
+          source-map-explorer dist/webshop/browser/*.js --html bundle-report.html --no-border-checks
+          source-map-explorer dist/webshop/browser/*.js --json bundle-report.json --no-border-checks
+
+      - name: Bundle size summary
+        run: |
+          echo "## Bundle Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Raw | Gzipped |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-----|---------|" >> $GITHUB_STEP_SUMMARY
+          find dist/webshop/browser -name "*.js" ! -name "*.map" | sort | while read f; do
+            raw=$(du -sh "$f" | cut -f1)
+            gzipped=$(gzip -c "$f" | wc -c | awk '{printf "%.1f KB", $1/1024}')
+            echo "| $(basename "$f") | $raw | $gzipped |" >> $GITHUB_STEP_SUMMARY
+          done
+
+      - name: Upload bundle report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-report
+          path: |
+            bundle-report.html
+            bundle-report.json
+
+  consent-regression:
+    name: Consent Regression Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run consent regression tests
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --include="**/consent*spec*"

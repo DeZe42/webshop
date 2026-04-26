@@ -68,6 +68,6 @@ export class ProductList implements OnInit {
   }
 
   goToDetail(product: Product) {
-    this._router.navigate(['/products', product.id]);
+    void this._router.navigate(['/products', product.id]);
   }
 }

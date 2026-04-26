@@ -70,8 +70,8 @@ describe('Cart', () => {
   it('should select items from store', () => {
     const items = component.items();
     expect(items.length).toBe(2);
-    expect(items[0].name).toBe('Test Laptop');
-    expect(items[1].name).toBe('Phone');
+    expect(items[0]!.name).toBe('Test Laptop');
+    expect(items[1]!.name).toBe('Phone');
   });
 
   it('should select total from store', () => {
@@ -95,12 +95,12 @@ describe('Cart', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const itemTitles = compiled.querySelectorAll('h3');
     expect(itemTitles.length).toBe(2);
-    expect(itemTitles[0].textContent).toContain('Laptop');
-    expect(itemTitles[1].textContent).toContain('Phone');
+    expect(itemTitles[0]!.textContent).toContain('Laptop');
+    expect(itemTitles[1]!.textContent).toContain('Phone');
 
     const subtotalTexts = compiled.querySelectorAll('p.font-semibold');
-    expect(subtotalTexts[0].textContent).toContain('2000');
-    expect(subtotalTexts[1].textContent).toContain('500');
+    expect(subtotalTexts[0]!.textContent).toContain('2000');
+    expect(subtotalTexts[1]!.textContent).toContain('500');
   });
 
   it('should render total correctly', () => {

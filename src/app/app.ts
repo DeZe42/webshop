@@ -11,6 +11,7 @@ import { RouterOutlet } from '@angular/router';
 import { CartSyncService } from './core/services/cart-sync.service';
 import { SeoService } from './core/services/seo.service';
 import { Header } from './shared/header/header';
+import { ConsentBanner } from './shared/consent-banner/consent-banner';
 import { isPlatformBrowser } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AuthActions } from './core/state/auth';
@@ -26,7 +27,7 @@ import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header],
+  imports: [RouterOutlet, Header, ConsentBanner],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -31,7 +31,7 @@ export class Header {
   public logout(): void {
     this.store.dispatch(AuthActions.logout());
     if (environment.useKeycloak && this.keycloak) {
-      this.keycloak.logout({ redirectUri: window.location.origin });
+      void this.keycloak.logout({ redirectUri: window.location.origin });
     }
   }
 

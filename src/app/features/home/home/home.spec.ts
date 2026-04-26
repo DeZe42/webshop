@@ -59,8 +59,8 @@ describe('Home', () => {
     const cards = element.querySelectorAll('.bg-gray-900');
     expect(cards.length).toBe(3);
 
-    expect(cards[0].textContent).toContain('Gyors vásárlás');
-    expect(cards[1].textContent).toContain('Különböző termékek');
-    expect(cards[2].textContent).toContain('Biztonságos fizetés');
+    expect(cards[0]!.textContent).toContain('Gyors vásárlás');
+    expect(cards[1]!.textContent).toContain('Különböző termékek');
+    expect(cards[2]!.textContent).toContain('Biztonságos fizetés');
   });
 });

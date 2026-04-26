@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { Store } from '@ngrx/store';
 import {
@@ -18,18 +20,22 @@ import { Card } from '../../../shared/card/card';
 import { Product } from '../../../core/models/product.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { NotificationService } from '../../../core/services/notification.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.html',
-  imports: [FormsModule, ReactiveFormsModule, Card, TranslatePipe],
+  imports: [FormsModule, ReactiveFormsModule, Card, TranslatePipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dashboard implements OnInit {
   private _store = inject(Store);
   private _cdr = inject(ChangeDetectorRef);
   private _sanitizer = inject(DomSanitizer);
+  private _destroyRef = inject(DestroyRef);
+  protected notificationService = inject(NotificationService);
 
   products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
   loading = this._store.selectSignal(ProductsSelectors.selectProductsLoading);
@@ -60,7 +66,7 @@ export class Dashboard implements OnInit {
 
   public ngOnInit(): void {
     this._store.dispatch(ProductsActions.loadProducts());
-    this.form.type.valueChanges.subscribe(() => {
+    this.form.type.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
       this._updateTechValidators();
       this._cdr.markForCheck();
     });
@@ -89,9 +95,11 @@ export class Dashboard implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      if (!file) return;
       const reader = new FileReader();
       reader.onload = () => {
         this.newProductForm.patchValue({ image: reader.result as string });
+        this.form.image.markAsTouched();
         this._cdr.markForCheck();
       };
       reader.readAsDataURL(file);
@@ -148,5 +156,20 @@ export class Dashboard implements OnInit {
   get safeImageSrc(): SafeUrl | null {
     const value = this.form.image.value;
     return value ? this._sanitizer.bypassSecurityTrustUrl(value) : null;
+  }
+
+  typeBgClass(type: 'info' | 'success' | 'warning' | 'error'): string {
+    const map = {
+      success: 'bg-green-500',
+      info: 'bg-blue-500',
+      warning: 'bg-yellow-500',
+      error: 'bg-red-500',
+    };
+    return map[type];
+  }
+
+  typeIcon(type: 'info' | 'success' | 'warning' | 'error'): string {
+    const map = { success: '✓', info: 'i', warning: '!', error: '✕' };
+    return map[type];
   }
 }

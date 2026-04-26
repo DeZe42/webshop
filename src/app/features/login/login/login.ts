@@ -59,7 +59,7 @@ export class Login implements OnInit {
 
   loginWithKeycloak(): void {
     if (this.keycloak) {
-      this.keycloak.login();
+      void this.keycloak.login();
     }
   }
 }
