@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { authCanMatch } from './core/guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 
 export const PRODUCTS_PATH = 'products';
 export const CART_PATH = 'cart';
@@ -23,11 +24,12 @@ export const routes: Routes = [
   {
     path: LOGIN_PATH,
     loadChildren: () => import('./features/login/login.routes').then((m) => m.LOGIN_ROUTES),
+    canActivate: [guestGuard],
   },
   {
     path: DASHBOARD_PATH,
     loadChildren: () =>
       import('./features/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
-    canMatch: [authCanMatch],
+    canActivate: [authGuard],
   },
 ];

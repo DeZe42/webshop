@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   OnDestroy,
   OnInit,
@@ -14,6 +15,14 @@ import { isPlatformBrowser } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AuthActions } from './core/state/auth';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '@environments/environment';
+import {
+  KEYCLOAK_EVENT_SIGNAL,
+  KeycloakEventType,
+  ReadyArgs,
+  typeEventArgs,
+} from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +36,7 @@ export class App implements OnInit, OnDestroy {
   private _cartSync = inject(CartSyncService);
   private _seoService = inject(SeoService);
   private _translate = inject(TranslateService);
-  private _platformId = inject(PLATFORM_ID); //test
+  private _platformId = inject(PLATFORM_ID);
   private _messageHandler = (event: MessageEvent) => {
     if (event.data?.type === 'CART_UPDATED') {
       console.log('Kosár frissült', event.data.data);
@@ -38,6 +47,34 @@ export class App implements OnInit, OnDestroy {
   constructor() {
     const savedLang = this.isBrowser ? (localStorage.getItem('lang') ?? 'hu') : 'hu';
     this._translate.use(savedLang);
+
+    if (environment.useKeycloak && this.isBrowser) {
+      const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL, { optional: true });
+      const keycloak = inject(Keycloak, { optional: true });
+
+      if (keycloakSignal && keycloak) {
+        effect(() => {
+          const event = keycloakSignal();
+          if (event.type === KeycloakEventType.Ready) {
+            const authenticated = typeEventArgs<ReadyArgs>(event.args);
+            if (authenticated) {
+              const parsed = keycloak.tokenParsed;
+              this._store.dispatch(
+                AuthActions.initAuthSuccess({
+                  user: {
+                    id: parsed?.['sub'] ?? '',
+                    email: parsed?.['email'] ?? '',
+                    name: parsed?.['name'] ?? parsed?.['preferred_username'] ?? '',
+                    role: parsed?.['realm_access']?.['roles']?.[0] ?? 'user',
+                  },
+                  token: keycloak.token ?? '',
+                }),
+              );
+            }
+          }
+        });
+      }
+    }
   }
 
   public ngOnInit(): void {
