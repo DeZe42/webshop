@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CartActions } from '../../../core/state/cart';
 import { signal } from '@angular/core';
 import { Product } from '../../../core/models/product.model';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('ProductDetail', () => {
   let fixture: ComponentFixture<ProductDetail>;
@@ -34,6 +35,7 @@ describe('ProductDetail', () => {
     await TestBed.configureTestingModule({
       imports: [ProductDetail],
       providers: [
+        provideTranslateService(),
         { provide: Store, useValue: storeSpy },
         { provide: SeoService, useValue: seoSpy },
         {

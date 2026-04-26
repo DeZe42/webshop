@@ -3,6 +3,8 @@ import { Cart } from './cart';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { CartSelectors, CartActions } from '../../../core/state/cart';
 import { CartState } from '../../../core/state/cart/cart.reducer';
+import { provideTranslateService } from '@ngx-translate/core';
+import { SeoService } from '../../../core/services/seo.service';
 
 describe('Cart', () => {
   let component: Cart;
@@ -45,7 +47,11 @@ describe('Cart', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Cart],
-      providers: [provideMockStore({ initialState })],
+      providers: [
+        provideMockStore({ initialState }),
+        provideTranslateService(),
+        { provide: SeoService, useValue: jasmine.createSpyObj('SeoService', ['setMeta']) },
+      ],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);

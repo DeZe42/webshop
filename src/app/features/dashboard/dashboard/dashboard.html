@@ -1,20 +1,29 @@
 <div class="max-w-7xl mx-auto p-6">
-  <h2 class="text-3xl font-bold mb-6 text-gray-900">Irányítópult</h2>
+  <h2 class="text-3xl font-bold mb-6 text-gray-900">{{ 'DASHBOARD.TITLE' | translate }}</h2>
   <div class="mb-8 bg-gray-300 p-6 rounded-xl shadow">
-    <h3 class="text-xl font-semibold mb-4 text-gray-900">Új termék hozzáadása</h3>
+    <h3 class="text-xl font-semibold mb-4 text-gray-900">
+      {{ 'DASHBOARD.ADD_PRODUCT_TITLE' | translate }}
+    </h3>
+
+    @if (error()) {
+      <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+        {{ error()?.message }}
+      </div>
+    }
+
     <form [formGroup]="newProductForm" (ngSubmit)="addNewProduct()" class="space-y-4">
       <input
         formControlName="name"
-        placeholder="Name"
+        placeholder="{{ 'DASHBOARD.NAME_LABEL' | translate }}"
         class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
       />
       @if (form.name.touched && form.name.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.name.errors?.['required']) {
-            <div>A név megadása kötelező.</div>
+            <div>{{ 'DASHBOARD.NAME_REQUIRED' | translate }}</div>
           }
           @if (form.name.errors?.['minlength']) {
-            <div>Legalább 3 karakter szükséges.</div>
+            <div>{{ 'DASHBOARD.NAME_MIN_LENGTH' | translate }}</div>
           }
         </div>
       }
@@ -22,21 +31,21 @@
       <input
         formControlName="price"
         type="number"
-        placeholder="Price"
+        placeholder="{{ 'DASHBOARD.PRICE_LABEL' | translate }}"
         class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
       />
       @if (form.price.touched && form.price.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.price.errors?.['required']) {
-            <div>Az ár megadása kötelező.</div>
+            <div>{{ 'DASHBOARD.PRICE_REQUIRED' | translate }}</div>
           }
           @if (form.price.errors?.['min']) {
-            <div>Az árnak legalább 1-nek kell lennie.</div>
+            <div>{{ 'DASHBOARD.PRICE_MIN' | translate }}</div>
           }
         </div>
       }
 
-      <label for="typeSelect" class="sr-only">Termék típusa</label>
+      <label for="typeSelect" class="sr-only">{{ 'DASHBOARD.TYPE_LABEL' | translate }}</label>
       <select
         id="typeSelect"
         formControlName="type"
@@ -50,26 +59,103 @@
       @if (form.type.touched && form.type.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.type.errors?.['required']) {
-            <div>A típus kiválasztása kötelező.</div>
+            <div>{{ 'DASHBOARD.TYPE_REQUIRED' | translate }}</div>
           }
         </div>
       }
 
       <textarea
         formControlName="description"
-        placeholder="Description"
+        placeholder="{{ 'DASHBOARD.DESCRIPTION_LABEL' | translate }}"
         class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
       ></textarea>
       @if (form.description.touched && form.description.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.description.errors?.['required']) {
-            <div>A leírás megadása kötelező.</div>
+            <div>{{ 'DASHBOARD.DESCRIPTION_REQUIRED' | translate }}</div>
           }
           @if (form.description.errors?.['minlength']) {
-            <div>A leírásnak legalább 10 karakterből kell állnia.</div>
+            <div>{{ 'DASHBOARD.DESCRIPTION_MIN_LENGTH' | translate }}</div>
           }
         </div>
       }
+
+      @if (isTechProduct) {
+        <input
+          formControlName="cpu"
+          placeholder="{{ 'DASHBOARD.CPU_LABEL' | translate }}"
+          class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+        />
+        @if (form.cpu.touched && form.cpu.invalid) {
+          <div class="text-red-700 text-sm">
+            @if (form.cpu.errors?.['required']) {
+              <div>{{ 'DASHBOARD.CPU_REQUIRED' | translate }}</div>
+            }
+          </div>
+        }
+
+        <input
+          formControlName="os"
+          placeholder="{{ 'DASHBOARD.OS_LABEL' | translate }}"
+          class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+        />
+        @if (form.os.touched && form.os.invalid) {
+          <div class="text-red-700 text-sm">
+            @if (form.os.errors?.['required']) {
+              <div>{{ 'DASHBOARD.OS_REQUIRED' | translate }}</div>
+            }
+          </div>
+        }
+
+        <input
+          formControlName="ramGb"
+          type="number"
+          placeholder="{{ 'DASHBOARD.RAM_GB_LABEL' | translate }}"
+          class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+        />
+        @if (form.ramGb.touched && form.ramGb.invalid) {
+          <div class="text-red-700 text-sm">
+            @if (form.ramGb.errors?.['required']) {
+              <div>{{ 'DASHBOARD.RAM_GB_REQUIRED' | translate }}</div>
+            }
+            @if (form.ramGb.errors?.['min']) {
+              <div>{{ 'DASHBOARD.RAM_GB_MIN' | translate }}</div>
+            }
+          </div>
+        }
+
+        <input
+          formControlName="screenInch"
+          type="number"
+          step="0.1"
+          placeholder="{{ 'DASHBOARD.SCREEN_INCH_LABEL' | translate }}"
+          class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+        />
+        @if (form.screenInch.touched && form.screenInch.invalid) {
+          <div class="text-red-700 text-sm">
+            @if (form.screenInch.errors?.['required']) {
+              <div>{{ 'DASHBOARD.SCREEN_INCH_REQUIRED' | translate }}</div>
+            }
+            @if (form.screenInch.errors?.['min']) {
+              <div>{{ 'DASHBOARD.SCREEN_INCH_MIN' | translate }}</div>
+            }
+          </div>
+        }
+      }
+
+      @if (isAccessory) {
+        <input
+          formControlName="compatibleWith"
+          placeholder="{{ 'DASHBOARD.COMPATIBLE_WITH_LABEL' | translate }}"
+          class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+        />
+      }
+
+      <input
+        formControlName="keywords"
+        placeholder="{{ 'DASHBOARD.KEYWORDS_PLACEHOLDER' | translate }}"
+        class="p-2 border border-gray-700 rounded w-full text-gray-900 bg-white"
+      />
 
       <input
         type="file"
@@ -80,16 +166,16 @@
       @if (form.image.touched && form.image.invalid) {
         <div class="text-red-700 text-sm">
           @if (form.image.errors?.['required']) {
-            <div>A kép feltöltése kötelező.</div>
+            <div>{{ 'DASHBOARD.IMAGE_REQUIRED' | translate }}</div>
           }
         </div>
       }
 
       @if (form.image.value) {
         <div class="mt-4">
-          <p class="text-sm text-gray-600 mb-2">Előnézet:</p>
+          <p class="text-sm text-gray-600 mb-2">{{ 'DASHBOARD.IMAGE_PREVIEW' | translate }}</p>
           <img
-            [src]="form.image.value"
+            [src]="safeImageSrc"
             alt="Preview"
             class="w-32 h-32 object-cover rounded-lg shadow"
           />
@@ -98,11 +184,14 @@
 
       <button
         type="submit"
-        class="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 transition"
-        [class.disabled]="newProductForm.invalid"
-        [disabled]="newProductForm.invalid"
+        class="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 transition disabled:opacity-50"
+        [disabled]="newProductForm.invalid || loading()"
       >
-        Termék hozzáadása
+        @if (loading()) {
+          {{ 'DASHBOARD.LOADING' | translate }}
+        } @else {
+          {{ 'DASHBOARD.SUBMIT' | translate }}
+        }
       </button>
     </form>
   </div>

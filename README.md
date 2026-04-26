@@ -28,14 +28,14 @@ npm run pretty-quick
 
 ---
 
-## Használat local környezetben (keycloak OFF)
+## Használat local környezetben (keycloak ON)
 
 npm run build-dev
 npm run serve:ssr:webshop
 
 ---
 
-## Használat production környezetben (keycloak ON)
+## Használat production környezetben (keycloak OFF)
 
 npm run build
 npm run serve:ssr:webshop

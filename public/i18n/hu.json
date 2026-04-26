@@ -1,0 +1,79 @@
+{
+  "NAV": {
+    "HOME": "Főoldal",
+    "PRODUCTS": "Termékek",
+    "CART": "Kosár",
+    "DASHBOARD": "Irányítópult",
+    "LOGOUT": "Kijelentkezés",
+    "LOGIN": "Bejelentkezés"
+  },
+  "LANG": {
+    "LABEL": "Nyelv"
+  },
+  "HOME": {
+    "TITLE": "Üdvözöl a Webshop!",
+    "SUBTITLE": "Nézd meg a legújabb termékeinket, add a kosaradhoz, és élvezd a gyors vásárlást!",
+    "FAST_SHOPPING": "Gyors vásárlás",
+    "FAST_SHOPPING_DESC": "Könnyen hozzáadhatod termékeinket a kosaradhoz néhány kattintással.",
+    "VARIETY": "Különböző termékek",
+    "VARIETY_DESC": "Laptopok, telefonok, tabletek – mind megtalálod nálunk egy helyen.",
+    "SECURE_PAYMENT": "Biztonságos fizetés",
+    "SECURE_PAYMENT_DESC": "Minden tranzakció gyors és biztonságos. Vásárolj nyugodtan!"
+  },
+  "PRODUCTS": {
+    "SEARCH_LABEL": "Keresés termékek között",
+    "ALL_CATEGORIES": "Összes kategória"
+  },
+  "PRODUCT_DETAIL": {
+    "ADD_TO_CART": "Kosárba tesz"
+  },
+  "CART": {
+    "TITLE": "Kosár tartalma",
+    "QUANTITY": "Mennyiség",
+    "SUBTOTAL": "Részösszeg",
+    "REMOVE": "Eltávolít",
+    "TOTAL": "Összesen:",
+    "CLEAR": "Kosár ürítése"
+  },
+  "CARD": {
+    "DELETE": "Törlés",
+    "ADD_TO_CART": "Kosárba tesz",
+    "DETAILS": "Részletek"
+  },
+  "DASHBOARD": {
+    "TITLE": "Irányítópult",
+    "ADD_PRODUCT_TITLE": "Új termék hozzáadása",
+    "NAME_LABEL": "Név",
+    "NAME_REQUIRED": "A név megadása kötelező.",
+    "NAME_MIN_LENGTH": "Legalább 3 karakter szükséges.",
+    "PRICE_LABEL": "Ár (Ft)",
+    "PRICE_REQUIRED": "Az ár megadása kötelező.",
+    "PRICE_MIN": "Az árnak legalább 1-nek kell lennie.",
+    "TYPE_LABEL": "Termék típusa",
+    "TYPE_REQUIRED": "A típus kiválasztása kötelező.",
+    "DESCRIPTION_LABEL": "Leírás",
+    "DESCRIPTION_REQUIRED": "A leírás megadása kötelező.",
+    "DESCRIPTION_MIN_LENGTH": "A leírásnak legalább 10 karakterből kell állnia.",
+    "CPU_LABEL": "Processzor (CPU)",
+    "CPU_REQUIRED": "A processzor megadása kötelező.",
+    "OS_LABEL": "Operációs rendszer",
+    "OS_REQUIRED": "Az operációs rendszer megadása kötelező.",
+    "RAM_GB_LABEL": "RAM (GB)",
+    "RAM_GB_REQUIRED": "A RAM megadása kötelező.",
+    "RAM_GB_MIN": "A RAM-nak legalább 1 GB-nak kell lennie.",
+    "SCREEN_INCH_LABEL": "Képernyőméret (hüvelyk)",
+    "SCREEN_INCH_REQUIRED": "A képernyőméret megadása kötelező.",
+    "SCREEN_INCH_MIN": "A képernyőméretnek legalább 1-nek kell lennie.",
+    "COMPATIBLE_WITH_LABEL": "Kompatibilis eszközök (opcionális)",
+    "KEYWORDS_PLACEHOLDER": "Kulcsszavak (vesszővel elválasztva, opcionális)",
+    "IMAGE_REQUIRED": "A kép feltöltése kötelező.",
+    "IMAGE_PREVIEW": "Előnézet:",
+    "SUBMIT": "Termék hozzáadása",
+    "LOADING": "Mentés..."
+  },
+  "LOGIN": {
+    "TITLE": "Bejelentkezés Keycloak-kal",
+    "SUBTITLE": "Az irányítópúlt felhasználója",
+    "BUTTON": "Bejelentkezés"
+  }
+}

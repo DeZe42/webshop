@@ -1,14 +1,66 @@
-<div class="min-h-screen">
-  <div class="flex flex-1 items-center justify-center p-8 bg-gray-100">
-    <div class="w-full max-w-md text-center bg-white rounded-2xl shadow-lg p-8">
-      <h4 class="text-3xl font-bold mb-2 text-gray-900">Bejelentkezés Keycloak-al</h4>
-      <span class="text-sm text-gray-600 mb-6 inline-block">Az irányítópúlt felhasználód</span>
+<div class="min-h-screen flex items-center justify-center p-8 bg-gray-100">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+    <h4 class="text-3xl font-bold mb-2 text-gray-900 text-center">Bejelentkezés</h4>
+
+    <!-- JWT login form -->
+    <form (ngSubmit)="loginWithJwt()" class="mt-6 space-y-4">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email cím</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="admin@webshop.com"
+          class="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          required
+        />
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Jelszó</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          class="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          required
+        />
+      </div>
+
+      @if (error()) {
+        <p class="text-red-500 text-sm">{{ error() }}</p>
+      }
+
       <button
-        (click)="login()"
-        class="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
+        type="submit"
+        [disabled]="loading()"
+        class="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition disabled:opacity-50"
       >
-        Bejelentkezés
+        {{ loading() ? 'Betöltés...' : 'Bejelentkezés (JWT)' }}
       </button>
+    </form>
+
+    <!-- Test users info -->
+    <div class="mt-4 p-3 bg-gray-50 rounded-xl text-xs text-gray-500">
+      <p class="font-semibold mb-1">Teszt felhasználók:</p>
+      <p>Admin: admin&#64;webshop.com / admin123</p>
+      <p>User: test&#64;webshop.com / test123</p>
     </div>
+
+    @if (useKeycloak) {
+      <div class="flex items-center my-5">
+        <hr class="flex-1 border-gray-200" />
+        <span class="mx-3 text-xs text-gray-400">vagy</span>
+        <hr class="flex-1 border-gray-200" />
+      </div>
+
+      <button
+        (click)="loginWithKeycloak()"
+        class="w-full border border-gray-300 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-50 transition"
+      >
+        Bejelentkezés Keycloak-kal
+      </button>
+    }
   </div>
 </div>

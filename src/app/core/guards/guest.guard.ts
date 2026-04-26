@@ -7,12 +7,12 @@ import {
   ReadyArgs,
   typeEventArgs,
 } from 'keycloak-angular';
-import { LOGIN_PATH } from '../../app.routes';
+import { DASHBOARD_PATH } from '../../app.routes';
 import { environment } from '@environments/environment';
 import { Store } from '@ngrx/store';
 import { AuthSelectors } from '../state/auth';
 
-export const authGuard = () => {
+export const guestGuard = () => {
   const platformId = inject(PLATFORM_ID);
   const router = inject(Router);
   const store = inject(Store);
@@ -21,14 +21,18 @@ export const authGuard = () => {
     return true;
   }
 
-  if (store.selectSignal(AuthSelectors.selectIsAuthenticated)()) {
-    return true;
+  const isAuthenticated =
+    store.selectSignal(AuthSelectors.selectIsAuthenticated)() ||
+    !!localStorage.getItem('access_token');
+
+  if (isAuthenticated) {
+    return router.createUrlTree([DASHBOARD_PATH]);
   }
 
   if (environment.useKeycloak) {
     const keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL, { optional: true });
     if (!keycloakSignal) {
-      return router.createUrlTree([LOGIN_PATH]);
+      return true;
     }
 
     let authenticated = false;
@@ -39,9 +43,9 @@ export const authGuard = () => {
     }
 
     if (authenticated) {
-      return true;
+      return router.createUrlTree([DASHBOARD_PATH]);
     }
   }
 
-  return router.createUrlTree([LOGIN_PATH]);
+  return true;
 };

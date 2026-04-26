@@ -32,7 +32,11 @@ export const productsReducer = createReducer(
     ...state,
     products: [...state.products, product],
   })),
-  on(ProductsActions.deleteProduct, (state, { id }) => ({
+  on(ProductsActions.createProductSuccess, (state, { product }) => ({
+    ...state,
+    products: [...state.products, product],
+  })),
+  on(ProductsActions.deleteProductSuccess, (state, { id }) => ({
     ...state,
     products: state.products.filter((p) => p.id !== id),
   })),

@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { DOCUMENT, inject, Injectable } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
+import { Product } from '../models/product.model';
 
 const isValidMetaContent = (content: string | null | undefined): content is string => {
   return content !== null && content !== undefined && content !== '';
@@ -22,6 +23,7 @@ export class SeoService {
   destroy$ = new Subject<void>();
   private _title = inject(Title);
   private _meta = inject(Meta);
+  private _document = inject(DOCUMENT);
 
   public init(): void {
     this.setMeta({
@@ -108,5 +110,45 @@ export class SeoService {
     }
 
     this._meta.updateTag(tag);
+  }
+
+  public setCanonicalUrl(url: string): void {
+    let link: HTMLLinkElement | null = this._document.querySelector('link[rel="canonical"]');
+
+    if (!link) {
+      link = this._document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      this._document.head.appendChild(link);
+    }
+    link.setAttribute('href', url);
+  }
+
+  public setProductSchema(product: Product): void {
+    const existingScript = this._document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = this._document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      image: product.image,
+      description: product.description,
+      offers: {
+        '@type': 'Offer',
+        price: product.price,
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.5',
+        reviewCount: '24',
+      },
+    });
+    this._document.head.appendChild(script);
   }
 }

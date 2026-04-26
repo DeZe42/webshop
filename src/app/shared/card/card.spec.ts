@@ -8,6 +8,7 @@ import { ProductsActions } from '../../core/state/products';
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Product } from '../../core/models/product.model';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('Card', () => {
   let fixture: ComponentFixture<Card>;
@@ -38,6 +39,7 @@ describe('Card', () => {
     await TestBed.configureTestingModule({
       imports: [Card],
       providers: [
+        provideTranslateService(),
         { provide: Store, useValue: storeSpy },
         { provide: Router, useValue: routerSpy },
         { provide: GtmService, useValue: gtmSpy },

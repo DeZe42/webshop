@@ -1,20 +1,22 @@
 <section class="flex flex-col items-center justify-center p-6">
-  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">Üdvözöl a Webshop!</h1>
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+    {{ 'HOME.TITLE' | translate }}
+  </h1>
   <p class="text-lg md:text-xl text-gray-700 mb-12 text-center max-w-2xl">
-    Nézd meg a legújabb termékeinket, add a kosaradhoz, és élvezd a gyors vásárlást!
+    {{ 'HOME.SUBTITLE' | translate }}
   </p>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl">
     <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-      <h2 class="text-2xl font-bold mb-2">Gyors vásárlás</h2>
-      <p>Könnyen hozzáadhatod termékeinket a kosaradhoz néhány kattintással.</p>
+      <h2 class="text-2xl font-bold mb-2">{{ 'HOME.FAST_SHOPPING' | translate }}</h2>
+      <p>{{ 'HOME.FAST_SHOPPING_DESC' | translate }}</p>
     </div>
     <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-      <h2 class="text-2xl font-bold mb-2">Különböző termékek</h2>
-      <p>Laptopok, telefonok, tabletek – mind megtalálod nálunk egy helyen.</p>
+      <h2 class="text-2xl font-bold mb-2">{{ 'HOME.VARIETY' | translate }}</h2>
+      <p>{{ 'HOME.VARIETY_DESC' | translate }}</p>
     </div>
     <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-      <h2 class="text-2xl font-bold mb-2">Biztonságos fizetés</h2>
-      <p>Minden tranzakció gyors és biztonságos. Vásárolj nyugodtan!</p>
+      <h2 class="text-2xl font-bold mb-2">{{ 'HOME.SECURE_PAYMENT' | translate }}</h2>
+      <p>{{ 'HOME.SECURE_PAYMENT_DESC' | translate }}</p>
     </div>
   </div>
 </section>

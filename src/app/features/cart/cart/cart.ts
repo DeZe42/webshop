@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { Store } from '@ngrx/store';
 import { CartActions, CartSelectors } from '../../../core/state/cart';
 import { SeoService } from '../../../core/services/seo.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   templateUrl: './cart.html',
-  imports: [],
+  imports: [TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Cart implements OnInit {

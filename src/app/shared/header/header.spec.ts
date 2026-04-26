@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { KEYCLOAK_EVENT_SIGNAL, KeycloakEventType } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
 import { environment } from '@environments/environment';
+import { provideMockStore } from '@ngrx/store/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('Header', () => {
   let fixture: ComponentFixture<Header>;
@@ -20,6 +22,12 @@ describe('Header', () => {
     await TestBed.configureTestingModule({
       imports: [Header, RouterModule.forRoot([])],
       providers: [
+        provideMockStore({
+          initialState: {
+            auth: { user: null, isAuthenticated: false, loading: false, error: null },
+          },
+        }),
+        provideTranslateService(),
         { provide: Keycloak, useValue: keycloakMock },
         { provide: KEYCLOAK_EVENT_SIGNAL, useValue: keycloakSignalMock },
       ],
@@ -46,6 +54,6 @@ describe('Header', () => {
 
   it('should call keycloak.logout on logout()', () => {
     component.logout();
-    expect(keycloakMock.logout).toHaveBeenCalledWith({ redirectUri: window.location.href });
+    expect(keycloakMock.logout).toHaveBeenCalledWith({ redirectUri: window.location.origin });
   });
 });

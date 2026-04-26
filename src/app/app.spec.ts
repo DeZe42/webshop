@@ -5,6 +5,8 @@ import { PLATFORM_ID } from '@angular/core';
 import { Header } from './shared/header/header';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { App } from './app';
+import { provideMockStore } from '@ngrx/store/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('App Component', () => {
   let fixture: ComponentFixture<App>;
@@ -17,6 +19,8 @@ describe('App Component', () => {
     await TestBed.configureTestingModule({
       imports: [RouterOutlet, Header, RouterModule.forRoot([])],
       providers: [
+        provideMockStore(),
+        provideTranslateService(),
         { provide: CartSyncService, useValue: {} },
         { provide: SeoService, useValue: spy },
         { provide: PLATFORM_ID, useValue: 'browser' },
