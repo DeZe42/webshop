@@ -57,6 +57,7 @@ export class ConsentService {
 
   acceptAll(): void {
     this._save({ analytics: true, marketing: true, functional: true });
+    console.log(this._state());
   }
 
   rejectAll(): void {

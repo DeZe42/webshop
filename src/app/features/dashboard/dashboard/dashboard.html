@@ -1,5 +1,61 @@
 <div class="max-w-7xl mx-auto p-6">
-  <h2 class="text-3xl font-bold mb-6 text-gray-900">{{ 'DASHBOARD.TITLE' | translate }}</h2>
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-3xl font-bold text-gray-900">{{ 'DASHBOARD.TITLE' | translate }}</h2>
+    <div class="flex items-center gap-2">
+      <span
+        [class]="
+          'w-2 h-2 rounded-full ' +
+          (notificationService.isConnected() ? 'bg-green-500' : 'bg-red-400')
+        "
+      ></span>
+      <span class="text-sm text-gray-500">
+        {{
+          (notificationService.isConnected()
+            ? 'NOTIFICATIONS.CONNECTED'
+            : 'NOTIFICATIONS.DISCONNECTED'
+          ) | translate
+        }}
+      </span>
+    </div>
+  </div>
+
+  @if (notificationService.notifications().length > 0) {
+    <div class="mb-6 bg-gray-800 rounded-xl shadow overflow-hidden">
+      <div class="flex justify-between items-center px-4 py-3 border-b border-gray-700">
+        <h3 class="text-white font-semibold text-sm">{{ 'NOTIFICATIONS.TITLE' | translate }}</h3>
+        <button
+          (click)="notificationService.clearAll()"
+          class="text-gray-400 hover:text-white text-xs transition"
+        >
+          {{ 'NOTIFICATIONS.CLEAR_ALL' | translate }}
+        </button>
+      </div>
+      <div class="divide-y divide-gray-700">
+        @for (n of notificationService.notifications(); track n.id) {
+          <div class="flex items-start gap-3 px-4 py-3 hover:bg-gray-700 transition">
+            <span
+              [class]="
+                'mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-bold ' +
+                typeBgClass(n.type)
+              "
+              >{{ typeIcon(n.type) }}</span
+            >
+            <div class="flex-1 min-w-0">
+              <p class="text-gray-200 text-sm leading-snug">{{ n.message }}</p>
+              <p class="text-gray-500 text-xs mt-0.5">{{ n.timestamp | date: 'HH:mm:ss' }}</p>
+            </div>
+            <button
+              (click)="notificationService.removeNotification(n.id)"
+              class="flex-shrink-0 text-gray-500 hover:text-white transition text-xl leading-none"
+              [attr.aria-label]="'NOTIFICATIONS.REMOVE' | translate"
+            >
+              &times;
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  }
   <div class="mb-8 bg-gray-300 p-6 rounded-xl shadow">
     <h3 class="text-xl font-semibold mb-4 text-gray-900">
       {{ 'DASHBOARD.ADD_PRODUCT_TITLE' | translate }}

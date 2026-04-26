@@ -75,5 +75,13 @@
     "TITLE": "Login with Keycloak",
     "SUBTITLE": "Your dashboard account",
     "BUTTON": "Login"
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "Notifications",
+    "CLEAR_ALL": "Clear all",
+    "EMPTY": "No notifications",
+    "REMOVE": "Remove notification",
+    "CONNECTED": "Connected",
+    "DISCONNECTED": "Disconnected"
   }
 }

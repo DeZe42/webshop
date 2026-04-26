@@ -75,5 +75,13 @@
     "TITLE": "Bejelentkezés Keycloak-kal",
     "SUBTITLE": "Az irányítópúlt felhasználója",
     "BUTTON": "Bejelentkezés"
+  },
+  "NOTIFICATIONS": {
+    "TITLE": "Értesítések",
+    "CLEAR_ALL": "Mind törlése",
+    "EMPTY": "Nincs értesítés",
+    "REMOVE": "Értesítés törlése",
+    "CONNECTED": "Kapcsolódva",
+    "DISCONNECTED": "Nincs kapcsolat"
   }
 }
