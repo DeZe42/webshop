@@ -12,7 +12,10 @@ import { generateSitemap } from './sitemap';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+
+// allowedHosts: localhost engedélyezett fejlesztésben; production-ban ALLOWED_HOSTS env var-on át adható meg
+const allowedHosts = (process.env['ALLOWED_HOSTS'] ?? 'localhost').split(',').filter(Boolean);
+const angularApp = new AngularNodeAppEngine({ allowedHosts });
 
 const SITE_URL = process.env['SITE_URL'] ?? environment.siteUrl;
 const API_URL = process.env['API_URL'] ?? environment.apiUrl;

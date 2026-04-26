@@ -14,6 +14,12 @@ module.exports = tseslint.config(
       ...angular.configs.tsRecommended,
       prettierConfig,
     ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.app.json', './tsconfig.spec.json'],
+        tsconfigRootDir: __dirname,
+      },
+    },
     plugins: {
       prettier: prettierPlugin,
     },
@@ -37,12 +43,14 @@ module.exports = tseslint.config(
       ],
       'prettier/prettier': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-floating-promises': 'error',
     },
   },
   {
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
     },
   },
   {

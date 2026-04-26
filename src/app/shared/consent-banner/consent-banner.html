@@ -1,0 +1,37 @@
+@if (!hasDecided()) {
+  <div
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="consent-title"
+    aria-describedby="consent-desc"
+    class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg"
+  >
+    <div
+      class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4"
+    >
+      <div>
+        <p id="consent-title" class="font-semibold text-gray-900">Cookie-k és adatvédelem</p>
+        <p id="consent-desc" class="text-sm text-gray-600 mt-1">
+          Weboldalunk cookie-kat és hasonló technológiákat használ az élmény javításához, a forgalom
+          elemzéséhez és hirdetések személyre szabásához. Hozzájárulásodat bármikor visszavonhatod.
+        </p>
+      </div>
+      <div class="flex gap-3 shrink-0">
+        <button
+          type="button"
+          (click)="rejectAll()"
+          class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+        >
+          Visszautasít mindent
+        </button>
+        <button
+          type="button"
+          (click)="acceptAll()"
+          class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        >
+          Mindent elfogad
+        </button>
+      </div>
+    </div>
+  </div>
+}

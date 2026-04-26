@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   inject,
   OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductsActions, ProductsSelectors } from '../../../core/state/products';
 import { Store } from '@ngrx/store';
 import {
@@ -30,6 +32,7 @@ export class Dashboard implements OnInit {
   private _store = inject(Store);
   private _cdr = inject(ChangeDetectorRef);
   private _sanitizer = inject(DomSanitizer);
+  private _destroyRef = inject(DestroyRef);
 
   products = this._store.selectSignal(ProductsSelectors.selectAllProducts);
   loading = this._store.selectSignal(ProductsSelectors.selectProductsLoading);
@@ -60,7 +63,7 @@ export class Dashboard implements OnInit {
 
   public ngOnInit(): void {
     this._store.dispatch(ProductsActions.loadProducts());
-    this.form.type.valueChanges.subscribe(() => {
+    this.form.type.valueChanges.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
       this._updateTechValidators();
       this._cdr.markForCheck();
     });
@@ -89,9 +92,11 @@ export class Dashboard implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      if (!file) return;
       const reader = new FileReader();
       reader.onload = () => {
         this.newProductForm.patchValue({ image: reader.result as string });
+        this.form.image.markAsTouched();
         this._cdr.markForCheck();
       };
       reader.readAsDataURL(file);

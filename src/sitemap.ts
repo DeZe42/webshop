@@ -31,7 +31,7 @@ function renderXml(urls: SitemapUrl[]): string {
 }
 
 export async function generateSitemap(siteUrl: string, apiUrl: string): Promise<string> {
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().substring(0, 10);
 
   const staticUrls: SitemapUrl[] = [
     { loc: `${siteUrl}/`, lastmod: today, changefreq: 'daily', priority: 1.0 },
