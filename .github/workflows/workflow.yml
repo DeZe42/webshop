@@ -158,10 +158,8 @@ jobs:
 
       - name: Generate bundle report
         run: |
-          source-map-explorer dist/webshop/browser/*.js \
-            --html bundle-report.html \
-            --json bundle-report.json \
-            --no-border-checks
+          source-map-explorer dist/webshop/browser/*.js --html bundle-report.html --no-border-checks
+          source-map-explorer dist/webshop/browser/*.js --json bundle-report.json --no-border-checks
 
       - name: Bundle size summary
         run: |
