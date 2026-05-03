@@ -151,7 +151,7 @@ jobs:
         run: npm ci
 
       - name: Build with source maps
-        run: npm run build -- --source-map
+        run: npm run build --configuration=production --source-map
 
       - name: Install source-map-explorer
         run: npm install -g source-map-explorer

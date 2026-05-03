@@ -21,9 +21,7 @@ export const guestGuard = () => {
     return true;
   }
 
-  const isAuthenticated =
-    store.selectSignal(AuthSelectors.selectIsAuthenticated)() ||
-    !!localStorage.getItem('access_token');
+  const isAuthenticated = store.selectSignal(AuthSelectors.selectIsAuthenticated)();
 
   if (isAuthenticated) {
     return router.createUrlTree([DASHBOARD_PATH]);
