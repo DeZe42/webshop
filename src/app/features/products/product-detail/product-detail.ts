@@ -49,6 +49,7 @@ export class ProductDetail implements OnInit {
         keywords: this.product()?.keywords.join(', '),
         themeColor: '#ffffff',
       });
+      this._seoService.setProductSchema(product);
     }
   }
 

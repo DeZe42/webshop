@@ -30,7 +30,7 @@ describe('ProductDetail', () => {
 
   beforeEach(async () => {
     storeSpy = jasmine.createSpyObj('Store', ['dispatch']);
-    seoSpy = jasmine.createSpyObj('SeoService', ['setMeta']);
+    seoSpy = jasmine.createSpyObj('SeoService', ['setMeta', 'setProductSchema']);
 
     await TestBed.configureTestingModule({
       imports: [ProductDetail],

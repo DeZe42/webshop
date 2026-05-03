@@ -1,15 +1,14 @@
 import {
   ApplicationConfig,
-  importProvidersFrom,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -21,6 +20,7 @@ import { ProductsEffects } from './core/state/products/products.effects';
 import { AuthEffects } from './core/state/auth/auth.effects';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { provideKeycloakAngular } from '../../keycloak.config';
+import { environment } from '@environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,10 +34,12 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    importProvidersFrom(
-      StoreModule.forRoot({ cart: cartReducer, products: productsReducer, auth: authReducer }),
-      EffectsModule.forRoot([ProductsEffects, AuthEffects]),
-      StoreDevtoolsModule.instrument({ maxAge: 25 }),
-    ),
+    provideStore({
+      cart: cartReducer,
+      products: productsReducer,
+      auth: authReducer,
+    }),
+    provideEffects([ProductsEffects, AuthEffects]),
+    environment.production ? [] : provideStoreDevtools({ maxAge: 25 }),
   ],
 };
