@@ -20,7 +20,7 @@ import { ProductsEffects } from './core/state/products/products.effects';
 import { AuthEffects } from './core/state/auth/auth.effects';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { provideKeycloakAngular } from '../../keycloak.config';
-import { isDevMode } from '@angular/core';
+import { environment } from '@environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,6 +40,6 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
     }),
     provideEffects([ProductsEffects, AuthEffects]),
-    isDevMode() ? provideStoreDevtools({ maxAge: 25 }) : [],
+    environment.production ? [] : provideStoreDevtools({ maxAge: 25 }),
   ],
 };
